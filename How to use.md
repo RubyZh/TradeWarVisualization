@@ -5,11 +5,11 @@ See Example.html
 在需要插入图表的html内对应的位置，添加以下代码：
 
 ```
-<div id="tariff-chart0" style="width: 100%; height: 100%; margin: auto;"></div>
-<script src="assets/js/tariff.js"></script>	
+<div id="example-chart0" style="width: 100%; height: 100%; margin: auto;"></div>
+<script src="assets/js/examplechart.js"></script>	
 ```
 
-id的内容可以修改，需要同tariff.js最后的vegaEmbed('#tariff-chart0', spec)中的id一致
+id的内容可以修改，需要同examplechart.js最后的vegaEmbed('#example-chart0', spec)中的id一致
 
 src对应修改路径
 
