@@ -1,4 +1,4 @@
-const spec = {
+const spec0 = {
 	"$schema": "https://vega.github.io/schema/vega-lite/v6.json",
     "autosize": "fit",
     "title": "Tariff changes",
@@ -172,4 +172,111 @@ const spec = {
     ],
 };
 
-vegaEmbed('#tariff-chart0', spec).then(console.log).catch(console.error);
+vegaEmbed('#tariff-chart0', spec0).then(console.log).catch(console.error);
+
+const spec1 = {
+	"$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "autosize": "fit",
+    "title": "Tariff changes",
+    "description": "Tariff",
+    "width": "container",
+    "height": 400,
+    "layer" : [
+        { // Tariff lines
+            "data": {"url": "data/tariff.csv"},
+            "transform": [
+                {
+                    "calculate": "toDate(datum.Year + '-' + (datum.Month < 10 ? '0' + datum.Month : datum.Month) + '-' + (datum.Date < 10 ? '0' + datum.Date : datum.Date))",
+                    "as": "DateISO"
+                },
+                {
+                    "fold": [
+                        "Chinese tariffs on US exports",
+                        "Chinese tariffs on ROW exports",
+                        "US tariffs on Chinese exports",
+                        "US tariffs on ROW exports"
+                    ],
+                    "as": ["TariffType", "TariffValue"]
+                }
+            ],
+            "mark": {
+                "type": "line",
+                "point": true
+            },
+            "params": [
+                {
+                    "name": "hover",
+                    "select": {
+                        "type": "point",
+                        "fields": ["TariffType"],
+                        "on": "mouseover",
+                        "clear": "mouseout"
+                    }
+                }
+            ],
+            "encoding": {
+                "x": {
+                    "field": "DateISO",
+                    "type": "temporal",
+                    "title": "Date",
+                    "axis": { "grid":false }
+                },
+                "y": {
+                    "field": "TariffValue",
+                    "type": "quantitative",
+                    "title": "Tariff (%)"
+                },
+                "color": { // 颜色设置
+                    "field": "TariffType",
+                    "type": "nominal",
+                    "title": "Tariff Type",
+                    "scale": {
+                        "domain": [
+                            "Chinese tariffs on US exports",
+                            "Chinese tariffs on ROW exports",
+                            "US tariffs on Chinese exports",
+                            "US tariffs on ROW exports"
+                        ],
+                        "range": ["#e7100a", "#f52e28", "#3660df", "#1586ff"]
+                    },
+                    "legend": { "orient": "bottom", "title": "Tariff Type" }
+                },
+                "strokeDash": { // 线型设置
+                "field": "TariffType",
+                "type": "nominal",
+                "scale": {
+                    "domain": [
+                        "Chinese tariffs on US exports",
+                        "Chinese tariffs on ROW exports",
+                        "US tariffs on Chinese exports",
+                        "US tariffs on ROW exports"
+                    ],
+                    "range": [
+                        // 实线[1, 0] 虚线[5, 5] 点线[2, 2] 点划线[10, 5, 2, 5]
+                        [1, 0],
+                        [2, 2],
+                        [1, 0],
+                        [2, 2]
+                    ]
+                },
+                    "legend": { "orient": "bottom", "title": "Line Style" }
+                },
+                "opacity": {
+                    "condition": {
+                        "param": "hover",
+                        "value": 1
+                    },
+                    "value": 0.15
+                },
+                "tooltip": [
+                    {"field": "DateISO", "type": "temporal", "title": "Date"},
+                    {"field": "TariffType", "type": "nominal", "title": "Type"},
+                    {"field": "TariffValue", "type": "quantitative", "title": "Tariff (%)"},
+                    {"field": "Event", "type": "nominal", "title": "Event"}
+                ]
+            }
+        }
+    ],
+};
+
+vegaEmbed('#tariff-chart1', spec1).then(console.log).catch(console.error);
