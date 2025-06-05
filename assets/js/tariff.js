@@ -304,10 +304,12 @@ const spec1 = {
                     }
                 },
                 "opacity": {
-                    "condition": {
-                        "param": "hover-tariff",
-                        "value": 1
-                    },
+                    "condition": [
+                        {
+                            "param": "hover-tariff",
+                            "value": 1
+                        },
+                    ],
                     "value": 0.3
                 },
                 "tooltip": [
@@ -321,11 +323,12 @@ const spec1 = {
             "mark": { "type": "line" },
             "params": [
                 {
-                    "name": "time-index",
+                    "name": "hover-news",
                     "select": {
                         "type": "point",
-                        "encodings": ["Date"],
+                        "encodings": ["Date","Num"],
                         "on": "pointermove",
+                        "clear": "mouseout",
                         "nearest": true
                     }
                 }
@@ -455,10 +458,16 @@ const spec1 = {
                     "legend": { "orient": "bottom", "title": "Line Style" }
                 },
                 "opacity": {
-                    "condition": {
-                        "param": "hover-tariff",
-                        "value": 1
-                    },
+                    "condition": [
+                        {
+                            "param": "hover-tariff",
+                            "value": 1
+                        },
+                        // {
+                        //     "param": "hover-news",
+                        //     "value": 1
+                        // },
+                    ],
                     "value": 0.15
                 }
             }
