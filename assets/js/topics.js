@@ -1,15 +1,24 @@
-const spec0 = {
+const container = document.getElementById("topic-chart0");
+const width = container.clientWidth;
+
+var spec0 = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "An interactive choropleth map of the world.",
-  "width": 1000,
-  "height": 550,
-  "autosize": "fit",
+  "width": width,
+  "height": 500,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+    //"resize": true
+  },
   "signals": [
     {"name": "type", "value": "mercator"},
     {"name": "scale", "value": 150},
     {"name": "translate0", "update": "width / 2"},
     {"name": "translate1", "update": "height / 2"},
     {"name": "borderWidth", "value": 1},
+    { "name": "slide", "value": 0,
+      "bind": {"input": "range", "min": -180, "max": 180, "step": 1} },
     {"name": "hover", "value": null, "on": [
       {"events": "shape:mouseover", "update": "datum"},
       {"events": "shape:mouseout",  "update": "null"}
@@ -45,7 +54,10 @@ const spec0 = {
       "name": "projection",
       "type": {"signal": "type"},
       "scale": {"signal": "scale"},
-      "translate": [{"signal": "translate0"}, {"signal": "translate1"}]
+      "translate": [{"signal": "translate0"}, {"signal": "translate1"}],
+      "rotate": [
+        {"signal": "slide"}
+      ],
     }
   ],
   "marks": [
@@ -71,7 +83,7 @@ const spec0 = {
           ],
         },
         "hover": {
-          "stroke": {"value": "#e7100a"},
+          "stroke": {"value": " #ff0037"},
           "strokeWidth": {"value": 1},
           "zindex": {"value": 2}
         }
@@ -99,10 +111,13 @@ const spec0 = {
   "scales": [
     {
       "name": "color",
-      "type": "linear",
-      "domain": {"data": "counts", "field": "count"},
-      "range": ["#f0f7ff", "#3896f9"],
-      "nice": true
+      // "type": "linear",
+      // "domain": {"data": "counts", "field": "count"},
+      // "range": ["#f0f7ff", "#3896f9"],
+      // "nice": true
+      "type": "threshold",
+      "domain": [1, 5, 10, 20, 50, 100, 300, 500, 1000, 1500],
+      "range": [" #edf8fb"," #d7ebe7"," #c0ded3"," #aad1c0"," #93c4ac"," #7db698","rgb(116, 177, 143)","rgb(90, 165, 122)","rgb(70, 156, 105)"," #238249"],
     },
   ],
   "legends": [
@@ -116,176 +131,24 @@ const spec0 = {
 };
 
 
-vegaEmbed('#topic-chart0', spec0).then(console.log).catch(console.error);
+let view; // 用于存储 Vega View 实例
 
-const spec1 = {
-  "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "description": "A configurable map of countries of the world.",
-  "width": 900,
-  "height": 500,
-  "autosize": "none",
-  "signals": [
-    {
-      "name": "type",
-      "value": "mercator"
-    },
-    {
-      "name": "scale",
-      "value": 150
-    },
-    {"name": "translate0", "update": "width / 2"},
-    {"name": "translate1", "update": "height / 2"},
-    {"name": "graticuleDash", "value": 0},
-    {"name": "borderWidth", "value": 1},
-    {"name": "invert", "value": false}
-  ],
-  "projections": [
-    {
-      "name": "projection",
-      "type": {"signal": "type"},
-      "scale": {"signal": "scale"},
-      "translate": [{"signal": "translate0"}, {"signal": "translate1"}]
-    }
-  ],
-  "data": [
-    {
-      "name": "world",
-      "url": "data/world-110m.json",
-      "format": {"type": "topojson", "feature": "countries"}
-    },
-    {"name": "graticule", "transform": [{"type": "graticule"}]}
-  ],
-  "marks": [
-    {
-      "type": "shape",
-      "from": {"data": "graticule"},
-      "encode": {
-        "update": {
-          "strokeWidth": {"value": 1},
-          "strokeDash": {"signal": "[+graticuleDash, +graticuleDash]"},
-          "stroke": {"signal": "invert ? '#444' : '#ddd'"},
-          "fill": {"value": null}
-        }
-      },
-      "transform": [{"type": "geoshape", "projection": "projection"}]
-    },
-    {
-      "type": "shape",
-      "from": {"data": "world"},
-      "encode": {
-        "update": {
-          "strokeWidth": {"signal": "+borderWidth"},
-          "stroke": {"signal": "invert ? '#777' : '#bbb'"},
-          "fill": {"signal": "invert ? '#fff' : '#000'"},
-          "zindex": {"value": 0}
-        },
-        "hover": {
-          "strokeWidth": {"signal": "+borderWidth + 1"},
-          "stroke": {"value": "firebrick"},
-          "zindex": {"value": 1}
-        }
-      },
-      "transform": [{"type": "geoshape", "projection": "projection"}]
-    }
-  ],
-  "config": {}
-};
+function renderChart() {
+  const width = container.clientWidth;
+  const specCopy = JSON.parse(JSON.stringify(spec0)); // 避免原始 spec 被污染
+  specCopy.width = width;
+  specCopy.height = 500;
 
-const spec2 = {
-  "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "width": 900,
-  "height": 500,
-  "autosize": "none",
-  "signals": [
-    { "name": "scale", "value": 150 },
-    { "name": "translate0", "update": "width / 2" },
-    { "name": "translate1", "update": "height / 2" }
-  ],
-  "projections": [
-    {
-      "name": "projection",
-      "type": "mercator",
-      "scale": { "signal": "scale" },
-      "translate": [{ "signal": "translate0" }, { "signal": "translate1" }]
-    }
-  ],
-  "data": [
-    {
-      "name": "world",
-      "url": "data/world-110m.json",
-      "format": { "type": "topojson", "feature": "countries" }
-    },
-    {
-      "name": "values",
-      "url": "data/news_count_country.csv",
-      "format": { "type": "csv" },
-      "transform": [
-        {
-          "type": "formula",
-          "as": "count",
-          "expr": "isValid(datum.count) && datum.count !== '' ? +datum.count : 0"
-        }
-      ]
-    },
-    {
-      "name": "countries",
-      "source": "world",
-      "transform": [
-        {
-          "type": "lookup",
-          "from": "values",
-          "key": "code",
-          "fields": ["id"],
-          "values": ["count"],
-          "as": ["count"]
-        },
-        {
-          "type": "formula",
-          "as": "count",
-          "expr": "isValid(datum.count) ? datum.count : 0"
-        }
-      ]
-    }
-  ],
-  "scales": [
-    {
-      "name": "color",
-      "type": "linear",
-      "domain": { "data": "countries", "field": "count" },
-      "range": ["#e5f5f9", "#2ca25f"],
-      "zero": true,
-      "nice": true
-    }
-  ],
-  "legends": [
-    {
-      "fill": "color",
-      "title": "News Count",
-      "orient": "right",
-      "gradientLength": 300
-    }
-  ],
-  "marks": [
-    {
-      "type": "shape",
-      "from": { "data": "countries" },
-      "encode": {
-        "update": {
-          "fill": { "scale": "color", "field": "count" },
-          "stroke": { "value": "#fff" },
-          "strokeWidth": { "value": 0.5 },
-          "tooltip": {
-            "signal": "{'ID': datum.id, 'News Count': datum.count}"
-          }
-        },
-        "hover": {
-          "stroke": { "value": "black" },
-          "strokeWidth": { "value": 1.5 }
-        }
-      },
-      "transform": [{ "type": "geoshape", "projection": "projection" }]
-    }
-  ]
-};
+  vegaEmbed("#topic-chart0", specCopy, { renderer: "canvas" }).then((result) => {
+    view = result.view;
+  });
+}
 
-vegaEmbed('#topic-chart2', spec2).then(console.log).catch(console.error);
+renderChart(); // 初次渲染
+
+  // 监听窗口大小变化并重新渲染
+window.addEventListener("resize", () => {
+  renderChart();
+});
+
+//vegaEmbed("#topic-chart0", spec0, { renderer: "canvas" }).then(console.log).catch(console.error);
