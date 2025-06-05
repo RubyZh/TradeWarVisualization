@@ -1,0 +1,581 @@
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8" />-->
+<!--  <title>星形词云图（Top150关键词）</title>-->
+<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.1.1/wordcloud2.min.js"></script>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--      background: #f5f7fa;-->
+<!--      text-align: center;-->
+<!--    }-->
+<!--    h2 {-->
+<!--      margin: 20px 0;-->
+<!--      color: #333;-->
+<!--    }-->
+<!--    #container {-->
+<!--      width: 90%;-->
+<!--      max-width: 1000px;-->
+<!--      margin: 0 auto;-->
+<!--      padding: 20px;-->
+<!--    }-->
+<!--    canvas {-->
+<!--      width: 100% !important;-->
+<!--      height: auto !important;-->
+<!--      border-radius: 12px;-->
+<!--      background-color: #fff;-->
+<!--      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);-->
+<!--    }-->
+<!--    #tooltip {-->
+<!--      position: fixed;-->
+<!--      background-color: rgba(0, 0, 0, 0.8);-->
+<!--      color: #fff;-->
+<!--      padding: 8px 12px;-->
+<!--      border-radius: 6px;-->
+<!--      font-size: 14px;-->
+<!--      display: none;-->
+<!--      pointer-events: none;-->
+<!--      z-index: 10;-->
+<!--      opacity: 0;-->
+<!--      transition: opacity 0.2s ease-in-out;-->
+<!--      white-space: nowrap;-->
+<!--    }-->
+<!--    #tooltip.visible {-->
+<!--      display: block;-->
+<!--      opacity: 1;-->
+<!--    }-->
+<!--    #downloadBtn {-->
+<!--      margin: 16px auto 30px;-->
+<!--      padding: 10px 20px;-->
+<!--      font-size: 16px;-->
+<!--      cursor: pointer;-->
+<!--      border: none;-->
+<!--      background-color: #4B7BEC;-->
+<!--      color: white;-->
+<!--      border-radius: 8px;-->
+<!--      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);-->
+<!--      transition: background-color 0.3s ease;-->
+<!--    }-->
+<!--    #downloadBtn:hover {-->
+<!--      background-color: #3a5ecb;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--  <h2>星形词云图（Top 150 关键词）</h2>-->
+<!--  <div id="container">-->
+<!--    <canvas id="wordcloudCanvas"></canvas>-->
+<!--    <div id="tooltip"></div>-->
+<!--  </div>-->
+<!--  <button id="downloadBtn">📥 导出为 PNG 图片</button>-->
+
+<!--  &lt;!&ndash; 星形蒙版图像（建议：透明背景黑星形 PNG） &ndash;&gt;-->
+<!--  <img id="maskImg" src="mask_star.png" style="display:none;" crossorigin="anonymous" />-->
+
+<!--  &lt;!&ndash; 词频数据 &ndash;&gt;-->
+<!--  <script src="top150_keywords.js"></script>-->
+
+<!--  <script>-->
+<!--    const canvas = document.getElementById('wordcloudCanvas');-->
+<!--    const tooltip = document.getElementById('tooltip');-->
+<!--    const maskImg = document.getElementById('maskImg');-->
+
+<!--    function resizeCanvas() {-->
+<!--      const dpr = window.devicePixelRatio || 1;-->
+<!--      canvas.style.width = '800px';-->
+<!--      canvas.style.height = '600px';-->
+<!--      canvas.width = 800 * dpr;-->
+<!--      canvas.height = 600 * dpr;-->
+<!--    }-->
+
+<!--    function drawWordCloud() {-->
+<!--      const wordList = top150Keywords.map(item => [item.Keyword, item.Count]);-->
+
+<!--      WordCloud(canvas, {-->
+<!--        list: wordList,-->
+<!--        gridSize: 4,-->
+<!--        weightFactor: size => Math.log(size + 1) * 25,-->
+<!--        minSize: 10,-->
+<!--        fontFamily: "'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif",-->
+<!--        color: function (word, weight) {-->
+<!--          const palette = ['#4B7BEC', '#20BF6B', '#FC5C65', '#FED330', '#A55EEA', '#45AAF2'];-->
+<!--          return palette[Math.floor(Math.random() * palette.length)];-->
+<!--        },-->
+<!--        rotateRatio: 0.5,-->
+<!--        rotationSteps: 6,-->
+<!--        backgroundColor: '#ffffff',-->
+<!--        drawOutOfBound: false,-->
+<!--        shuffle: true,-->
+<!--        maskImage: maskImg, // ⭐ 使用星形图像限制区域-->
+<!--        hover: function (item, dimension, event) {-->
+<!--          if (item) {-->
+<!--            tooltip.innerHTML = `<strong>${item[0]}</strong><br>频次: ${item[1]}`;-->
+<!--            tooltip.classList.add('visible');-->
+<!--            requestAnimationFrame(() => {-->
+<!--              const tooltipWidth = tooltip.offsetWidth;-->
+<!--              const tooltipHeight = tooltip.offsetHeight;-->
+<!--              const viewportX = event.pageX - window.pageXOffset;-->
+<!--              const viewportY = event.pageY - window.pageYOffset;-->
+<!--              const left = Math.min(viewportX + 10, window.innerWidth - tooltipWidth - 10);-->
+<!--              const top = Math.min(viewportY + 10, window.innerHeight - tooltipHeight - 10);-->
+<!--              tooltip.style.left = left + 'px';-->
+<!--              tooltip.style.top = top + 'px';-->
+<!--            });-->
+<!--          } else {-->
+<!--            tooltip.classList.remove('visible');-->
+<!--          }-->
+<!--        },-->
+<!--        click: function (item) {-->
+<!--          alert(`关键词: ${item[0]}\n频次: ${item[1]}`);-->
+<!--        }-->
+<!--      });-->
+<!--    }-->
+
+<!--    function init() {-->
+<!--      resizeCanvas();-->
+<!--      if (maskImg.complete) {-->
+<!--        drawWordCloud();-->
+<!--      } else {-->
+<!--        maskImg.onload = drawWordCloud;-->
+<!--      }-->
+<!--    }-->
+
+<!--    window.addEventListener('resize', () => {-->
+<!--      resizeCanvas();-->
+<!--      drawWordCloud();-->
+<!--    });-->
+
+<!--    init();-->
+
+<!--    document.getElementById('downloadBtn').addEventListener('click', () => {-->
+<!--      const link = document.createElement('a');-->
+<!--      link.download = 'star_wordcloud.png';-->
+<!--      link.href = canvas.toDataURL('image/png');-->
+<!--      link.click();-->
+<!--    });-->
+<!--  </script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="zh">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8" />-->
+<!--  <title>🌟 星形词云图 - Top 150 关键词</title>-->
+<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.1.1/wordcloud2.min.js"></script>-->
+<!--  <style>-->
+<!--    body {-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;-->
+<!--      background: linear-gradient(145deg, #e6f0ff, #ffffff);-->
+<!--      color: #333;-->
+<!--    }-->
+
+<!--    h2 {-->
+<!--      text-align: center;-->
+<!--      font-size: 32px;-->
+<!--      margin-top: 30px;-->
+<!--      color: #3c3c3c;-->
+<!--      letter-spacing: 1px;-->
+<!--    }-->
+
+<!--	#container {-->
+<!--	  width: 90%;-->
+<!--	  max-width: 1000px;-->
+<!--	  margin: 40px auto;-->
+<!--	  padding: 20px;-->
+<!--	  background: linear-gradient(135deg, rgba(173, 216, 230, 0.3), rgba(135, 206, 250, 0.3));-->
+<!--	  border-radius: 20px;-->
+<!--	  backdrop-filter: blur(8px);-->
+<!--	  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);-->
+<!--	  transition: all 0.3s ease;-->
+<!--	}-->
+
+
+<!--    canvas {-->
+<!--      width: 100% !important;-->
+<!--      height: auto !important;-->
+<!--      border-radius: 16px;-->
+<!--    }-->
+
+<!--    #tooltip {-->
+<!--      position: fixed;-->
+<!--      background: rgba(0, 0, 0, 0.75);-->
+<!--      color: #fff;-->
+<!--      padding: 10px 14px;-->
+<!--      font-size: 14px;-->
+<!--      border-radius: 6px;-->
+<!--      pointer-events: none;-->
+<!--      opacity: 0;-->
+<!--      transition: all 0.2s ease;-->
+<!--      z-index: 999;-->
+<!--    }-->
+
+<!--    #tooltip.visible {-->
+<!--      opacity: 1;-->
+<!--    }-->
+
+<!--    #downloadBtn {-->
+<!--      display: block;-->
+<!--      margin: 20px auto 50px;-->
+<!--      padding: 12px 24px;-->
+<!--      background-color: #007bff;-->
+<!--      color: white;-->
+<!--      border: none;-->
+<!--      font-size: 16px;-->
+<!--      border-radius: 10px;-->
+<!--      cursor: pointer;-->
+<!--      box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);-->
+<!--      transition: background-color 0.3s ease, transform 0.2s ease;-->
+<!--    }-->
+
+<!--    #downloadBtn:hover {-->
+<!--      background-color: #0056b3;-->
+<!--      transform: scale(1.05);-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+
+<!--<body>-->
+<!--  <h2>🌟 星形词云图（Top 150 关键词）</h2>-->
+
+<!--  <div id="container">-->
+<!--    <canvas id="wordcloudCanvas"></canvas>-->
+<!--    <div id="tooltip"></div>-->
+<!--  </div>-->
+
+<!--  <button id="downloadBtn">📥 导出 PNG 图片</button>-->
+
+<!--  &lt;!&ndash; 蒙版图像（透明背景黑星形） &ndash;&gt;-->
+<!--  <img id="maskImg" src="mask_star.png" style="display:none;" crossorigin="anonymous" />-->
+
+<!--  &lt;!&ndash; 模拟词频数据 &ndash;&gt;-->
+<!--  &lt;!&ndash; 词频数据 &ndash;&gt;-->
+<!--  <script src="top150_keywords.js"></script>-->
+
+<!--  <script>-->
+<!--    const canvas = document.getElementById('wordcloudCanvas');-->
+<!--    const tooltip = document.getElementById('tooltip');-->
+<!--    const maskImg = document.getElementById('maskImg');-->
+
+<!--    function resizeCanvas() {-->
+<!--      const dpr = window.devicePixelRatio || 1;-->
+<!--      canvas.style.width = '800px';-->
+<!--      canvas.style.height = '600px';-->
+<!--      canvas.width = 800 * dpr;-->
+<!--      canvas.height = 600 * dpr;-->
+<!--    }-->
+
+<!--    function drawWordCloud() {-->
+<!--      const wordList = top150Keywords.map(item => [item.Keyword, item.Count]);-->
+
+<!--      WordCloud(canvas, {-->
+<!--        list: wordList,-->
+<!--        gridSize: 6,-->
+<!--        weightFactor: (size) => Math.pow(size, 0.7),-->
+<!--        minSize: 12,-->
+<!--        fontFamily: "'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif",-->
+<!--        color: function (word, weight, fontSize, distance, theta) {-->
+<!--          // 返回渐变颜色-->
+<!--          const gradients = ['#00c6ff', '#0072ff', '#20bf6b', '#fc5c65', '#f7b731', '#a55eea'];-->
+<!--          return gradients[Math.floor(Math.random() * gradients.length)];-->
+<!--        },-->
+<!--        rotateRatio: 0.4,-->
+<!--        rotationSteps: 6,-->
+<!--        backgroundColor: 'rgba(255,255,255,0)',-->
+<!--        drawOutOfBound: false,-->
+<!--        shuffle: true,-->
+<!--        maskImage: maskImg,-->
+<!--        hover: function (item, dimension, event) {-->
+<!--          if (item) {-->
+<!--            tooltip.innerHTML = `<strong>${item[0]}</strong><br>频次: ${item[1]}`;-->
+<!--            tooltip.classList.add('visible');-->
+<!--            requestAnimationFrame(() => {-->
+<!--              const tooltipWidth = tooltip.offsetWidth;-->
+<!--              const tooltipHeight = tooltip.offsetHeight;-->
+<!--              const viewportX = event.pageX - window.pageXOffset;-->
+<!--              const viewportY = event.pageY - window.pageYOffset;-->
+<!--              const left = Math.min(viewportX + 10, window.innerWidth - tooltipWidth - 10);-->
+<!--              const top = Math.min(viewportY + 10, window.innerHeight - tooltipHeight - 10);-->
+<!--              tooltip.style.left = left + 'px';-->
+<!--              tooltip.style.top = top + 'px';-->
+<!--            });-->
+<!--          } else {-->
+<!--            tooltip.classList.remove('visible');-->
+<!--          }-->
+<!--        },-->
+<!--        click: function (item) {-->
+<!--          alert(`关键词: ${item[0]}\n频次: ${item[1]}`);-->
+<!--        }-->
+<!--      });-->
+<!--    }-->
+
+<!--    function init() {-->
+<!--      resizeCanvas();-->
+<!--      if (maskImg.complete) {-->
+<!--        drawWordCloud();-->
+<!--      } else {-->
+<!--        maskImg.onload = drawWordCloud;-->
+<!--      }-->
+<!--    }-->
+
+<!--    window.addEventListener("resize", () => {-->
+<!--      resizeCanvas();-->
+<!--      drawWordCloud();-->
+<!--    });-->
+
+<!--    init();-->
+
+<!--    document.getElementById("downloadBtn").addEventListener("click", () => {-->
+<!--      const link = document.createElement("a");-->
+<!--      link.download = "星形词云图.png";-->
+<!--      link.href = canvas.toDataURL("image/png");-->
+<!--      link.click();-->
+<!--    });-->
+<!--  </script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>🌟 星形词云图 - Top 150 关键词</title>
+
+  <!-- 外部库 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.1.1/wordcloud2.min.js"></script>
+
+  <!-- 数据文件（必须提前引入） -->
+  <script src="top150_keywords.js"></script>
+  <script src="top100_keywords_cn.js"></script>
+  <script src="top100_keywords_us.js"></script>
+  <script src="top100_keywords_in.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: linear-gradient(145deg, #e6f0ff, #ffffff);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      gap: 30px;
+      padding: 40px;
+      box-sizing: border-box;
+    }
+    #container {
+      width: 800px;
+      background: linear-gradient(135deg, rgba(173, 216, 230, 0.3), rgba(135, 206, 250, 0.3));
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      box-sizing: border-box;
+      position: relative;
+    }
+    canvas {
+      width: 100% !important;
+      height: 600px !important;
+      border-radius: 16px;
+      display: block;
+    }
+    #tooltip {
+      position: fixed;
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      padding: 10px 14px;
+      font-size: 14px;
+      border-radius: 6px;
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.2s ease;
+      z-index: 999;
+    }
+    #tooltip.visible {
+      opacity: 1;
+    }
+    #sidebar {
+      width: 200px;
+      background: #f0f8ff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    #sidebar h3 {
+      margin: 0 0 10px 0;
+      font-size: 20px;
+      color: #007bff;
+      text-align: center;
+    }
+    #sidebar button {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #sidebar button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 侧边栏 -->
+  <div id="sidebar">
+    <h3>选择数据集</h3>
+    <button data-source="top150" data-title="全球新闻热词">全球新闻热词</button>
+    <button data-source="top100_cn" data-title="中国新闻热词">中国新闻热词</button>
+    <button data-source="top100_us" data-title="美国新闻热词">美国新闻热词</button>
+    <button data-source="top100_in" data-title="印度新闻热词">印度新闻热词</button>
+	  <hr style="margin: 10px 0;">
+<button id="downloadBtn" style="background: #28a745;">导出为 PNG 图片</button>
+  </div>
+
+  <!-- 主容器 -->
+  <div id="container">
+    <h2 id="title">🌟 星形词云图 - 全球新闻热词</h2>
+    <canvas id="wordcloudCanvas"></canvas>
+    <div id="tooltip"></div>
+  </div>
+
+  <!-- 蒙版图像 -->
+  <img id="maskImg" src="mask_star.png" style="display:none;" crossorigin="anonymous" />
+
+  <!-- 数据映射 -->
+  <script>
+    const datasets = {
+      top150: top150,
+      top100_cn: top100_cn,
+      top100_us: top100_us,
+      top100_in: top100_in
+    };
+  </script>
+
+  <!-- 主逻辑 -->
+  <script>
+    const canvas = document.getElementById('wordcloudCanvas');
+    const tooltip = document.getElementById('tooltip');
+    const maskImg = document.getElementById('maskImg');
+    const title = document.getElementById('title');
+    const buttons = document.querySelectorAll('#sidebar button');
+
+    let currentDataset = 'top150';
+
+    function resizeCanvas() {
+      const dpr = window.devicePixelRatio || 1;
+      canvas.style.width = '800px';
+      canvas.style.height = '600px';
+      canvas.width = 800 * dpr;
+      canvas.height = 600 * dpr;
+    }
+
+function drawWordCloud() {
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // 清除旧内容
+
+  const data = datasets[currentDataset];
+  const wordList = data.map(item => [item.Keyword, item.Count]);
+  const maxCount = Math.max(...data.map(d => d.Count));
+
+  // 👇 判断当前数据源，设置字号放大倍率
+  const zoomFactors = {
+  top150: 1,
+  top100_cn: 3.5,
+  top100_us: 1.5,
+  top100_in: 2.0
+};
+const zoomFactor = zoomFactors[currentDataset] || 1.5; // 设置默认值防止报错
+
+  WordCloud(canvas, {
+    list: wordList,
+    gridSize: 6,
+    weightFactor: (size) => zoomFactor * Math.sqrt(size) * 6,
+    minSize: 8,
+    fontFamily: "'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif",
+    color: () => {
+      const gradients = ['#00c6ff', '#0072ff', '#20bf6b', '#fc5c65', '#f7b731', '#a55eea'];
+      return gradients[Math.floor(Math.random() * gradients.length)];
+    },
+    rotateRatio: 0.4,
+    rotationSteps: 6,
+    backgroundColor: 'rgba(255,255,255,0)',
+    drawOutOfBound: false,
+    shuffle: true,
+    maskImage: maskImg,
+    hover: function (item, dimension, event) {
+      if (item) {
+        tooltip.innerHTML = `<strong>${item[0]}</strong><br>频次: ${item[1]}`;
+        tooltip.classList.add('visible');
+        requestAnimationFrame(() => {
+          const tooltipWidth = tooltip.offsetWidth;
+          const tooltipHeight = tooltip.offsetHeight;
+          const viewportX = event.pageX - window.pageXOffset-350;
+          const viewportY = event.pageY - window.pageYOffset+10;
+          const left = Math.min(viewportX + 10, window.innerWidth - tooltipWidth - 10);
+          const top = Math.min(viewportY + 10, window.innerHeight - tooltipHeight - 10);
+          tooltip.style.left = left + 'px';
+          tooltip.style.top = top + 'px';
+        });
+      } else {
+        tooltip.classList.remove('visible');
+      }
+    },
+    click: function (item) {
+      alert(`关键词: ${item[0]}\n频次: ${item[1]}`);
+    }
+  });
+}
+
+
+    function init() {
+      resizeCanvas();
+      if (maskImg.complete) {
+        drawWordCloud();
+      } else {
+        maskImg.onload = drawWordCloud;
+      }
+    }
+
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+	  const link = document.createElement('a');
+	  link.download = `${currentDataset}_wordcloud.png`;
+	  link.href = canvas.toDataURL('image/png');
+	  link.click();
+	});
+
+
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      drawWordCloud();
+    });
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        currentDataset = button.getAttribute('data-source');
+        const newTitle = button.getAttribute('data-title');
+        title.textContent = `🌟 星形词云图 - ${newTitle}`;
+        drawWordCloud();
+      });
+    });
+
+    init();
+  </script>
+</body>
+</html>
