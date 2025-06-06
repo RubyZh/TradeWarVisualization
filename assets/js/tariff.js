@@ -310,7 +310,7 @@ const spec1 = {
                             "value": 1
                         },
                     ],
-                    "value": 0.3
+                    "value": 0.8
                 },
                 "tooltip": [
                     {"field": "Date", "type": "temporal", "title": "Date"},
@@ -358,9 +358,9 @@ const spec1 = {
                 "opacity": {
                     "condition": {
                         "param": "hover-tariff",
-                        "value": 0.5
+                        "value": 1
                     },
-                    "value": 0.15
+                    "value": 0.5
                 },
                 "tooltip": [
                     {"field": "Date", "type": "temporal", "title": "Date"},

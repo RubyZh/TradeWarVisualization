@@ -5,7 +5,6 @@ var spec1 = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "width": width1,
   "height": 300,
-  "padding": 30,
   "signals": [
     {
       "name": "chartWidth",
