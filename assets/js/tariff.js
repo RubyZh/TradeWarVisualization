@@ -506,7 +506,7 @@ const spec1 = {
             },
             "encoding": {
                 "x": {"field": "DateISO", "type": "temporal",},
-                "y": {"field": "TariffValue", "type": "quantitative",},
+                "y": {"field": "TariffValue", "title": "Tariff (%)", "type": "quantitative",},
                 "color": { // 颜色设置
                     "field": "TariffType",
                     "type": "nominal",
