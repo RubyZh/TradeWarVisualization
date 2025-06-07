@@ -28,7 +28,7 @@ var spec1 = {
         {
           "type": "formula",
           "as": "size",
-          "expr": "sqrt(datum.news)"
+          "expr": "datum.news"
         }
       ]
     }
