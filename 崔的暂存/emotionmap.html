@@ -1,14 +1,285 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8" />-->
+<!--  <title>全球情绪地图</title>-->
+
+<!--  &lt;!&ndash; 引入 ECharts 主库和世界地图 &ndash;&gt;-->
+<!--  <script src="https://cdn.jsdelivr.net/npm/echarts@5"></script>-->
+<!--  <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>-->
+
+<!--  &lt;!&ndash; 引入数据文件 &ndash;&gt;-->
+<!--  <script src="map_data.js"></script>-->
+<!--  <script src="tooltip_emotions.js"></script>-->
+
+<!--  <style>-->
+<!--    html, body {-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--      height: 100%;-->
+<!--      background: #e6f0fa; /* 浅蓝色背景 */-->
+<!--      font-family: sans-serif;-->
+<!--    }-->
+
+<!--    /* 矩形容器，控制图表大小 */-->
+<!--    #emotionMapContainer {-->
+<!--      width: 90%;-->
+<!--      height: 650px;-->
+<!--      margin: 40px auto;-->
+<!--      border: 2px solid #aaccee;-->
+<!--      border-radius: 8px;-->
+<!--      background: #d9e8ff; /* 更浅的蓝色作为容器背景 */-->
+<!--      box-shadow: 0 6px 20px rgba(70,130,180,0.2);-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--  <div id="emotionMapContainer"></div>-->
+
+<!--  <script>-->
+<!--    const chart = echarts.init(document.getElementById('emotionMapContainer'));-->
+
+<!--    chart.setOption({-->
+<!--      title: {-->
+<!--        text: '全球情绪地图 - 中美贸易战',-->
+<!--        left: 'center'-->
+<!--      },-->
+<!--      tooltip: {-->
+<!--        trigger: 'item',-->
+<!--        enterable: true,-->
+<!--        backgroundColor: 'rgba(250, 250, 255, 0.95)', // 浅非常浅色背景-->
+<!--        borderColor: '#a3c1ff',-->
+<!--        borderWidth: 1,-->
+<!--        borderRadius: 8,-->
+<!--        textStyle: {-->
+<!--          color: '#333'-->
+<!--        },-->
+<!--        formatter: function(params) {-->
+<!--          const emotions = tooltipEmotions[params.name];-->
+<!--          if (!emotions) return `${params.name}<br/>无情绪数据`;-->
+<!--          const pieId = 'pie-' + params.name.replace(/\s/g, '_');  // 防止国家名含空格导致ID错误-->
+
+<!--          setTimeout(() => {-->
+<!--            const pieChart = echarts.init(document.getElementById(pieId));-->
+<!--            pieChart.setOption({-->
+<!--              series: [{-->
+<!--                type: 'pie',-->
+<!--                radius: '50%',-->
+<!--                data: emotions,-->
+<!--                label: {-->
+<!--                  formatter: '{b}: {d}%'-->
+<!--                }-->
+<!--              }]-->
+<!--            });-->
+<!--          }, 10);-->
+
+<!--          return `-->
+<!--            <div><strong>${params.name}</strong></div>-->
+<!--            <div style='width:380px;height:200px;' id='${pieId}'></div>-->
+<!--          `;-->
+<!--        }-->
+<!--      },-->
+<!--      visualMap: {-->
+<!--        min: -2,-->
+<!--        max: 2,-->
+<!--        text: ['积极', '消极'],-->
+<!--        calculable: true,-->
+<!--        inRange: {-->
+<!--          color: ['#d94e5d', '#eac736', '#50a3ba']-->
+<!--        },-->
+<!--        left: 'left',-->
+<!--        bottom: '5%'-->
+<!--      },-->
+<!--      series: [{-->
+<!--        type: 'map',-->
+<!--        map: 'world',-->
+<!--        name: '情绪得分',-->
+<!--        roam: true,-->
+<!--        data: mapData-->
+<!--      }]-->
+<!--    });-->
+<!--  </script>-->
+<!--</body>-->
+<!--</html>-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8" />-->
+<!--  <title>全球情绪地图</title>-->
+
+<!--  &lt;!&ndash; 引入 ECharts 主库和世界地图 &ndash;&gt;-->
+<!--  <script src="https://cdn.jsdelivr.net/npm/echarts@5"></script>-->
+<!--  <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>-->
+
+<!--  &lt;!&ndash; 引入数据文件 &ndash;&gt;-->
+<!--  <script src="map_data.js"></script>-->
+<!--  <script src="tooltip_emotions.js"></script>-->
+
+<!--  <style>-->
+<!--    html, body {-->
+<!--      margin: 0;-->
+<!--      padding: 0;-->
+<!--      height: 100%;-->
+<!--      background: #e6f0fa;-->
+<!--      font-family: sans-serif;-->
+<!--    }-->
+
+<!--    #emotionMapContainer {-->
+<!--      width: 90%;-->
+<!--      height: 650px;-->
+<!--      margin: 40px auto 20px;-->
+<!--      border: 2px solid #aaccee;-->
+<!--      border-radius: 8px;-->
+<!--      background: #d9e8ff;-->
+<!--      box-shadow: 0 6px 20px rgba(70,130,180,0.2);-->
+<!--    }-->
+
+<!--    #compareBox {-->
+<!--      width: 90%;-->
+<!--      min-height: 260px;-->
+<!--      margin: 0 auto 40px;-->
+<!--      padding: 20px;-->
+<!--      background: #f5faff;-->
+<!--      border: 2px dashed #a3c1ff;-->
+<!--      border-radius: 10px;-->
+<!--      display: flex;-->
+<!--      flex-wrap: wrap;-->
+<!--      gap: 20px;-->
+<!--      box-shadow: 0 4px 12px rgba(150,180,220,0.2);-->
+<!--    }-->
+
+<!--    .compare-chart {-->
+<!--      width: 300px;-->
+<!--      height: 220px;-->
+<!--      border: 1px solid #ccc;-->
+<!--      border-radius: 8px;-->
+<!--      background: #fff;-->
+<!--      padding: 10px;-->
+<!--    }-->
+
+<!--    .chart-title {-->
+<!--      text-align: center;-->
+<!--      font-weight: bold;-->
+<!--      margin-bottom: 5px;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--  <div id="emotionMapContainer"></div>-->
+<!--  <div id="compareBox">-->
+<!--    &lt;!&ndash; 点击国家后在此插入饼图 &ndash;&gt;-->
+<!--  </div>-->
+
+<!--  <script>-->
+<!--    const chart = echarts.init(document.getElementById('emotionMapContainer'));-->
+
+<!--    chart.setOption({-->
+<!--      title: {-->
+<!--        text: '全球情绪地图 - 中美贸易战',-->
+<!--        left: 'center'-->
+<!--      },-->
+<!--      tooltip: {-->
+<!--        trigger: 'item',-->
+<!--        enterable: true,-->
+<!--        backgroundColor: 'rgba(250, 250, 255, 0.95)',-->
+<!--        borderColor: '#a3c1ff',-->
+<!--        borderWidth: 1,-->
+<!--        borderRadius: 8,-->
+<!--        textStyle: { color: '#333' },-->
+<!--        formatter: function(params) {-->
+<!--          const emotions = tooltipEmotions[params.name];-->
+<!--          if (!emotions) return `${params.name}<br/>无情绪数据`;-->
+<!--          const pieId = 'pie-' + params.name.replace(/\s/g, '_');-->
+
+<!--          setTimeout(() => {-->
+<!--            const pieChart = echarts.init(document.getElementById(pieId));-->
+<!--            pieChart.setOption({-->
+<!--              series: [{-->
+<!--                type: 'pie',-->
+<!--                radius: '50%',-->
+<!--                data: emotions,-->
+<!--                label: {-->
+<!--                  formatter: '{b}: {d}%'-->
+<!--                }-->
+<!--              }]-->
+<!--            });-->
+<!--          }, 10);-->
+
+<!--          return `-->
+<!--            <div><strong>${params.name}</strong></div>-->
+<!--            <div style='width:380px;height:200px;' id='${pieId}'></div>-->
+<!--          `;-->
+<!--        }-->
+<!--      },-->
+<!--      visualMap: {-->
+<!--        min: -2,-->
+<!--        max: 2,-->
+<!--        text: ['积极', '消极'],-->
+<!--        calculable: true,-->
+<!--        inRange: {-->
+<!--          color: ['#d94e5d', '#eac736', '#50a3ba']-->
+<!--        },-->
+<!--        left: 'left',-->
+<!--        bottom: '5%'-->
+<!--      },-->
+<!--      series: [{-->
+<!--        type: 'map',-->
+<!--        map: 'world',-->
+<!--        name: '情绪得分',-->
+<!--        roam: true,-->
+<!--        data: mapData-->
+<!--      }]-->
+<!--    });-->
+
+<!--    // 点击国家，在 compareBox 中显示饼图-->
+<!--    chart.on('click', function(params) {-->
+<!--      const country = params.name;-->
+<!--      const emotions = tooltipEmotions[country];-->
+<!--      if (!emotions) return;-->
+
+<!--      const containerId = 'compare-' + country.replace(/\s/g, '_');-->
+
+<!--      // 若已存在该国家图表，先移除再添加-->
+<!--      const existing = document.getElementById(containerId);-->
+<!--      if (existing) existing.remove();-->
+
+<!--      // 创建新容器-->
+<!--      const box = document.createElement('div');-->
+<!--      box.className = 'compare-chart';-->
+<!--      box.id = containerId;-->
+
+<!--      box.innerHTML = `-->
+<!--        <div class="chart-title">${country}</div>-->
+<!--        <div id="${containerId}-chart" style="width:100%;height:180px;"></div>-->
+<!--      `;-->
+<!--      document.getElementById('compareBox').appendChild(box);-->
+
+<!--      // 初始化饼图-->
+<!--      const pie = echarts.init(document.getElementById(`${containerId}-chart`));-->
+<!--      pie.setOption({-->
+<!--        series: [{-->
+<!--          type: 'pie',-->
+<!--          radius: '50%',-->
+<!--          data: emotions,-->
+<!--          label: {-->
+<!--            formatter: '{b}: {d}%'-->
+<!--          }-->
+<!--        }]-->
+<!--      });-->
+<!--    });-->
+<!--  </script>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>全球情绪地图</title>
 
-  <!-- 引入 ECharts 主库和世界地图 -->
   <script src="https://cdn.jsdelivr.net/npm/echarts@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
 
-  <!-- 引入数据文件 -->
   <script src="map_data.js"></script>
   <script src="tooltip_emotions.js"></script>
 
@@ -17,24 +288,56 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      background: #e6f0fa; /* 浅蓝色背景 */
+      background: #e6f0fa;
       font-family: sans-serif;
+      overflow-x: hidden;
     }
 
-    /* 矩形容器，控制图表大小 */
     #emotionMapContainer {
-      width: 90%;
-      height: 650px;
-      margin: 40px auto;
+      width: 60%;
+      height: 550px;
+      margin: 20px auto 10px;
       border: 2px solid #aaccee;
       border-radius: 8px;
-      background: #d9e8ff; /* 更浅的蓝色作为容器背景 */
-      box-shadow: 0 6px 20px rgba(70,130,180,0.2);
+      background: #d9e8ff;
+      box-shadow: 0 4px 14px rgba(70,130,180,0.15);
+    }
+
+    #compareBox {
+      width: 60%;
+      margin: 0 auto 20px;
+      padding: 10px;
+      background: #f5faff;
+      border: 2px dashed #a3c1ff;
+      border-radius: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(150,180,220,0.15);
+    }
+
+    .compare-chart {
+      width: 240px;
+      height: 180px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 6px;
+      font-size: 13px;
+    }
+
+    .chart-title {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 4px;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
   <div id="emotionMapContainer"></div>
+  <div id="compareBox"></div>
 
   <script>
     const chart = echarts.init(document.getElementById('emotionMapContainer'));
@@ -42,32 +345,35 @@
     chart.setOption({
       title: {
         text: '全球情绪地图 - 中美贸易战',
-        left: 'center'
+        left: 'center',
+        top: 10,
+        textStyle: {
+          fontSize: 16
+        }
       },
       tooltip: {
         trigger: 'item',
         enterable: true,
-        backgroundColor: 'rgba(250, 250, 255, 0.95)', // 浅非常浅色背景
+        backgroundColor: 'rgba(250, 250, 255, 0.95)',
         borderColor: '#a3c1ff',
         borderWidth: 1,
         borderRadius: 8,
-        textStyle: {
-          color: '#333'
-        },
+        textStyle: { color: '#333', fontSize: 12 },
         formatter: function(params) {
           const emotions = tooltipEmotions[params.name];
           if (!emotions) return `${params.name}<br/>无情绪数据`;
-          const pieId = 'pie-' + params.name.replace(/\s/g, '_');  // 防止国家名含空格导致ID错误
+          const pieId = 'pie-' + params.name.replace(/\s/g, '_');
 
           setTimeout(() => {
             const pieChart = echarts.init(document.getElementById(pieId));
             pieChart.setOption({
               series: [{
                 type: 'pie',
-                radius: '50%',
+                radius: '40%',
                 data: emotions,
                 label: {
-                  formatter: '{b}: {d}%'
+                  formatter: '{b}: {d}%',
+                  fontSize: 10
                 }
               }]
             });
@@ -75,7 +381,7 @@
 
           return `
             <div><strong>${params.name}</strong></div>
-            <div style='width:380px;height:200px;' id='${pieId}'></div>
+            <div style='width:300px;height:160px;' id='${pieId}'></div>
           `;
         }
       },
@@ -83,6 +389,7 @@
         min: -2,
         max: 2,
         text: ['积极', '消极'],
+        textStyle: { fontSize: 12 },
         calculable: true,
         inRange: {
           color: ['#d94e5d', '#eac736', '#50a3ba']
@@ -97,6 +404,40 @@
         roam: true,
         data: mapData
       }]
+    });
+
+    chart.on('click', function(params) {
+      const country = params.name;
+      const emotions = tooltipEmotions[country];
+      if (!emotions) return;
+
+      const containerId = 'compare-' + country.replace(/\s/g, '_');
+
+      const existing = document.getElementById(containerId);
+      if (existing) existing.remove();
+
+      const box = document.createElement('div');
+      box.className = 'compare-chart';
+      box.id = containerId;
+
+      box.innerHTML = `
+        <div class="chart-title">${country}</div>
+        <div id="${containerId}-chart" style="width:100%;height:140px;"></div>
+      `;
+      document.getElementById('compareBox').appendChild(box);
+
+      const pie = echarts.init(document.getElementById(`${containerId}-chart`));
+      pie.setOption({
+        series: [{
+          type: 'pie',
+          radius: '40%',
+          data: emotions,
+          label: {
+            formatter: '{b}: {d}%',
+            fontSize: 11
+          }
+        }]
+      });
     });
   </script>
 </body>
