@@ -7,7 +7,7 @@ df['date'] = pd.to_datetime(df['PTime'].astype(str), format='%Y%m%d')
 df['month'] = df['date'].dt.to_period('M').astype(str)
 
 # 筛选指定时间段
-df = df[(df['month'] >= '2024-08') & (df['month'] < '2025-08')]
+df = df[(df['month'] >= '2025-01') & (df['month'] < '2025-06')]
 
 emotion_over_time = df.groupby(['month', 'Top1_Emotion']).size().unstack(fill_value=0).reset_index()
 
