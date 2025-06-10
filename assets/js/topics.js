@@ -76,7 +76,7 @@ var spec0 = {
           "tooltip": [
             {
               //"signal": "datum.country ? datum.country + ': ' + datum.count : 'No data'"
-              // "signal": "{'Country': datum.country, 'ISO code': datum.id, 'News Count': datum.count}"
+              // "signal": "{'Country': d atum.country, 'ISO code': datum.id, 'News Count': datum.count}"
               // "signal": "datum.country && datum.count != null ? datum.country + ' (ISO:' + datum.id + ')\\n\\tNews Count: ' + datum.count : 'No data'"
               "signal": "datum.country && datum.count != null ? {'Country': datum.country, 'News Count': datum.count} : 'No data'"
             }
@@ -145,7 +145,6 @@ function renderChart() {
 }
 
 renderChart(); // 初次渲染
-
   // 监听窗口大小变化并重新渲染
 window.addEventListener("resize", () => {
   renderChart();
