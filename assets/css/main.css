@@ -15,7 +15,7 @@ form, label, legend, table, caption, tbody,
 tfoot, thead, tr, th, td, article, aside,
 canvas, details, embed, figure, figcaption,
 footer, header, hgroup, menu, nav, output, ruby,
-section, summary, time, mark, audio, video {
+section, summary, time, mark, audio, video, ust, cnt {
   margin: 0;
   padding: 0;
   border: 0;
@@ -129,6 +129,16 @@ em, i {
 
 p {
   margin: 0 0 2em 0; }
+
+ust {
+  color: royalblue;
+  font-weight: 600;
+}
+
+cnt {
+  color: crimson;
+  font-weight: 600;
+}
 
 h1, h2, h3, h4, h5, h6 {
   color: #3d4449;
@@ -1455,8 +1465,8 @@ table {
     padding: 0.75em 0.75em; }
   table th {
     color: #3d4449;
-    font-size: 0.9em;
-    font-weight: 600;
+    font-size: 1em;
+    font-weight: 700;
     padding: 0 0.75em 0.75em 0.75em;
     text-align: left; }
   table thead {
