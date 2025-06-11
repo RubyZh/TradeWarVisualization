@@ -167,4 +167,8 @@ const data = [
     ]
   };
 
-  Chart1.setOption(option1);
+Chart1.setOption(option1);
+
+window.addEventListener('resize', function () {
+  Chart1.resize();
+});

@@ -27,3 +27,7 @@ var option0 = {
   };
 
 Chart0.setOption(option0);
+
+window.addEventListener('resize', function () {
+  Chart0.resize();
+});
