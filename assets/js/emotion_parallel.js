@@ -105,16 +105,16 @@ const data = [
         const values = params.data;
         return [
           `<strong>${values[0]}</strong>`,
-          `Anger: ${values[1]}`,
-          `Disgust: ${values[2]}`,
-          `Fear: ${values[3]}`,
-          `Joy: ${values[4]}`,
-          `Neutral: ${values[5]}`,
-          `Sadness: ${values[6]}`,
-          `Surprise: ${values[7]}`,
-          `Total: ${values[8]}`,
-          `ChinaAgree: ${values[9]}`,
-          `USAgree: ${values[10]}`
+          `ChinaAgree: ${values[1]}`,
+          `USAgree: ${values[2]}`,
+          `Anger: ${values[3]}`,
+          `Disgust: ${values[4]}`,
+          `Fear: ${values[5]}`,
+          `Joy: ${values[6]}`,
+          `Neutral: ${values[7]}`,
+          `Sadness: ${values[8]}`,
+          `Surprise: ${values[9]}`,
+          `Total: ${values[10]}`,
         ].join('<br>');
       }
     },
@@ -151,11 +151,19 @@ const data = [
         name: 'Country Sentiment',
         type: 'parallel',
         lineStyle: {
-          width: 1,
-          opacity: 0.5
+          width: 1.5,
+          color: function (params) {
+            const values = params.data;
+            const chinaAgree = values[1];
+            const usAgree = values[2];
+            if (chinaAgree > usAgree) return 'lightcoral'; // 'lightcoral' 'salmon'
+            else if (chinaAgree < usAgree) return 'royalblue';
+            else return 'black';
+          },
+          opacity: 0.6
         },
         data: data
-      }
+      },
     ]
   };
 
