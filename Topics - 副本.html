@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@6.1.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.29.0"></script>
 	<script src='https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js'></script>
-	<script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2.0.0/dist/echarts-wordcloud.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2.0.0/dist/echarts-wordcloud.min.js"></script>
 	<link rel="stylesheet" href="assets/css/slider.css" />
 
 	<head>
@@ -70,23 +70,22 @@
 									
 									<!-- Outer container wrapping both sidebar and main area -->
 									<div id="layout">
-									<!-- Main container -->
-									<div id="cloud_container">
-										<h2 id="title">News Keywords</h2>
-										<div id="wordcloudCanvas"></div>
-										<div id="tooltip"></div>
-									</div>
-									<!-- Sidebar -->
-									<div id="sidebar2">
-										<h3>Select Dataset</h3>
-										<button data-source="top150" data-title="Global News Keywords">Global News</button>
-										<button data-source="top100_cn" data-title="China News Keywords">China News</button>
-										<button data-source="top100_us" data-title="US News Keywords">US News</button>
-										<button data-source="top100_in" data-title="India News Keywords">India News</button>
-										<hr style="margin: 10px 0;">
-										<button id="downloadBtn" style="background: #28a745;">Export as PNG</button>
-									</div>
-
+										<!-- Main container -->
+										<div id="cloud_container">
+											<h2 id="title">News Keywords</h2>
+											<div id="wordcloudCanvas"></div>
+											<div id="tooltip"></div>
+										</div>
+										<!-- Sidebar -->
+										<div id="sidebar2">
+											<h3>Select Dataset</h3>
+											<button data-source="top150" data-title="Global News Keywords">Global News</button>
+											<button data-source="top100_cn" data-title="China News Keywords">China News</button>
+											<button data-source="top100_us" data-title="US News Keywords">US News</button>
+											<button data-source="top100_in" data-title="India News Keywords">India News</button>
+											<hr style="margin: 10px 0;">
+											<button id="downloadBtn" style="background: #28a745;">Export as PNG</button>
+										</div>
 									</div>
 
 									<hr class="major" />
