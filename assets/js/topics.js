@@ -9,7 +9,7 @@ var spec0 = {
   "autosize": {
     "type": "fit",
     "contains": "padding"
-    //"resize": true
+    // "resize": true
   },
   "signals": [
     {"name": "type", "value": "mercator"},
@@ -131,11 +131,30 @@ var spec0 = {
 };
 
 
-let view; // 用于存储 Vega View 实例
+// let view; // 用于存储 Vega View 实例
+
+// function renderChart() {
+//   const width = container.clientWidth;
+//   const specCopy = JSON.parse(JSON.stringify(spec0)); // 避免原始 spec 被污染
+//   specCopy.width = width;
+//   specCopy.height = 500;
+
+//   vegaEmbed("#topic-chart0", specCopy, { renderer: "canvas" }).then((result) => {
+//     view = result.view;
+//   });
+// }
+
+// renderChart(); // 初次渲染
+//   // 监听窗口大小变化并重新渲染
+// window.addEventListener("resize", () => {
+//   renderChart();
+// });
+
+let view;
 
 function renderChart() {
   const width = container.clientWidth;
-  const specCopy = JSON.parse(JSON.stringify(spec0)); // 避免原始 spec 被污染
+  const specCopy = JSON.parse(JSON.stringify(spec0));
   specCopy.width = width;
   specCopy.height = 500;
 
@@ -145,9 +164,12 @@ function renderChart() {
 }
 
 renderChart(); // 初次渲染
-  // 监听窗口大小变化并重新渲染
-window.addEventListener("resize", () => {
+
+// 使用 ResizeObserver 而不是 window.resize
+const resizeObserver = new ResizeObserver(() => {
   renderChart();
 });
+resizeObserver.observe(container);
 
-//vegaEmbed("#topic-chart0", spec0, { renderer: "canvas" }).then(console.log).catch(console.error);
+
+// vegaEmbed("#topic-chart0", spec0, { renderer: "canvas" }).then(console.log).catch(console.error);
