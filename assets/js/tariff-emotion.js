@@ -1,5 +1,5 @@
     var chartDom = document.getElementById('tariff-emotion');
-    var myChart = echarts.init(chartDom);
+    var Chart10 = echarts.init(chartDom);
 
     var emotions = datasetSource.slice(1).map(row => row[0]);
     var dates = datasetSource[0].slice(1);  // Remove "emotion" header
@@ -69,10 +69,10 @@
       ]
     };
 
-    myChart.setOption(option);
+    Chart10.setOption(option);
 
     // 联动更新饼图
-    myChart.on('updateAxisPointer', function (event) {
+    Chart10.on('updateAxisPointer', function (event) {
       const xAxisInfo = event.axesInfo[0];
       if (xAxisInfo) {
         const currentDate = new Date(xAxisInfo.value);
@@ -87,7 +87,7 @@
           }
         });
 
-        myChart.setOption({
+        Chart10.setOption({
           series: {
             id: 'pie',
             label: {
@@ -105,3 +105,8 @@
         });
       }
     });
+
+    window.addEventListener('resize', function () {
+  Chart10.resize();
+});
+
