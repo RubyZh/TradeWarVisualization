@@ -755,12 +755,12 @@ const tariffData = {
     "2025-02-04": "US tariffs of 10 percent imposed on all imports from China under International Emergency Economic Powers Act (IEEPA)",
     "2025-02-07": "US Section 201 tariffs reduced on solar panels in eighth year of policy",
     "2025-02-10": "China retaliates against US tariffs under IEEPA imposed February 4",
-    "2025-03-04": "US tariffs of 10 percent on all imports from China under IEEPA; US tariffs imposed on imports from Canada and Mexico that are not compliant with USMCA [not shown]",
+    "2025-03-04": "US tariffs of 10 percent on all imports from China under IEEPA; US tariffs imposed on imports from Canada and Mexico that are not compliant with USMCA",
     "2025-03-10": "China retaliates against US tariffs under IEEPA imposed March 4",
     "2025-03-12": "US Section 232 tariffs imposed on steel, aluminum, and derivative products",
     "2025-04-03": "US Section 232 tariffs of 25 percent imposed on automobiles",
     "2025-04-05": "US tariffs of 10 percent imposed on nearly all countries, including China, under IEEPA, but with some sector carveouts",
-    "2025-04-09": "US tariffs ranging from 1 percent to 74 percent imposed on nearly all countries with a trade surplus with the US, including China (74 percent), under IEEPA. US tariff on China includes an additional 50 percent tariff as counter-retaliation for China��s retaliation announcement",
+    "2025-04-09": "US tariffs ranging from 1 percent to 74 percent imposed on nearly all countries with a trade surplus with the US, including China (74 percent), under IEEPA. US tariff on China includes an additional 50 percent tariff as counter-retaliation for China's retaliation announcement",
     "2025-04-10": "China retaliates against US tariffs under IEEPA imposed April 5 and 9 by imposing tariffs of 84 percent; US eliminates tariffs imposed April 9 on trade surplus countries under IEEPA with exception of China, which faces an additional 41 percent tariff increase under IEEPA (to 125 percent total), but with some sector carveouts",
     "2025-04-11": "US removes some additional tariffs imposed under IEEPA on April 5, 9, and 10, carving out some additional products that contain semiconductors",
     "2025-04-12": "China retaliates against US tariffs under IEEPA imposed April 10, to reach levels of recent US tariff increases of 125 percent",
@@ -769,32 +769,46 @@ const tariffData = {
   }
 };
 
-const tariffSeries = [
-  { name: "China → US", data: tariffData.china_to_us },
-  { name: "China → ROW", data: tariffData.china_to_row },
-  { name: "US → China", data: tariffData.us_to_china },
-  { name: "US → ROW", data: tariffData.us_to_row }
-].map(item => ({
-  name: item.name,
-  type: 'line',
-  smooth: true,
-  yAxisIndex: 1,
-  showSymbol: true,
-  symbolSize: 6,
-  data: item.data
-}));
+// const tariffSeries = [
+//   { name: "China → US", data: tariffData.china_to_us },
+//   { name: "China → ROW", data: tariffData.china_to_row },
+//   { name: "US → China", data: tariffData.us_to_china },
+//   { name: "US → ROW", data: tariffData.us_to_row }
+// ].map(item => ({
+//   name: item.name,
+//   type: 'line',
+//   smooth: true,
+//   yAxisIndex: 1,
+//   showSymbol: true,
+//   symbolSize: 6,
+//   data: item.data
+// }));
 
-const emotionSeries = [
-  { name: "fear", data: emotionData.fear },
-].map(item => ({
-  name: item.name,
-  type: 'line',
-  smooth: true,
-  yAxisIndex: 1,
-  showSymbol: true,
-  symbolSize: 6,
-  data: item.data
-}));
+// const emotionSeries = [
+//   { name: "fear", data: emotionData.fear },
+// ].map(item => ({
+//   name: item.name,
+//   type: 'line',
+//   smooth: true,
+//   yAxisIndex: 1,
+//   showSymbol: true,
+//   symbolSize: 6,
+//   data: item.data
+// }));
+
+function attachEventsToTariffData(tariffArray, eventsMap) {
+  return tariffArray.map(([date, value]) => ({
+    value: [date, value],
+    event: eventsMap[date] || 'No event'
+  }));
+}
+
+const processedTariffData = {
+  china_to_us: attachEventsToTariffData(tariffData.china_to_us, tariffData.events),
+  us_to_china: attachEventsToTariffData(tariffData.us_to_china, tariffData.events),
+  china_to_row: attachEventsToTariffData(tariffData.china_to_row, tariffData.events),
+  us_to_row: attachEventsToTariffData(tariffData.us_to_row, tariffData.events)
+};
 
 // var option = {
 //   tooltip: {
@@ -853,14 +867,45 @@ const emotionSeries = [
 
 // const timeData = ["2025-01-01","2025-01-20","2025-02-04","2025-02-07","2025-02-10","2025-03-04","2025-03-10","2025-03-12","2025-04-03","2025-04-05","2025-04-09","2025-04-10","2025-04-11","2025-04-12","2025-05-03","2025-05-14"];
 
-const option = {
+var option = {
   title: {
     text: 'Tariffs and Emotion Trends',
     left: 'center'
   },
   tooltip: {
     trigger: 'axis',
-    axisPointer: { type: 'cross' }
+    axisPointer: { type: 'cross' },
+    formatter: function (params) {
+      // const date = new Date(params[0].axisValue).toISOString().slice(0, 10);
+      var axisDate = new Date(params[0].axisValue);
+      const pad = n => String(n).padStart(2, '0');
+      var date = `${axisDate.getFullYear()}-${pad(axisDate.getMonth() + 1)}-${pad(axisDate.getDate())}`;
+      let result = `<b>${date}</b><br>`;
+
+      params.forEach(param => {
+        if (param.seriesType === 'line' && param.data && param.data.value) {
+          result += `
+            <span style="display:inline-block;margin-right:5px;
+              border-radius:10px;width:9px;height:9px;
+              background-color:${param.color};"></span>
+            ${param.seriesName}: <b>${param.data.value[1]}%</b><br>
+          `;
+        }
+      });
+      if (tariffData.events) {
+        // result += `<i style="color:#888">Event:</i> ${tariffData.events[date]}`;
+        result += `
+          <div style="margin-top: 5px; color: #888; width: 300px; white-space: normal; word-break: break-word;">
+            <i>Event:</i> ${tariffData.events[date]}
+          </div>
+        `;
+      } else {
+        result += `<i style="color:#888">No event recorded</i>`;
+      }
+
+      return result;
+    }
+
   },
   legend: {
     top: 30
@@ -893,12 +938,12 @@ const option = {
   ],
   grid: [
     {
-      top: '12%',
-      height: '20%',
+      top: '14%',
+      height: '18%',
     },
     {
       top: '40%',
-      height: '20%'
+      height: '18%'
     }
   ],
   xAxis: [
@@ -907,6 +952,12 @@ const option = {
       name: 'Date',
       min: '2025-01-01',
       max: '2025-05-14',
+      axisLabel: {
+      formatter: function (value) {
+        var date = new Date(value);
+        return echarts.format.formatTime('MM-dd', date);
+      }
+    }
     },
     {
       gridIndex: 1,
@@ -914,6 +965,12 @@ const option = {
       name: 'Date',
       min: '2025-01-01',
       max: '2025-05-14',
+      axisLabel: {
+      formatter: function (value) {
+        var date = new Date(value);
+        return echarts.format.formatTime('MM-dd', date);
+      }
+    }
     }
   ],
   yAxis: [
@@ -935,83 +992,96 @@ const option = {
       type: 'line',
       symbol: 'circle',
       symbolSize: 8,
-      data: tariffData.china_to_us
+      data: processedTariffData.china_to_us,
+      color: '#e7100a'
     },
     {
       name: 'Chinese tariffs on ROW exports',
       type: 'line',
-      symbol: 'triangle',
+      symbol: 'diamond',
       symbolSize: 8,
-      data: tariffData.china_to_row
+      data: processedTariffData.china_to_row,
+      color: '#f52e28',
+      lineStyle: { type: 'dashed' }
     },
     {
       name: 'US tariffs on Chinese exports',
       type: 'line',
-      symbol: 'diamond',
+      symbol: 'circle',
       symbolSize: 8,
-      data: tariffData.us_to_china
+      data: processedTariffData.us_to_china,
+      color: '#3660df'
     },
     {
       name: 'US tariffs on ROW exports',
       type: 'line',
-      symbol: 'square',
+      symbol: 'diamond',
       symbolSize: 8,
-      data: tariffData.us_to_row
+      data: processedTariffData.us_to_row,
+      color: '#1586ff',
+      lineStyle: { type: 'dashed' }
     },
     {
       name: 'Fear',
       type: 'line',
       xAxisIndex: 1,
       yAxisIndex: 1,
-      data: emotionData.fear
+      data: emotionData.fear,
+      tooltip: { show: false }
     },
     {
       name: 'Netural',
       type: 'line',
       xAxisIndex: 1,
       yAxisIndex: 1,
-      data: emotionData.neutral
+      data: emotionData.neutral,
+      tooltip: { show: false }
     },
     {
       name: 'Anger',
       type: 'line',
       xAxisIndex: 1,
       yAxisIndex: 1,
-      data: emotionData.anger
+      data: emotionData.anger,
+      tooltip: { show: false }
     },
     {
       name: 'Sadness',
       type: 'line',
       xAxisIndex: 1,
       yAxisIndex: 1,
-      data: emotionData.sadness
+      data: emotionData.sadness,
+      tooltip: { show: false }
     },
     {
       name: 'Joy',
       type: 'line',
       xAxisIndex: 1,
       yAxisIndex: 1,
-      data: emotionData.joy
+      data: emotionData.joy,
+      tooltip: { show: false }
     },
     {
       name: 'Disgust',
       type: 'line',
       xAxisIndex: 1,
       yAxisIndex: 1,
-      data: emotionData.disgust
+      data: emotionData.disgust,
+      tooltip: { show: false }
     },
     {
       name: 'Surprise',
       type: 'line',
       xAxisIndex: 1,
       yAxisIndex: 1,
-      data: emotionData.surprise
+      data: emotionData.surprise,
+      tooltip: { show: false }
     },
     {
       type: 'pie',
       id: 'emotion-pie',
       radius: '25%',
-      center: ['50%', '80%'],
+      center: ['50%', '78%'],
       label: {
         formatter: '{b}: {c} ({d}%)'
       },

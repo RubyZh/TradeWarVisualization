@@ -1,6 +1,7 @@
     #emotionMapContainer {
       /* width: 60%;
       height: 550px; */
+      max-width: 1000px;
       margin: 20px auto 10px;
       border: 2px solid #aaccee;
       border-radius: 8px;
@@ -10,6 +11,7 @@
 
     #compareBox {
       width: 90%;
+      max-width: 1000px;
       margin: 0 auto 20px;
       padding: 10px;
       background: #f5faff;
