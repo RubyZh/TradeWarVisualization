@@ -9,12 +9,16 @@
 	<script src="https://cdn.jsdelivr.net/npm/vega@6.0.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@6.1.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.29.0"></script>
+	<script src="https://cdn.jsdelivr.net/npm/echarts@5"></script>
 	<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+	
 	<head>
 		<title>Emotions</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/flowriver.css">
 	</head>
 	<body class="is-preload">
 
@@ -48,11 +52,61 @@
 									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit.</p>
 									
 									<h1>情绪河流图</h1>
+									<div id="emotion_river" style="width: 100%; max-width: 1000px; height: 100%; height: 600px;"></div>
+									<h2>1. Emotional Trends and Corresponding Events</h2>
 
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula.</p>
-									
+									<h3>Early Stage (Early January – Early February)</h3>
+									<p>
+									According to the emotion river chart, anger gradually increased from early January to around January 20. On January 20, Trump began his second presidential term. This rise in anger may stem from mixed feelings regarding the incoming administration's trade policies and a retrospective view of former President Biden’s term. After Trump took office, a series of new policies drew attention and emotional reactions from various groups.
+									</p>
+									<p>
+									On February 1, Trump signed an executive order to raise tariffs on Chinese imports. This likely caused further increases in anger due to concerns over trade tensions, higher costs for businesses and consumers, and potential economic instability. Fear also grew during this time, reflecting worries about reduced profits and rising consumer prices.
+									</p>
+
+									<h3>Mid Stage (Early February – Early March)</h3>
+									<p>
+									On February 4, China responded with retaliatory tariffs on American goods, including coal and liquefied natural gas. The river chart shows a continued rise in fear, as escalating trade frictions led to growing uncertainties for businesses. Anger also likely peaked following this bilateral tit-for-tat, reflecting emotional backlash to the intensifying trade conflict.
+									</p>
+									<p>
+									On March 3, Trump again increased tariffs on Chinese products and extended tariffs to goods from Mexico and Canada. This sparked another peak in both anger and fear, as the escalation of protectionist policies triggered concern across a wider range of industries and demographics.
+									</p>
+
+									<h3>Late Stage (Early March – Early May)</h3>
+									<p>
+									On March 4, China introduced a new round of retaliatory tariffs, this time targeting agricultural products. Emotions remained heightened — anger persisted as the trade standoff dragged on, and fear intensified due to rising costs and shrinking markets for affected companies.
+									</p>
+									<p>
+									On April 2, during a “Liberation Day” speech, Trump announced a dramatic tariff hike to 54% on Chinese goods. This likely pushed both anger and fear to new highs. Anger reflected opposition to such extreme protectionism, while fear was rooted in rising uncertainty and deteriorating bilateral relations.
+									</p>
+									<p>
+									From April 4 to April 9, China imposed a 34% tariff and both sides escalated their trade war. Emotional volatility intensified — anger and fear intermingled as the confrontation deepened. Neutral sentiment may have decreased, as public attention and opinion increasingly polarized around trade issues.
+									</p>
+									<p>
+									On May 2, the U.S. ended preferential tariff treatment for low-value Chinese imports. Emotions like anger remained elevated. However, by May 12, when Chinese and American officials met in Geneva and reached a preliminary agreement to reduce some tariffs, emotional trends began to shift. Anger and fear started to subside, while neutral sentiment likely increased as the public assessed the impact of the tentative agreement.
+									</p>
+
+									<hr class="major" />
+
+									<h2>2. News Volume and Event Correlation</h2>
+
+									<p>
+									From mid-January to early February, the number of news articles began to rise following Trump's inauguration and the announcement of new trade policies. This surge reflected heightened media interest in analyzing policy details, public reactions, and possible impacts.
+									</p>
+									<p>
+									From early February to early April, news volume continued to grow and reached a peak. During this critical stage of U.S.-China trade escalation, every new round of tariffs or retaliation captured media headlines. Given the broad impact on businesses, consumers, and international trade, media coverage expanded significantly.
+									</p>
+									<p>
+									From early April to early May, news volume remained high but fluctuated. This was a result of continued tensions and dramatic trade measures, such as threats of new tariffs from the U.S. and countermeasures from China, all of which kept the issue in the media spotlight.
+									</p>
+									<p>
+									After mid-May, news volume began to decline but remained at a relatively elevated level. This was due to developments in trade negotiations and renewed attention to possible de-escalation. While the number of reports dipped from earlier highs, media outlets continued to monitor the aftermath of the trade conflict and prospects for resolution.
+									</p>
+
 									<h1>情绪时间线</h1>
-																		
+									<div id="tariff-chart1" style="width: 90%; height: 100%; margin: auto;"></div>
+									<script src="data/emotion_dataset.js"></script>
+									<div id="tariff-emotion" style="width: 100%; height: 100%; height: 750px; margin: 50px;"></div>
+
 									<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
 									
 									<hr class="major" />
@@ -178,6 +232,9 @@
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/emotion_sankey.js"></script>
 			<script src="assets/js/emotion_parallel.js"></script>
-
+			<script src="assets/js/flowriver.js"></script>
+			<script src="assets/js/tariff.js"></script>
+			<script src="assets/js/tariff-emotion.js"></script>
+			
 	</body>
 </html>
