@@ -12,19 +12,19 @@
       padding: 40px;
       box-sizing: border-box;
     } */
-    #container {
-      width: 800px;
+    #cloud_container {
+      width: 750px;
       background: linear-gradient(135deg, rgba(173, 216, 230, 0.3), rgba(135, 206, 250, 0.3));
-      border-radius: 20px;
+      border-radius: 10px;
       backdrop-filter: blur(8px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.1);
       padding: 20px;
       box-sizing: border-box;
       position: relative;
     }
-    canvas {
+    #wordcloudCanvas {
       width: 100% !important;
-      height: 600px !important;
+      height: 550px !important;
       border-radius: 16px;
       display: block;
     }
@@ -55,11 +55,11 @@
       gap: 15px;
     } */
      #sidebar2 {
-        width: 300px;
+        width: 200px;
         background: #f0f8ff;
         border-radius: 16px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        padding: 20px;
+        padding: 10px;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
@@ -77,8 +77,8 @@
       justify-content: center;     /* 垂直居中内容 */
     }
     #sidebar2 button {
-      padding: 10px;
-      font-size: 16px;
+      padding: 2px;
+      font-size: 14px;
       border: none;
       background: #007bff;
       color: white;
@@ -90,10 +90,10 @@
     #sidebar2 button:hover {
       background-color: #0056b3;
     }
-    .layout {
+    #layout {
     display: flex;
-    gap: 30px;
+    gap: 25px;
     align-items: flex-start;
     justify-content: center;
-    padding: 20px;
+    padding: 0px;
     }
