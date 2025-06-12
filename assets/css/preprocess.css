@@ -1,0 +1,42 @@
+.content-block {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.text-side {
+  flex: 1.8;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.image-side {
+  flex: 1;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+
+.image-side img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.left {
+  order: 1;
+}
+.right {
+  order: 2;
+}
+
+@media (max-width: 768px) {
+  .content-block {
+    flex-direction: column;
+  }
+  .left, .right {
+    order: initial;
+  }
+}

@@ -10,6 +10,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/preprocess.css" />
 	</head>
 	<body class="is-preload">
 
@@ -38,7 +39,7 @@
 										<h1>Data Preprocess</h1>
 									</header>
 
-									<span class="image main"><img src="images/pic11.jpg" alt="" /></span>
+									<!-- <span class="image main"><img src="images/pic11.jpg" alt="" /></span>
 									
 									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit.</p>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula.</p>
@@ -59,7 +60,98 @@
 
 									<h2>Lorem aliquam bibendum</h2>
 									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit.</p>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula.</p>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula.</p> -->
+									<!-- 一段：图左文右 -->
+									<div class="content-block">
+									<div class="image-side left">
+										<img src="images/news_clean.png" alt="Data Cleaning Illustration" />
+									</div>
+									<div class="text-side right">
+										<h2>Data Cleaning</h2>
+										<p>
+										We performed data cleaning on the dataset of global media reports on the China–US trade war.
+										First, we manually corrected apparent anomalies in the PTime field and used DTime to fill in missing PTime values.
+										Then, we removed records with clearly abnormal formats or content.
+										Finally, for duplicate news entries with identical sources and content, only one copy was retained to eliminate redundancy.
+										</p>
+									</div>
+									</div>
+
+									<!-- 第二段：图右文左 -->
+									<div class="content-block">
+									<div class="text-side left">
+										<h2>Source Country Identification</h2>
+										<h3>Method Description</h3>
+										<p>
+										We use the URL field of news articles and the large language model API provided by DeepSeek to perform intelligent analysis and structured extraction of news sources.
+										For each article, we prompt the model to identify the country of origin and return structured JSON with country name, ISO code, and capital location.
+										Regular expressions clean and deserialize this data into a CSV file.
+										</p>
+										<h3>Sample Code</h3>
+										<p>
+										https://github.com/RubyZh/TradeWarVisualization/tree/main/preprocessing/nation.py
+										</p>
+									</div>
+									<div class="image-side right">
+										<img src="images/news_nation.png" alt="Source Identification Illustration" />
+									</div>
+									</div>
+
+									<!-- 一段：图左文右 -->
+									<div class="content-block">
+									<div class="image-side left">
+										<img src="images/news_summary.png" alt="Data Cleaning Illustration" />
+									</div>
+									<div class="text-side right">
+										<h2>Automatic News Summarization</h2>
+										<h3>Model Resource Link</h3>
+										<p>
+										https://huggingface.co/facebook/bart-large-cnn
+										</p>
+										<h3>Model Application</h3>
+										<p>
+											The model is loaded using Hugging Face's pipeline interface.
+											After tokenizing the input text, if the token count is fewer than 100, the original text is retained; if it exceeds the predefined limit of MAX_TOKENS=1000, it is truncated to this length to avoid poor summary quality due to overly short input or decreased inference efficiency due to overly long input.
+											During inference, the summary length is constrained to be no less than 100 tokens and no more than 250 tokens, ensuring the output remains within a reasonable range and is deterministic. In case of any exception, an error flag is returned. All generated summaries are written back to the Summary field of the dataset and exported as a CSV file.
+										</p>
+									</div>
+									</div>
+
+																		<!-- 一段：图左文右 -->
+									<div class="content-block">
+									<div class="image-side left">
+										<img src="images/news_keyword.png" alt="Data Cleaning Illustration" />
+									</div>
+									<div class="text-side right">
+										<h2>Keyword extraction</h2>
+										<h3>Model Resource Link</h3>
+										<p>
+										https://github.com/LIAAD/yake
+										</p>
+										<h3>Model Application</h3>
+										<p>
+										First, we installed the YAKE library using pip install yake. During usage, we set the parameters as follows: the language was set to English (lan="en"), the maximum keyword length was limited to three-word phrases (n=3), the top 15 keywords were extracted (top=15), and the default deduplication method (such as seqm) was used to avoid redundant keywords. For each news article, the extracted results included keywords along with their importance scores (the lower the score, the more relevant the keyword). Additionally, we used YAKE's TextHighlighter tool to mark and highlight the keywords within the original text, making it easier for subsequent presentation and analysis.
+										</p>
+									</div>
+									</div>
+
+									<!-- 第二段：图右文左 -->
+									<div class="content-block">
+									<div class="text-side left">
+										<h2>Emotion Recognition</h2>
+										<h3>Model Resource Link</h3>
+										<p>
+										https://huggingface.co/j-hartmann/emotion-english-distilroberta-base
+										</p>
+										<h3>Model Application</h3>
+										<p>
+										Load the model through Hugging Face's pipeline interface and perform batch sentiment analysis on the news summary field. For each summary, the model outputs the corresponding multi-category sentiment scores. By sorting the scores, extract the top two sentiment labels and their confidence scores, and write them to the result file as Top1 and Top2 sentiment features, saved in UTF-8 encoding format as CSV.
+										</p>
+									</div>
+									<div class="image-side right">
+										<img src="images/news_emo.png" alt="Source Identification Illustration" />
+									</div>
+									</div>
 
 								</section>
 
