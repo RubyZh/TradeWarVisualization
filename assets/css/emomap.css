@@ -1,0 +1,40 @@
+    #emotionMapContainer {
+      /* width: 60%;
+      height: 550px; */
+      margin: 20px auto 10px;
+      border: 2px solid #aaccee;
+      border-radius: 8px;
+      background: #d9e8ff;
+      box-shadow: 0 4px 14px rgba(70,130,180,0.15);
+    }
+
+    #compareBox {
+      width: 90%;
+      margin: 0 auto 20px;
+      padding: 10px;
+      background: #f5faff;
+      border: 2px dashed #a3c1ff;
+      border-radius: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(150,180,220,0.15);
+    }
+
+    .compare-chart {
+      width: 330px;
+      height: 200px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 6px;
+      font-size: 13px;
+    }
+
+    .chart-title {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }

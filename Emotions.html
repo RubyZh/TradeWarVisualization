@@ -12,6 +12,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/echarts@5"></script>
 	<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
 	
 	<head>
 		<title>Emotions</title>
@@ -19,6 +20,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<link rel="stylesheet" href="assets/css/flowriver.css">
+		<link rel="stylesheet" href="assets/css/emomap.css">
 	</head>
 	<body class="is-preload">
 
@@ -114,6 +116,22 @@
 									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit.</p>
 									
 									<h1>情绪地图</h1>
+									<script src="data/map_data.js"></script>
+									<script src="data/tooltip_emotions.js"></script>
+									<div id="emotionMapContainer" style="width: 100%; max-width: 1000px; height: 100%; height: 550px; margin: 50px;"></div>
+									<!-- <div id="compareBox" style="width: 100%; max-width: 1000px; height: 100%; height: 200px; margin: 50px;"></div> -->
+									<div id="compareBox"></div>
+									<div class="analysis-container">
+										<h2>The Emotions of News Reports on the US-China Trade War Show Certain Regional and Power Differences</h1>
+										<p>The emotions of news reports on the US-China trade war show certain regional and power differences. Countries geographically close to the United States and China, such as Canada, Mexico, Japan, and South Korea, tend to have more negative emotions. These countries are closely linked to the US and China in terms of economy, trade, and geopolitics, so they are more directly affected by the US-China trade war. Thus, their news reports reflect more worries and unease.</p>
+										<p>In the Americas, the US neighbors Canada and Mexico, because of their extensive trade relations with the US, have relatively negative emotions in their reports on the trade war. As an important US trading partner, Canada's economy is closely connected with that of the US. The uncertainty brought by trade friction has caused anxiety about potential economic risks in Canadian news reports.</p>
+										<p>In Asia, Japan and South Korea, as US allies and neighbors of China, also have relatively low emotions in their reports on the US-China trade war. These two countries have close trade relations with both the US and China in industries such as semiconductors and automobiles. The trade barriers and market uncertainty caused by the trade war have impacted their industrial development, leading to negative emotions in news reports.</p>
+										<p>In Europe, some economically powerful countries like Germany and France have relatively neutral to negative emotions. These countries have significant economic and political influence and are sensitive to changes in the global trade landscape. The impact of the US-China trade war on the global trading system has caused some concern in these countries' news reports. However, their own economic strength and diversified trading partners make their stance relatively neutral.</p>
+										<p>Countries far from the US and China, such as some in Africa and South America, have relatively neutral or even slightly positive emotions. These countries may be less directly affected by the US-China trade war, or may find new trade opportunities in the conflict, hence their relatively stable or slightly optimistic news report emotions. For instance, some African countries may increase exports of agricultural products or raw materials to other nations due to obstacles in US-China trade, thus showing relatively positive emotions.</p>
+										<p>In summary, countries closer to the US and China, as well as those with more influence in international affairs, often have more negative emotions in their news reports on the US-China trade war. This is closely related to the direct risks and potential impacts they face in the trade friction.</p>
+									</div>
+
+
 
 									<hr class="major" />
 									<h2>Take a closer look.</h2>
@@ -128,9 +146,14 @@
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula.</p>
 									
 									<div id="emotion-chart1" style="width: 100%; max-width: 1000px; height: 100%; height: 600px; margin: auto;"></div>
-									
+		
 									<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
+									<div id="mediaradar" style="width: 100%; max-width: 1000px; height: 100%; height: 550px; margin: 10px;"></div>
+									<div class="container">
+									<p>This radar chart illustrates the emotional distribution differences between "mainstream media" and "niche media" in their coverage of the US-China trade war. Niche media has a significantly higher proportion of neutral emotions than mainstream media, indicating more objective and fact-based content. In contrast, mainstream media tends to use more emotional expressions, particularly in terms of anger and fear, with its anger levels nearly reaching the maximum, reflecting more intense wording and a stronger emphasis on conflict intensity and risks. Both types of media show high levels of sadness, indicating shared concerns about economic and social impacts. However, mainstream media has slightly higher levels of disgust, possibly due to more condemnation of trade principle violations. On the other hand, niche media outperforms in surprise and joy emotions, focusing more on unexpected developments and positive outcomes.</p>
 
+									<p>Overall, mainstream media tends to highlight impacts and conflicts by emphasizing emotions such as fear, anger, and disgust. Conversely, niche media has more balanced and diverse emotional expressions, covering not only concerns about the situation but also highlighting positive developments and constructive progress, thus presenting a more neutral and constructive tone. If you need further analysis, such as combining these emotional distributions with specific topics, regional differences, or time-based evolution, or if you want to generate visualizations like word clouds or emotional trend curves, I can continue to assist.</p>
+								</div>
 								</section>
 
 						</div>
@@ -235,6 +258,8 @@
 			<script src="assets/js/flowriver.js"></script>
 			<script src="assets/js/tariff.js"></script>
 			<script src="assets/js/tariff-emotion.js"></script>
+			<script src="assets/js/emomap.js"></script>
+			<script src="assets/js/radar.js"></script>
 			
 	</body>
 </html>
