@@ -50,7 +50,7 @@
           }],
           yAxis: [{
             type: 'value',
-            name: 'Number of News Articles'
+            name: 'Number of News'
           }],
           series: json.data
         });
