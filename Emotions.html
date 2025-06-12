@@ -50,12 +50,10 @@
 									</header>
 
 									<hr class="major" />
-									<h2>Emotion Analysis</h2>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit.</p>
+									<h2>Emotional Trends and Corresponding Events</h2>
 									
-									<h1>情绪河流图</h1>
 									<div id="emotion_river" style="width: 100%; max-width: 1000px; height: 100%; height: 600px;"></div>
-									<h2>1. Emotional Trends and Corresponding Events</h2>
+									
 
 									<h3>Early Stage (Early January – Early February)</h3>
 									<p>
@@ -89,7 +87,7 @@
 
 									<hr class="major" />
 
-									<h2>2. News Volume and Event Correlation</h2>
+									<h2>News Volume and Event Correlation</h2>
 
 									<p>
 									From mid-January to early February, the number of news articles began to rise following Trump's inauguration and the announcement of new trade policies. This surge reflected heightened media interest in analyzing policy details, public reactions, and possible impacts.
@@ -112,10 +110,8 @@
 									<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
 									
 									<hr class="major" />
-									<h2>Emotion Analysis</h2>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit.</p>
+									<h2>Geographical distribution</h2>
 									
-									<h1>情绪地图</h1>
 									<script src="data/map_data.js"></script>
 									<script src="data/tooltip_emotions.js"></script>
 									<div style="display: flex; align-items: flex-start; justify-content: center;">
@@ -124,7 +120,7 @@
 										<!-- <div id="compareBox" style="width: 100%; max-width: 1000px; height: 100%; height: 200px; margin: 50px;"></div> -->
 										<div id="compareBox"></div>
 									<div class="analysis-container">
-										<h2>The Emotions of News Reports on the US-China Trade War Show Certain Regional and Power Differences</h1>
+										<h4>The Emotions of News Reports on the US-China Trade War Show Certain Regional and Power Differences</h4>
 										<p>The emotions of news reports on the US-China trade war show certain regional and power differences. Countries geographically close to the United States and China, such as Canada, Mexico, Japan, and South Korea, tend to have more negative emotions. These countries are closely linked to the US and China in terms of economy, trade, and geopolitics, so they are more directly affected by the US-China trade war. Thus, their news reports reflect more worries and unease.</p>
 										<p>In the Americas, the US neighbors Canada and Mexico, because of their extensive trade relations with the US, have relatively negative emotions in their reports on the trade war. As an important US trading partner, Canada's economy is closely connected with that of the US. The uncertainty brought by trade friction has caused anxiety about potential economic risks in Canadian news reports.</p>
 										<p>In Asia, Japan and South Korea, as US allies and neighbors of China, also have relatively low emotions in their reports on the US-China trade war. These two countries have close trade relations with both the US and China in industries such as semiconductors and automobiles. The trade barriers and market uncertainty caused by the trade war have impacted their industrial development, leading to negative emotions in news reports.</p>
@@ -137,19 +133,61 @@
 
 									<hr class="major" />
 									<h2>Take a closer look.</h2>
-									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit.</p>
+									<p>The emotional characteristics reflected in news media reports are not only influenced by temporal and spatial factors, but also closely related to the position and social context of the reporting source country. In the previously generated geographical distribution map of emotions, although the proportion of different emotions in news reports of various countries can be initially observed, this map is difficult to support two key comparisons:</p>
+									<ol>
+										<li>The proportion comparison among different emotions, that is, which type of emotion is more common in the overall report.</li>
+										<li>The distribution of the same type of sentiment in different countries, that is, which country's news is more likely to reflect a certain specific sentiment.</li>
+									</ol>
+									<p>To address this visualization deficiency, we selected countries with a total of no less than 10 news reports and drew Sankey diagrams based on their sentiment classification results to dynamically display the flow and structural distribution of news sentiment in each country.</p>
+																		
 									<div style="display: flex; align-items: flex-start; justify-content: center;">
 										<div id="emotion-chart0" style="width: 100%; max-width: 1000px; height: 100%; height: 900px; margin: auto;"></div>
 									</div>									
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
+									
+									<p>It can be clearly seen from the Sankey chart that among all the emotion labels, the most frequently occurring emotion types are neutral, fear and anger. However, the proportions of emotional tags such as sadness, disgust, joy and surprise are relatively low.</p>
+									<p>This result reflects that when global media are confronted with the trade war, an event full of uncertainties and economic risks, their emotional expressions tend to be more cautious, anxious or even hostile, while relatively positive emotions such as "joy" only occur in specific contexts. Meanwhile, the Sankey chart also effectively shows which countries each sentiment mainly originates from, thereby revealing the differences in media positions and public sentiment responses in the context of geopolitics.</p>
+									<p>It is worth further analysis that even reports marked as the same emotion may convey completely different positions and semantic motivations behind them. Take joy, a relatively rare emotion, as an example. Its main source countries include the United States, Canada and China, but the semantic background behind the emotion varies significantly:</p>
+
+									<h4>The United States</h4>
+									<blockquote>
+										“This will be the golden age of America! Will there be some pain? Yes, maybe (and maybe not!). But we will make America great again, and it will all be worth the price that must be paid,” Trump said via his Truth Social media platform.<br>
+										Reported by Boston Herald
+									</blockquote>
+									<p>Evidently, this type of "joy" emotion mainly stems from a kind of confident expression in the style of nationalism or economic nationalism.</p>
+
+									<h4>Canada</h4>
+									<blockquote>
+										The former prime ministers say there has been a “surge” in Canadian pride and patriotism in the face of Trump’s tariff threats. In their statement, the former prime ministers say Canadians have come together to “express their love” for the country and “their determination to defend Canada’s values and independence.”<br>
+										Reported by Canadian Press
+									</blockquote>
+									<p>In this context, joy is more reflected as the sentiment of national unity and the cohesion formed under external pressure.</p>
+
+									<h4>China</h4>
+									<blockquote>
+										The former prime ministers say there has been a “surge” in Canadian pride and patriotism in the face of Trump’s tariff threats. In their statement, the former prime ministers say Canadians have come together to “express their love” for the country and “their determination to defend Canada’s values and independence.”<br>
+										Reported by South China Morning Post
+									</blockquote>
+									<p>This type of joy sentiment is more inclined towards the positive expectations and signals of international support formed under diplomatic cooperation.</p>
+									<p>It can thus be seen that even under the same emotional tags, the positions, expressions and semantic motivations reflected in news reports of different countries vary significantly. Therefore, when conducting sentiment analysis, one should not rely solely on the labels themselves but also make a comprehensive judgment in combination with the specific context, event background and the political stance of the country.</p>
 
 									<hr class="major" />
 									<h2>Are these results consistent with international relations?</h2>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula.</p>
+									<p>Although in the Sankey chart we can observe the distribution of emotions in news reports of different countries, this visualization method is difficult to reveal the correlation between media emotional tendencies and the foreign relations of the country. To further analyze the potential connection between the political positions among countries and their media sentiment expressions, we introduced a dataset of "Ideal Point" estimates of the member states of the United Nations General Assembly to measure the position tendencies of each country in diplomatic voting.</p>
+									<p>This dataset covers the voting records of the 1st to 77th sessions of the United Nations General Assembly from 1946 to 2023. The ideal point estimation method is based on the following academic research:</p>
+									<blockquote>Bailey, Michael A., Anton Strezhnev, and Erik Voeten.Estimating dynamic state preferences from United Nations voting data.Journal of Conflict Resolution 61, no. 2 (2017): 430–456.</blockquote>
+									<p>Under this method, researchers calculate the "ideal point" (i.e., position proximity) valuation that aligns the stance of each country with that of the United States or China based on the voting behavior of each country in each session of the United Nations General Assembly. To measure a country's overall diplomatic stance, we averaged the scores of each country's consent to the United States and consent to China during the covered period, using them as quantitative indicators of the country's relations with China and the United States.</p>
+									<p>In addition, to facilitate the distinction of national stance tendencies, we color-code the parallel lines: the ratio of "ChinaAgree" to "USAgree" of each country is color-coded accordingly. The larger the ratio, the closer it is to red, and the smaller the ratio, the closer it is to blue. This is used to indicate whether a country is more inclined to be in line with China or the United States in the UN voting.</p>
+
 									<div style="display: flex; align-items: flex-start; justify-content: center;">
 										<div id="emotion-chart1" style="width: 100%; max-width: 1000px; height: 100%; height: 600px; margin: auto;"></div>
 									</div>
-									<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
+									<p>Firstly, in the UN voting, the number of countries with a diplomatic stance more inclined towards China (ChinaAgree > USAgree) is relatively large, but the corresponding number of news reports is generally low, especially in the seven types of emotional tags, which mostly show a low-frequency distribution. This might reflect that the media in these countries pay less attention to the Sino-US trade war, or that the media voices of such countries have not been fully captured due to the limitations of data sources.</p>
+									<p>Secondly, the number of countries whose diplomatic stance is more inclined towards the United States (USAgree > ChinaAgree) is slightly smaller, but the activity level of their news reporting is significantly higher. Especially in terms of emotional tendencies, the proportion of negative emotions such as "anger" and "fear" in the media of such countries is higher. This indicates that these countries often regard the Sino-US trade war as the focal event of geopolitical conflicts. In their reports, they tend to highlight confrontation and uncertainty more, thereby triggering stronger emotional expressions.</p>
+									<p>Further analysis also reveals that the reporting sentiment of pro-American countries is mostly concentrated between "neutrality" and "fear", which may reflect that although their media retain a certain degree of objectivity in narration, they reinforce the cognitive framework of situation risks and future uncertainties in the context. Pro-china countries, on the other hand, may tend to adopt cautious expressions or strategic evasive reporting methods, making the overall emotional distribution more concentrated or neutral.</p>
+									<p>To sum up, the parallel coordinate graph reveals an enlightening conclusion: the media's expression of reporting emotions is not completely neutral or independent, but is significantly correlated with the country's international political stance. This coupling relationship between emotions and positions provides an observation window for us to further understand the interaction mechanism between information dissemination and foreign policy.</p>
+
+									<hr class="major" />
+									<h2>Is there any difference between mainstream media and niche media?</h2>
 									<div style="display: flex; align-items: flex-start; justify-content: center;">
 										<div id="mediaradar" style="width: 100%; max-width: 1000px; height: 100%; height: 550px; margin: 10px;"></div>
 									</div>
