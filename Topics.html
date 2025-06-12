@@ -10,11 +10,21 @@
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@6.1.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.29.0"></script>
 	<link rel="stylesheet" href="assets/css/slider.css" />
+
 	<head>
 		<title>Topics</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/wordcloud.css">
+		  <!-- 外部库 -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.1.1/wordcloud2.min.js"></script>
+
+		<!-- 数据文件（必须提前引入） -->
+		<script src="assets/js/top150_keywords.js"></script>
+		<script src="assets/js/top100_keywords_cn.js"></script>
+		<script src="assets/js/top100_keywords_us.js"></script>
+		<script src="assets/js/top100_keywords_in.js"></script>
 	</head>
 	<body class="is-preload">
 
@@ -57,9 +67,60 @@
 									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit.</p>
 									
 									<h1>词云图</h1>
-									
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
 
+									<!-- Outer container wrapping both sidebar and main area -->
+									<div class="layout">
+									<!-- Main container -->
+									<div id="container">
+										<h2 id="title">News Keywords</h2>
+										<canvas id="wordcloudCanvas"></canvas>
+										<div id="tooltip"></div>
+									</div>
+									<!-- Sidebar -->
+									<div id="sidebar2">
+										<h3>Select Dataset</h3>
+										<button data-source="top150" data-title="Global News Keywords">Global News Keywords</button>
+										<button data-source="top100_cn" data-title="China News Keywords">China News Keywords</button>
+										<button data-source="top100_us" data-title="US News Keywords">US News Keywords</button>
+										<button data-source="top100_in" data-title="India News Keywords">India News Keywords</button>
+										<hr style="margin: 10px 0;">
+										<button id="downloadBtn" style="background: #28a745;">Export as PNG Image</button>
+									</div>
+
+									</div>
+									<section>
+										<h2>Chinese News Word Cloud</h2>
+										<p>
+										In the Chinese news word cloud, words such as "trade," "tariffs," and "trade war" stand out, indicating a strong focus on trade frictions between China and the United States and specific U.S. tariff measures. These are the core topics in the reports. Additionally, high-frequency words like "China," "United States," "Trump," and "Donald Trump" show that Chinese media emphasize the roles and actions of both countries and the U.S. president at the time. Words like "foreign ministry" and "response" suggest that Chinese reports highlight official government responses, including opposition and countermeasures. Other terms such as "economy" and "billion" reflect attention on the economic impact and losses from the trade war.
+										</p>
+									</section>
+									<section>
+										<h2>U.S. News Word Cloud</h2>
+										<p>
+										In the U.S. news word cloud, words such as "United States," "tariffs," and "trade" are prominent, showing that American media largely report from the perspective of U.S. interests and trade policy, focusing on tariffs imposed on China and their domestic economic impact. Terms like "imports," "exports," and "America" highlight concerns about trade imbalances and Chinese exports. Mentions of "Canada," "Mexico," and "European Union" suggest coverage of how the trade war affects U.S. allies and the global trade system. Words like "Congress" and "White House" reveal discussions on domestic political reactions and decisions related to the trade war.
+										</p>
+									</section>
+
+									<section>
+										<h2>Indian News Word Cloud</h2>
+										<p>
+										The Indian news word cloud highlights terms like "China," "United States," "India," and "Trump," indicating that Indian media focus on both major powers in the trade war and its implications for India's position and interests. Words such as "trade," "tariffs," and "economic" show attention to the trade and economic consequences for India. The presence of terms like "Asia" and "world" reflects awareness of regional and global effects and India’s potential role and opportunities.
+										</p>
+									</section>
+
+									<section>
+										<h2>Global News Word Cloud</h2>
+										<p>
+										The global news word cloud features key terms like "China," "United States," "Trump," "tariffs," and "trade," highlighting the focus on the core participants and issues in the U.S.-China trade war, particularly the tariffs imposed by the Trump administration. Words such as "global," "world," "economy," and "markets" indicate the worldwide concern about economic growth, market stability, and the impact on international trade. Mentions of "Canada," "Mexico," and "European Union" show that global media also report on the reactions and positions of various countries and international organizations.
+										</p>
+									</section>
+
+									<section>
+										<h2>Summary</h2>
+										<p>
+										Across all four word clouds, "China," "United States," "trade," and "tariffs" are consistently highlighted, confirming that the core focus of media reports is the trade conflict between the two countries. Additionally, the presence of words like "world," "global," and "economy" in all datasets indicates a shared understanding among international media of the trade war's broad and global impact. Nevertheless, differences in emphasis exist: Chinese media stress official responses and government positions; U.S. media focus on national interests and policies; Indian media emphasize India’s role and interests; and global media take a more multilateral view, covering the trade war’s impact on global trade relations and international reactions.
+										</p>
+									</section>
 								</section>
 
 						</div>
@@ -161,6 +222,7 @@
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/topics.js"></script>
 			<script src="assets/js/relations.js"></script>
+			<script src="assets/js/wordcloud.js"></script>
 
 	</body>
 </html>

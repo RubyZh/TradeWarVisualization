@@ -1,0 +1,99 @@
+    /* body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: linear-gradient(145deg, #e6f0ff, #ffffff);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      gap: 30px;
+      padding: 40px;
+      box-sizing: border-box;
+    } */
+    #container {
+      width: 800px;
+      background: linear-gradient(135deg, rgba(173, 216, 230, 0.3), rgba(135, 206, 250, 0.3));
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      box-sizing: border-box;
+      position: relative;
+    }
+    canvas {
+      width: 100% !important;
+      height: 600px !important;
+      border-radius: 16px;
+      display: block;
+    }
+    #tooltip {
+      position: fixed;
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      padding: 10px 14px;
+      font-size: 14px;
+      border-radius: 6px;
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.2s ease;
+      z-index: 999;
+    }
+    #tooltip.visible {
+      opacity: 1;
+    }
+    /* #sidebar2 {
+      width: 300px;
+      background: #f0f8ff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    } */
+     #sidebar2 {
+        width: 300px;
+        background: #f0f8ff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        padding: 20px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;          /* 水平文字居中 */
+        justify-content: center;     /* 垂直居中内容 */
+        height: 100%;                /* 高度填满父容器 */
+    }
+
+    #sidebar2 h3 {
+      margin: 0 0 10px 0;
+      font-size: 20px;
+      color: #007bff;
+      text-align: center;
+      justify-content: center;     /* 垂直居中内容 */
+    }
+    #sidebar2 button {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      justify-content: center;     /* 垂直居中内容 */
+    }
+    #sidebar2 button:hover {
+      background-color: #0056b3;
+    }
+    .layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px;
+    }
