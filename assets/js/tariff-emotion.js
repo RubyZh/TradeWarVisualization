@@ -893,15 +893,12 @@ const option = {
   ],
   grid: [
     {
-      left: 60,
-      right: 40,
-      height: '35%'
+      top: '12%',
+      height: '20%',
     },
     {
-      left: 60,
-      right: 40,
-      top: '55%',
-      height: '35%'
+      top: '40%',
+      height: '20%'
     }
   ],
   xAxis: [
@@ -923,8 +920,7 @@ const option = {
     {
       name: 'Tariff Rate (%)',
       type: 'value',
-      min: 0,
-      max: 30
+      min: 0
     },
     {
       gridIndex: 1,
@@ -1014,12 +1010,15 @@ const option = {
     {
       type: 'pie',
       id: 'emotion-pie',
-      radius: '30%',
-      center: ['50%', '85%'],
+      radius: '25%',
+      center: ['50%', '80%'],
       label: {
         formatter: '{b}: {c} ({d}%)'
       },
-      data: []
+      data: Object.keys(emotionData).filter(key => key !== 'dates').map(emotion => ({
+        name: emotion,
+        value: emotionData[emotion].reduce((sum, item) => sum + item[1], 0) // Sum of all counts for the emotion
+      })),
     }
   ]
 };
