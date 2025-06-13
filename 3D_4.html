@@ -1,0 +1,318 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>National News Basic Information Analysis Panel</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo">China-US <strong>Trade war</strong></a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>National News Basic Information Analysis Panel</h1>
+									</header>
+
+									<!-- Content -->
+									 <header class="major">
+										<h2 id="content">Introduction</h2>
+										</header>
+										<p>This feature module allows users to quickly generate a news statistics panel for any selected country within the current time period.</p>
+										<p>When the user points the right joystick at the target country and presses the A button, the system will dynamically create and display the country analysis UI.</p>
+										<p>The analysis results include the number of news items in the country, primary media sources, keyword clustering results, Top 2 sentiment tags, and emoji expressions. Additionally, based on the country's proximity to the US-China stance in UN votes, its inclination is represented through the color of the country name on the panel.</p>
+										<p>To avoid redundant analysis, the system limits each country to generating an analysis panel only once within the same time period. If a user wishes to close a panel, simply select it using the left joystick and press the X button to delete it.</p>
+										<hr class="major" />
+									<header class="major">
+									<h2 id="content">Effect Demonstration</h2>
+									</header>
+									<span class="image object">
+  										<video width="100%" controls poster="images/3_pic_1.jpg" autoplay muted loop playsinline>
+    										<source src="videos/3_nation.mp4" type="video/mp4">
+   											 <!-- 备用提示 -->
+    										您的浏览器不支持视频播放
+  										</video>
+									</span>
+									
+									<hr class="major" />
+									<header class="major">
+									<h2 id="content">Core Design</h2>
+									</header>
+									<!-- Break -->
+<div class="row">
+    <div class="col-6 col-12-small">
+        <h3>Country analysis panel generation trigger logic</h3>
+        <p>The right joystick primaryButton detects the A key, combines selectedCountryIndex with the current startTime-endTime, and constructs a unique key value panelKey to determine whether to generate a duplicate.<br>
+			If not generated, instantiate the CountryAnalysisUI panel and add it to activeAnalysisWindows.</p>
+	</div>
+    <div class="col-6 col-12-small">
+        <h3>Position bias analysis and country color mapping</h3>
+        <p>Use the fields ChinaAgree and USAgree to calculate the “difference index” of the country's stance on US-China relations, and map the title font color accordingly to enhance visual recognition.</p>
+    </div>
+	<h3>Keyword Clustering Service</h3>
+    <p>Automatically collect keyword fields (Key1–Key15) from all news entries, remove stop words, and pass them to the local FastAPI clustering service (/cluster_keywords). The service returns key aggregated terms and displays them separated by “/”.</p>
+<h4>Users must run the corresponding Python script before using this service.</h4>
+<h4>Example command : <code>uvicorn unity_key:app --host 127.0.0.1 --port 8000</code></h4>
+<p><a href="https://github.com/RubyZh/TradeWarVisualization/tree/main/preprocessing/unity_getKeyword.py">https://github.com/RubyZh/TradeWarVisualization/tree/main/preprocessing/unity_getKeyword.py</a></p>		
+</div>
+
+
+									<hr class="major" />
+									<header class="major">
+									<h2 id="content">UI Notes</h2>
+									</header>
+																		<div class="row gtr-200">
+<div class="col-6 col-12-medium">
+    <dl>
+        <h4>Right Handle Country Interaction Trigger</h4>
+        <dd>
+            <p>Press the <code>A</code> key when the ray highlights a country to trigger the creation of that country's panel. Visual feedback includes the 3D Earth highlighting the country in red and the UI panel dynamically appearing.</p>
+        </dd>
+        
+        <h4>Left/Right Controller Drag-and-Drop Placement</h4>
+        <dd>
+            <p>Users can place analysis panels in any spatial area for convenient comparison and analysis of multiple panels.</p>
+        </dd>
+        
+        <h4>Left Controller Ray + X Button Interaction</h4>
+        <dd>
+            <p>Users can close any analysis panel. Point the ray at any area of the panel and press the <code>X</code> button to destroy the current panel and remove the record from the list.</p>
+        </dd>
+    </dl>
+</div>
+<div class="col-6 col-12-medium">
+	<h3>Country Panel Field Description</h3>
+
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th>Control</th>
+                <th>Content</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>titleText</code></td>
+                <td>Country name (color indicates stance on China-US affairs: red = pro-China, blue = pro-US)</td>
+            </tr>
+            <tr>
+                <td><code>contentText</code></td>
+                <td>Total number of news articles</td>
+            </tr>
+            <tr>
+                <td><code>timeRangeText</code></td>
+                <td>Current time filter range</td>
+            </tr>
+            <tr>
+                <td><code>source1-3Text</code></td>
+                <td>Top news sources and their credibility rank</td>
+            </tr>
+            <tr>
+                <td><code>keywordsText</code></td>
+                <td>Display of clustered keywords</td>
+            </tr>
+            <tr>
+                <td><code>emojie1/2</code></td>
+                <td>Icons representing the country's dominant emotional tones</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+</div>
+<hr class="major" />				<header class="major">				
+									<h2 id="content">Case Study</h2></header>	
+									<h3>Emotional Patterns of Countries in Different Camps</h3>
+									<p>By creating multiple national news basic information analysis panels and dragging and dropping them for analysis, we identified two distinct emotional combination patterns:</p>
+									<div class="row">
+														<div class="col-6 col-12-small">
+
+															<div class="box">
+														<p>Countries in the camp that align more closely with the US position on international affairs (i.e., USAgree is higher than ChinaAgree) have news with a primary emotion of neutrality, followed by fear.</p>
+													</div>
+														</div>
+														<div class="col-6 col-12-small">
+															<div class="box">
+														<p>Countries aligned with China in international affairs also exhibit neutrality as the primary emotion, but the secondary emotion is anger.</p>
+													</div>
+														</div>
+									</div>
+									<h4>We can observe : </h4>
+									<div class="row">
+										<div class="col-6 col-12-small">
+											<p>Countries leaning toward the United States tend to approach news objectively and neutrally, expressing “fear” regarding uncertainties related to US-China trade, reflecting concerns about potential impacts on the economy and global order, and placing greater emphasis on economic volatility and risk warnings. In contrast, countries leaning toward China or the neutral camp also adopt a “neutral” tone as the primary reporting style, but express stronger “anger” toward countermeasures (such as tariff adjustments), showing empathy for the confrontational attitude toward U.S. policies, and emphasizing national dignity, institutional conflicts, and reciprocal responses.</p>
+										</div>
+										<div class="col-6 col-12-small">
+											<span class="image fit"><img src="images/3_pic_2.jpg" alt="" /></span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-6 col-12-small">
+											<span class="image fit"><img src="images/3_pic_3.jpg" alt="" /></span>
+										</div>
+										<div class="col-6 col-12-small">
+											<p>Additionally, through keyword extraction and display of news from countries aligned with the U.S. stance in the panel, we find: France's keywords include “avoid,” and the UK's include phrases like “amid ongoing,” reflecting that some media outlets tend to soften the tone of conflict, calling for the resumption of negotiations or avoiding escalation; Canada focuses on “industry,” and France focuses on “critical minerals,” “Russian LNG,” and “crude oil,” indicating that all countries are vigilant about the potential impact of US-China friction on their own energy, mineral, and industrial supply chains.</p>
+										</div>
+										
+									</div>
+									
+			
+
+									<hr class="major" />
+
+													<ul class="pagination">
+														<li><a href="3D_3.html" class="button" >Prev</a></li>
+														<li><span>&hellip;</span></li>
+														<li><a href="3D_3.html" class="page">3</a></li>
+														<li><a href="3D_4.html" class="page active">4</a></li>
+														<li><a href="3D_5.html" class="page">5</a></li>
+														<li><a href="3D_6.html" class="page">6</a></li>
+														<li><a href="3D_7.html" class="page">7</a></li>
+														<li><a href="3D_8.html" class="page">8</a></li>
+														<li><a href="3D_4.html" class="button">Next</a></li>
+													</ul>
+									<style>
+										.pagination {
+    									text-align: center;
+    									padding: 0;
+    									list-style: none;
+  										}
+  										.pagination li {
+   										display: inline-block;
+    									margin: 0 2px;
+  										}
+									</style>
+
+								</section>
+
+						</div>
+					</div>
+
+			<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="DataPreprocess.html">Data preprocess</a></li>
+										<li><a href="Timeline.html">Timeline</a></li>
+										<li>
+											<span class="opener">Media Report</span>
+											<ul>
+												<li><a href="Topics.html">Topics</a></li>
+												<li><a href="Emotions.html">Emotions</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">3D Visualization</span>
+											<ul>
+												<li><a href="3D_0.html">Overview</a></li>
+												<li><a href="3D_1.html">Data Import and Time Filtering</a></li>
+												<li><a href="3D_2.html">Topic Heat Map</a></li>
+												<li><a href="3D_3.html">Important Event Timeline and Daily News Sentiment Analysis</a></li>
+												<li><a href="3D_4.html">National News Basic Information Analysis Panel</a></li>
+												<li><a href="3D_5.html">National News Sentiment Dynamics Analysis</a></li>
+												<li><a href="3D_6.html">News Summary Dynamic Carousel and Assisted Reading</a></li>
+												<li><a href="3D_7.html">Tax</a></li>
+												<li><a href="3D_8.html">VR Hardware Exploration Section</a></li>
+											</ul>
+										</li>
+										<li><a href="#">Summary</a></li>
+									</ul>
+								</nav>
+								
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Ante interdum</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
+										<li class="icon solid fa-phone">(000) 000-0000</li>
+										<li class="icon solid fa-home">1234 Somewhere Road #8254<br />
+										Nashville, TN 00000-0000</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

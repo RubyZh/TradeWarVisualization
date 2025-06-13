@@ -1,0 +1,928 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+        <section id="mainpage">
+		<title>关税数据可视化系统</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="#" class="logo"><strong>关税数据可视化</strong>系统</a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-chart-line"><span class="label">数据图表</span></a></li>
+										<li><a href="#" class="icon solid fa-file-alt"><span class="label">文档</span></a></li>
+										<li><a href="#" class="icon solid fa-video"><span class="label">视频</span></a></li>
+									</ul>
+								</header>
+
+							<!-- 关税数据可视化图表生成 -->
+							<section id="chart-generation">
+								<header class="main">
+									<h1>关税数据可视化图表生成</h1>
+								</header>
+								
+								<!-- 介绍 -->
+                                <section id="function1">
+								<h2>功能介绍</h2>
+								<p>该功能使用自动生成的三维可视化图表来展示从1月到5月的16个重要时间节点的中美贸易战中关税变化，包括：
+								中国对其他国家出口贸易的关税变化、美国对其他国家出口贸易的关税变化、中国对美国出口贸易的关税变化和美国对中国出口贸易的关税变化。</p>
+								
+								<!-- 效果展示图片 -->
+								<h3>图表效果展示</h3>
+								<div class="row gtr-50">
+									<div class="col-8 col-12-small">
+										<span class="image fit"><img src="vrimage/1.png" alt="关税数据三维可视化图表" style="width: 100%; height: auto;"/></span>
+									</div>
+									<div class="col-4 col-12-small">
+										<h4>图表特点</h4>
+										<ul>
+											<li>三维动态展示</li>
+											<li>多维度数据对比</li>
+											<li>时间节点交互</li>
+											<li>实时数据更新</li>
+										</ul>
+									</div>
+								</div>
+								
+								<!-- 效果展示视频 -->
+								<h3>动态效果演示</h3>
+								<div class="video-container">
+									<video width="100%" controls autoplay muted loop playsinline>
+										<source src="videos/6_tax.mp4" type="video/mp4">
+										您的浏览器不支持视频播放
+									</video>
+								</div>
+								
+								<!-- 核心设计 -->
+								<hr class="major" />
+                                <section id="design1">
+								<h2>核心设计</h2>
+								<p>基于Unity平台开发，使用3D Interactive Barchart插件实现三维柱状图可视化，主要流程如下：</p>
+								
+								<!-- 步骤列表与图片布局优化 -->
+								<div class="row gtr-50">
+									<div class="col-6 col-12-small">
+										<ol>
+											<li>在Unity Asset Store下载3D Interactive Barchart并导入项目</li>
+											<li>通过viitorCloud创建图表并配置外观</li>
+											<li>设置Graph Ref为Bar Graph Manager</li>
+											<li>在脚本中添加图表数据结构</li>
+											<li>选择动态生成方式（one by one/all together）或静态生成</li>
+										</ol>
+									</div>
+									<div class="col-6 col-12-small">
+										<div class="row gtr-25">
+											<div class="col-6 col-12-xsmall">
+												<span class="image fit"><img src="vrimage/2.png" alt="Unity编辑器配置" style="width: 70%; height: auto;"/></span>
+											</div>
+											<div class="col-6 col-12-xsmall">
+												<span class="image fit"><img src="vrimage/3.png" alt="图表外观设置" style="width: 95%; height: auto;"/></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<!-- 脚本逻辑架构 -->
+								<h3>脚本逻辑架构</h3>
+								<table class="alt">
+									<thead>
+										<tr>
+											<th>脚本名称</th>
+											<th>核心功能</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>BarGroup.cs</td>
+											<td>柱状图组容器，管理一组柱状图对象</td>
+										</tr>
+										<tr>
+											<td>BarGraphGenerator.cs</td>
+											<td>数据解析与图表生成核心控制器</td>
+										</tr>
+										<tr>
+											<td>BarGraphManager.cs</td>
+											<td>柱状图渲染与动画效果管理</td>
+										</tr>
+										<tr>
+											<td>BarMouseClick.cs</td>
+											<td>鼠标交互事件处理（点击/悬停）</td>
+										</tr>
+										<tr>
+											<td>BarProperty.cs</td>
+											<td>单个柱状图的属性与行为管理</td>
+										</tr>
+									</tbody>
+								</table>
+								
+								<!-- 脚本详细说明 -->
+								<div class="box">
+									<h3>脚本详细功能说明</h3>
+									
+									<h4>1. BarGroup.cs</h4>
+									<p>定义柱状图中的一个"组"，用于组织相关的柱状图：</p>
+									<ul>
+										<li><strong>功能</strong>：作为容器管理一组柱状图对象</li>
+										<li><strong>实现</strong>：
+											<ul>
+												<li>维护一个GameObject列表ListOfBar，存储该组中的所有柱状图</li>
+												<li>在Awake生命周期方法中初始化列表</li>
+											</ul>
+										</li>
+									</ul>
+									
+									<h4>2. BarGraphGenerator.cs</h4>
+									<p>整个柱状图系统的核心控制器：</p>
+									<ul>
+										<li><strong>功能</strong>：
+											<ul>
+												<li>处理数据输入和解析</li>
+												<li>控制柱状图的生成和动画</li>
+												<li>管理图表的整体设置和属性</li>
+												<li>提供事件回调系统，处理用户交互</li>
+											</ul>
+										</li>
+										<li><strong>实现</strong>：
+											<ul>
+												<li>定义数据集结构BarGraphDataSet和XYBarValues</li>
+												<li>提供多种动画类型：无动画、逐个显示、一起显示、渐变动画</li>
+												<li>支持多种颜色设置：纯色、自定义材质、高度渐变</li>
+												<li>通过GeneratBarGraph方法接收数据并开始生成图表</li>
+												<li>实现数据验证和范围计算</li>
+												<li>通过事件系统（UnityEvent）处理用户交互</li>
+											</ul>
+										</li>
+									</ul>
+									
+									<h4>3. BarGraphManager.cs</h4>
+									<p>负责实际的柱状图渲染和管理：</p>
+									<ul>
+										<li><strong>功能</strong>：
+											<ul>
+												<li>初始化图表结构和坐标轴</li>
+												<li>生成和管理柱状图对象</li>
+												<li>处理柱状图的动画效果</li>
+												<li>更新和修改已生成的图表</li>
+											</ul>
+										</li>
+										<li><strong>实现</strong>：
+											<ul>
+												<li>继承自GraphBox基类，扩展柱状图特定功能</li>
+												<li>提供三种动画类型实现：逐个生成、一起生成、颜色渐变动画</li>
+												<li>管理柱状图的颜色、材质和标签</li>
+												<li>处理柱状图高度的更新和修改</li>
+												<li>实现坐标轴标签的管理</li>
+											</ul>
+										</li>
+									</ul>
+									
+									<h4>4. BarMouseClick.cs</h4>
+									<p>处理柱状图的鼠标交互：</p>
+									<ul>
+										<li><strong>功能</strong>：
+											<ul>
+												<li>检测鼠标点击、悬停等交互事件</li>
+												<li>提供视觉反馈（如缩放和高亮）</li>
+												<li>通过委托机制传递事件给上层组件</li>
+											</ul>
+										</li>
+										<li><strong>实现</strong>：
+											<ul>
+												<li>使用Unity的鼠标事件系统（OnMouseDown, OnMouseUp等）</li>
+												<li>交互时调整柱状图的缩放比例</li>
+												<li>使用Outline组件实现高亮效果</li>
+												<li>通过Action委托传递事件给BarProperty组件</li>
+											</ul>
+										</li>
+									</ul>
+									
+									<h4>5. BarProperty.cs</h4>
+									<p>管理单个柱状图的属性和行为：</p>
+									<ul>
+										<li><strong>功能</strong>：
+											<ul>
+												<li>控制柱状图的颜色和材质</li>
+												<li>管理柱状图的数值标签</li>
+												<li>处理鼠标交互事件</li>
+											</ul>
+										</li>
+										<li><strong>实现</strong>：
+											<ul>
+												<li>通过BarMouseClick组件处理交互事件</li>
+												<li>根据柱状图高度动态调整标签大小</li>
+												<li>提供设置颜色、材质和标签的方法</li>
+												<li>管理标签容器的可见性和缩放</li>
+											</ul>
+										</li>
+									</ul>
+									
+									<h4>6. 组件协作流程</h4>
+									<p>柱状图系统的工作流程大致如下：</p>
+									<ol>
+										<li><strong>数据准备</strong>：准备数据并通过BarGraphGenerator的GeneratBarGraph方法传入</li>
+										<li><strong>图表初始化</strong>：BarGraphGenerator解析数据，计算范围，并初始化BarGraphManager</li>
+										<li><strong>坐标轴创建</strong>：BarGraphManager创建图表框架和坐标轴</li>
+										<li><strong>柱状图生成</strong>：根据设置的动画类型，BarGraphManager生成并动画化柱状图</li>
+										<li><strong>交互处理</strong>：通过鼠标与柱状图交互，事件通过BarMouseClick和BarProperty传递到BarGraphGenerator</li>
+										<li><strong>数据更新</strong>：动态更新柱状图的高度和其他属性</li>
+									</ol>
+								</div>
+								
+								<!-- 核心代码 -->
+								<hr class="major" />
+                                <section id="code1">
+								<h2>核心代码解释</h2>
+								<h3>数据结构定义</h3>
+                                <p>数据结构的定义和图表初始化过程</p>
+								<pre><code>[Serializable]
+public class BarGraphDataSet
+{
+    public string GroupName = "groupname";
+    public Color barColor;
+    public Material barMaterial;
+    public List&lt;XYBarValues&gt; ListOfBars;
+}
+
+[Serializable]
+public class XYBarValues
+{
+    public string XValue; // 时间节点标签
+    public float YValue = 0; // 关税数值
+}</code></pre>
+<p>这些数据结构定义了柱状图的基本数据单元。每个BarGraphDataSet代表一组相关的柱状图，而XYBarValues则表示单个柱状图的 X 轴标签和 Y 轴数值。</p>
+
+								<h3>图表生成核心方法</h3>
+                                <p>图表生成的入口点是BarGraphGenerator类中的GeneratBarGraph方法</p>
+								<pre><code>public void GeneratBarGraph(List&lt;BarGraphDataSet&gt; dataSet)
+{
+    if (dataSet == null) return;
+
+    ListOfDataSet = dataSet;
+    xMaxSize = dataSet[0].ListOfBars.Count; // X轴时间节点数
+    yMaxSize = MaxHeight; // Y轴最大高度
+    zMaxSize = dataSet.Count; // Z轴数据集数量
+
+    InitializeGraph(); // 初始化图表
+    AssignGraphAxisName(); // 设置坐标轴名称
+    ParseTheDataset(); // 解析数据集
+
+    // 根据动画类型生成图表
+    if ((int)graphAnimation == 1 || (int)graphAnimation == 3)
+        StartCoroutine(CreateBarsWithAnimTypeOneOrThree());
+    else
+        CreateBarsWithAnimTypeTwo();
+}</code></pre>
+<p>图表生成逻辑：<br>
+• 接收并存储数据集<br>
+• 计算图表的尺寸和范围<br>
+• 初始化图表框架和坐标轴<br>
+• 解析数据集<br>
+• 根据选择的动画类型生成柱状图</p>
+
+<h3>动画类型一（one by one）的实现</h3>
+                                <p>逐个生成并动画化柱状图的实现</p>
+								<pre><code>[Serializable]
+public IEnumerator GenerateGraphBarWithAnimTypeOne(int xIndex, int zIndex, float yValue, float scaleFactor, float animSpeed, int ymin, int xMax, Color barColor)
+{
+    if (barRef == null)
+        yield return null;
+
+    barParent.transform.localScale = Vector3.one;
+    
+    GameObject bar = GameObject.Instantiate(barRef, transform.position, transform.rotation);
+    bar.transform.parent = ListOfGroups[zIndex].transform;
+    Vector3 pos = new Vector3(ListOfXPoint[xIndex].transform.localPosition.x, 0, 0);
+    bar.transform.localPosition = pos;
+    bar.transform.localScale = bar.transform.localScale * graphScaleFactor;
+
+    BarProperty barProperty = bar.GetComponent<BarProperty>();
+    SetBarProperties(barProperty);
+    barProperty.SetBarColor(barColor);
+
+    ListOfGroups[zIndex].ListOfBar.Add(bar);
+    float yscale = (yValue - ymin) * scaleFactor;
+    yield return StartCoroutine(AnimateBarsWithAnimTypeOne(barProperty, yscale, yValue, animSpeed, false));
+
+    yield return new WaitForEndOfFrame();
+}</code></pre>
+<p>动画柱状图实现过程：<br>
+• 实例化一个柱状图预制体<br>
+• 设置其位置和缩放<br>
+• 配置柱状图属性（颜色、标签等）<br>
+• 将柱状图添加到相应的组中<br>
+• 启动动画协程，使柱状图从底部向上生长</p>
+
+<h3>柱状图动画的核心实现</h3>
+                                <p>柱状图动画的核心是通过协程实现的平滑过渡</p>
+								<pre><code>[Serializable]
+public IEnumerator AnimateBarsWithAnimTypeOne(BarProperty bar, float barScale, float yValue, float animSpeed, bool isUpdating)
+{
+    while (true)
+    {
+        Vector3 targetScale = new Vector3(bar.transform.localScale.x, barScale, bar.transform.localScale.z);
+        BarProperty barProperty = bar.GetComponent<BarProperty>();
+
+        if (bar.transform.localScale.y > targetScale.y)
+        {
+            Vector3 scale = bar.transform.localScale - new Vector3(0, Time.deltaTime * animSpeed, 0);
+            scale.y = Mathf.Clamp(scale.y, targetScale.y, yValue);
+            bar.transform.localScale = scale;
+
+            if (bar.transform.localScale.y <= targetScale.y)
+            {
+                barProperty.SetBarLabelVisible(yValue.ToString(), graphScaleFactor);
+                break;
+            }
+        }
+        else
+        {
+            Vector3 scale = bar.transform.localScale + new Vector3(0, Time.deltaTime * animSpeed, 0);
+            scale.y = Mathf.Clamp(scale.y, 0, targetScale.y);
+            bar.transform.localScale = scale;
+            
+            if (bar.transform.localScale.y >= targetScale.y)
+            {
+                barProperty.SetBarLabelVisible(yValue.ToString(), graphScaleFactor);
+                break;
+            }
+        }
+
+        yield return new WaitForEndOfFrame();
+    }
+
+    if (isUpdating)
+        GraphUpdated();
+
+    yield return new WaitForEndOfFrame();
+}</code></pre>
+<p>这个协程实现了柱状图的动画效果：<br>
+• 计算目标缩放值<br>
+• 根据当前缩放值和目标值的关系，决定是增加还是减少高度<br>
+• 使用Time.deltaTime确保动画速度与帧率无关<br>
+• 使用Mathf.Clamp限制缩放范围，避免超出目标值<br>
+• 当达到目标高度时，显示数值标签并结束动画</p>
+
+<h3>标签管理与缩放</h3>
+                                <p>BarProperty组件中管理标签的核心代码</p>
+								<pre><code>[Serializable]
+public void SetBarLabelVisible(string value, float scaleFactor)
+{
+    BarLabel.text = value;
+    LabelContainer.SetActive(true);
+    
+    if (transform.localScale.y == 0)
+        LabelContainer.transform.localScale = new Vector3(LabelContainer.transform.localScale.x, 
+            originalYscale * scaleFactor/ transform.localScale.x, 
+            LabelContainer.transform.localScale.z);
+    else
+        LabelContainer.transform.localScale = new Vector3(LabelContainer.transform.localScale.x, 
+            originalYscale * scaleFactor / transform.localScale.y, 
+            LabelContainer.transform.localScale.z);
+}</code></pre>
+<p>这个方法完成的主要工作：<br>
+• 设置标签文本<br>
+• 激活标签容器<br>
+• 根据柱状图的当前高度动态调整标签大小<br>
+• 处理柱状图高度为 0 的特殊情况，避免除零错误</p>
+
+
+							</section>
+							
+							<!-- 关税数据图表分析交互设计 -->
+							<section id="interaction-design">
+								<header class="main">
+									<h1>关税数据图表分析交互设计</h1>
+								</header>
+								
+								<!-- 介绍 -->
+                                <section id="function2">
+								<h2>交互功能介绍</h2>
+								<p>图表建好之后，我们设计了图表交互。通过分析数据可以发现，中美贸易战中中国对其他国家出口贸易的关税、美国对其他国家出口贸易的关税、中国对美国出口贸易的关税和美国对中国出口贸易的关税这四条线有几个变化比较明显的时间点，分别是Jan 01、Jan 02、Feb 04、Feb 07、Feb 10、Mar 04、Mar 10、Mar 12、Apr 03、Apr 05、Apr 09、Apr 10、Apr 11、Apr 12、May 03、May 14。所以我们想设计一种交互，点击柱状图相应时间节点的柱子后，可以弹出一个面板显示当天有关中美贸易战的时政信息，帮助用户分析为什么在这个节点上关税数据有代表性的变化。</p>
+								
+								<!-- 时间节点表格 -->
+								<h3>关键时间节点列表</h3>
+								<div class="table-wrapper">
+									<table>
+										<thead>
+											<tr>
+												<th>月份</th>
+												<th>时间节点</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>1月</td>
+												<td>Jan 01, Jan 02</td>
+											</tr>
+											<tr>
+												<td>2月</td>
+												<td>Feb 04, Feb 07, Feb 10</td>
+											</tr>
+											<tr>
+												<td>3月</td>
+												<td>Mar 04, Mar 10, Mar 12</td>
+											</tr>
+											<tr>
+												<td>4月</td>
+												<td>Apr 03, Apr 05, Apr 09, Apr 10, Apr 11, Apr 12</td>
+											</tr>
+											<tr>
+												<td>5月</td>
+												<td>May 03, May 14</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								
+								<!-- 效果展示视频 -->
+								<h3>交互效果演示</h3>
+								<div class="video-container">
+									<video width="100%" controls>
+										<source src="videos/tariff_interaction.mp4" type="video/mp4">
+										您的浏览器不支持视频播放
+									</video>
+								</div>
+								
+								<!-- 核心设计 -->
+								<hr class="major" />
+                                <section id="design2">
+								<h2>核心设计与UI说明</h2>
+								<p>通过创建面板预制体和XR交互脚本实现点击柱状图弹出信息面板的功能，主要组件包括：</p>
+								
+								<!-- 组件列表 -->
+								<div class="row gtr-50">
+									<div class="col-6 col-12-small">
+										<h3>面板组件</h3>
+										<ul>
+											<li>Panel容器</li>
+											<li>标题与副标题</li>
+											<li>可滑动视口</li>
+											<li>解释性文字区域</li>
+											<li>相关图片展示</li>
+										</ul>
+									</div>
+									<div class="col-6 col-12-small">
+										<div class="row gtr-25">
+											<div class="col-6 col-12-xsmall">
+												<span class="image fit"><img src="vrimage/4.png" alt="面板预制体" style="width: 200%; height: auto;"/></span>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								
+								<!-- 脚本核心代码 -->
+								<h3>XR Click Handler.cs核心逻辑</h3>
+                                <p>XR Click Handler.cs脚本实现以下功能：<br>
+• 检测 VR 环境中右手控制器 A 键的按下<br>
+• 使用射线交互器检测用户指向的物体<br>
+• 当用户用射线指向当前物体并按下 A 键时，切换信息面板的显示状态<br>
+• 在信息面板中显示关于被点击物体的信息</p>
+								<h3>核心组件与变量</h3>
+								<pre><code>public GameObject infoPanel;               // 引用Canvas下的Panel
+public XRRayInteractor rightRayInteractor; // 右手射线引用
+public InputDeviceCharacteristics controllerCharacteristics = InputDeviceCharacteristics.Right | InputDeviceCharacteristics.Controller;
+
+private TextMeshProUGUI infoText;          // 面板中的文字组件
+private InputDevice rightController;
+private bool aButtonPressedLastFrame = false;</code></pre>
+<p>这些变量定义了脚本的核心组件：<br>
+• infoPanel：用于显示信息的 UI 面板<br>
+• rightRayInteractor：右手控制器的射线交互器，用于检测用户指向的物体<br>
+• controllerCharacteristics：定义要查找的控制器特性（右手控制器）<br>
+• rightController：实际的控制器设备对象<br>
+• aButtonPressedLastFrame：用于跟踪 A 键状态，实现单次触发效果</p>
+
+<h3>初始化逻辑</h3>
+								<pre><code>private void Start()
+{
+    if (infoPanel != null)
+        infoPanel.SetActive(false);
+
+    if (infoPanel != null)
+        infoText = infoPanel.GetComponentInChildren<TextMeshProUGUI>();
+
+    // 获取右手控制器
+    InitializeController();
+}
+
+private void InitializeController()
+{
+    var inputDevices = new List<InputDevice>();
+    InputDevices.GetDevicesWithCharacteristics(controllerCharacteristics, inputDevices);
+    if (inputDevices.Count > 0)
+    {
+        rightController = inputDevices[0];
+    }
+}</code></pre>
+<p>初始化过程：<br>
+• 隐藏信息面板<br>
+• 获取信息面板中的文本组件引用<br>
+• 查找并初始化右手控制器</p>
+
+<h3>输入检测与交互处理</h3>
+								<pre><code>private void Update()
+{
+    if (!rightController.isValid)
+        InitializeController();
+
+    if (rightController.TryGetFeatureValue(CommonUsages.primaryButton, out bool aPressed))
+    {
+        if (aPressed && !aButtonPressedLastFrame)
+        {
+            TryTriggerOnRayHit();
+        }
+        aButtonPressedLastFrame = aPressed;
+    }
+}</code></pre>
+<p>输入检测逻辑：<br>
+• 检查控制器是否有效，无效则重新初始化<br>
+• 读取 A 键（主按钮）的状态<br>
+• 使用状态跟踪实现按钮按下时的单次触发效果<br>
+• 当 A 键按下时，尝试触发射线命中检测</p>
+
+<h3>射线命中检测与交互触发</h3>
+								<pre><code>private void TryTriggerOnRayHit()
+{
+    if (rightRayInteractor == null)
+    {
+        Debug.LogWarning("Missing Right XRRayInteractor");
+        return;
+    }
+
+    // 使用射线交互器检测碰撞对象
+    if (rightRayInteractor.TryGetCurrent3DRaycastHit(out RaycastHit hit))
+    {
+        if (hit.collider != null && hit.collider.gameObject == this.gameObject)
+        {
+            ToggleInfoPanel();
+        }
+    }
+}</code></pre>
+<p>命中检测逻辑：<br>
+• 检查射线交互器是否有效<br>
+• 获取射线的当前 3D 射线投射命中信息<br>
+• 检查命中的物体是否是附加此脚本的游戏对象<br>
+• 如果是，则切换信息面板的显示状态</p>
+
+<h3>信息面板管理</h3>
+								<pre><code>private void ToggleInfoPanel()
+{
+    if (infoPanel == null)
+    {
+        Debug.LogError("InfoPanel reference not set!");
+        return;
+    }
+
+    bool isActive = infoPanel.activeSelf;
+    infoPanel.SetActive(!isActive);
+
+    if (infoPanel.activeSelf && infoText != null)
+    {
+        infoText.text = $"你点击了 {gameObject.name}！\n这是由右手射线 + A键触发的交互。";
+    }
+}</code></pre>
+<p>面板管理逻辑：<br>
+• 检查信息面板引用是否有效<br>
+• 切换信息面板的激活状态<br>
+• 如果面板被激活，设置显示文本，包含被点击物体的名称和交互方式说明</p>
+								
+								<!-- 配置说明 -->
+								<h3>交互组件配置</h3>
+								<ol>
+									<li>为柱状图添加XR Click Handler脚本组件</li>
+									<li>在Info Panel字段关联展示面板预制体</li>
+									<li>在Right Ray Interactor字段填入手柄射线交互器</li>
+									<li>完成配置后即可实现点击柱状图弹出信息面板</li>
+								</ol>
+                                <div class="col-8 col-12-small">
+                                        <span class="image fit"><img src="vrimage/5.png" alt="关税数据三维可视化图表" style="width: 50%; height: auto;" /></span>
+								</div>
+                                <p>完成上述配置即可实现点击柱状弹出信息面板的功能。</p>
+							</section>
+
+                            <!-- 新增：中美两国对其他国家出口贸易关税变化分析表 -->
+                            <section id="data">
+							<section id="row-tariff-analysis">
+								<header class="main">
+									<h1>中美两国对其他国家出口贸易关税变化分析</h1>
+								</header>
+								<h2>对应时间点事件整理表</h2>
+								<div class="table-wrapper">
+									<table class="alt">
+										<thead>
+											<tr>
+												<th>序号</th>
+												<th>时间</th>
+												<th>背景与逻辑</th>
+												<th>中美对其他国家出口关税</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>1</td>
+												<td>Jan 01</td>
+												<td>元旦前后，贸易政策通常延续前期节奏，无特殊冲击时，关税保持平稳。</td>
+												<td>美国对ROW出口关税、中国对ROW出口关税（对应图表粉色线逻辑）大概率维持低位且稳定。此时中美贸易战处于阶段性僵持，双方暂未将 “战火” 蔓延至对其他国家/地区出口关税，给全球新年初始贸易营造相对平稳开局，涉及ROW出口的商品（如通用消费品、基础原材料），关税成本无突发变动，企业按常规节奏开展跨区域贸易。</td>
+											</tr>
+											<tr>
+												<td>2</td>
+												<td>Jan 02</td>
+												<td>新年次日，政策调整一般有滞后性，延续前一日及前期贸易政策惯性。</td>
+												<td>中美对 ROW 出口关税继续保持平稳。贸易战聚焦于双边（中美互征关税），未牵连对其他国家/地区出口关税，ROW相关贸易（如东南亚制造业承接订单、欧洲与中美常规商品流通）在稳定关税环境下运转，企业无需因中美贸易战额外应对 ROW 出口关税波动。</td>
+											</tr>
+											<tr>
+												<td>3</td>
+												<td>Feb 04</td>
+												<td>2月处于年初政策观察期，若贸易战无紧急对抗升级，对 ROW 出口关税倾向稳定；但美国可能因国内产业诉求，尝试微调政策。</td>
+												<td>美国对 ROW 出口关税或有极细微向上试探（如针对特定 ROW 进口补充国内产业，反向调整对 ROW 出口关税平衡），但幅度极小、影响有限；中国对 ROW 出口关税保持平稳。整体看，中美未大规模扰动对 ROW 出口关税，避免贸易战范围无差别扩大，给 ROW 出口贸易（如拉美农产品贸易、中东能源关联商品）保留稳定政策空间。</td>
+											</tr>
+											<tr>
+												<td>4</td>
+												<td>Feb 07</td>
+												<td>春节前（中国视角），国内贸易政策侧重保障节日供需，中美贸易战在双边僵持下，对 ROW 出口关税难有剧烈变动。</td>
+												<td>中美对 ROW 出口关税延续平稳。美国受国内政治周期、经济数据观望影响，暂未推动对 ROW 出口关税调整；中国聚焦国内节日市场与常规外贸秩序，对 ROW 出口关税维持惯性，ROW 出口企业（如向非洲输出轻工业品、向大洋洲输出资源加工品）关税成本可预期，业务规划不受干扰。</td>
+											</tr>
+											<tr>
+												<td>5</td>
+												<td>Feb 10</td>
+												<td>节后初期，政策调整窗口开启，但贸易战核心仍在双边博弈，对 ROW 出口关税非焦点。</td>
+												<td>美国对 ROW 出口关税若有变动，可能是小幅响应国内部分产业（如钢铁、农业）游说，微调特定 ROW 出口商品关税，但不具系统性；中国对 ROW 出口关税稳定。中美未将贸易战矛盾外溢至对 ROW 出口，ROW 贸易链（如跨国电商面向 ROW 的商品分发）继续在稳定关税环境下运作。</td>
+											</tr>
+											<tr>
+												<td>6</td>
+												<td>Mar 04</td>
+												<td>3月是欧美经济政策（如美联储、欧央行）观察期，中美贸易战在双边关税对峙后，可能尝试通过非关键领域（如对 ROW 出口）试探对方反应，但整体克制。</td>
+												<td>美国对 ROW 出口关税或因国内贸易代表办公室的 “市场评估”，对个别 ROW 出口商品（如高端制造业配件）调整关税，但影响范围窄；中国对 ROW 出口关税保持平稳。此时中美贸易战的 “涟漪” 尚未大幅波及对 ROW 出口关税，ROW 相关贸易（如亚洲电子产业链对 ROW 输出）受冲击小，企业经营预期稳定。</td>
+											</tr>
+											<tr>
+												<td>7</td>
+												<td>Mar 10</td>
+												<td>中旬临近，若贸易战无高层谈判突破，双方可能维持现有关税格局，对 ROW 出口关税延续惯性。</td>
+												<td>中美对 ROW 出口关税持续平稳。美国因国内政治博弈（如国会对贸易政策的分歧），难推动对 ROW 出口关税大规模调整；中国聚焦外贸结构优化（如扩大 RCEP 红利），但对 ROW 出口关税整体稳定，不主动因中美贸易战升级对 ROW 出口关税，保障多元贸易渠道畅通。</td>
+											</tr>
+											<tr>
+												<td>8</td>
+												<td>Mar 12</td>
+												<td>3月中旬，贸易政策动态进入季度末观察，中美贸易战僵持下，对 ROW 出口关税若有变动，多为小范围、行业性。</td>
+												<td>美国对 ROW 出口关税可能因某行业协会（如汽车制造业）施压，微调对 ROW 出口的关联零部件关税，但不改变整体平稳趋势；中国对 ROW 出口关税稳定。中美未让贸易战全面冲击对 ROW 出口关税，ROW 出口贸易（如欧洲奢侈品与中美市场的互动、非洲基建物资进口）仍可按常规关税成本运营。</td>
+											</tr>
+											<tr>
+												<td>9</td>
+												<td>Apr 03</td>
+												<td>4月是中美贸易战历史上部分 “关税调整节点”（如既往有加税动作），但焦点多在双边（中美互征），对 ROW 出口关税或受间接影响（贸易转移效应）。</td>
+												<td>美国对 ROW 出口关税或因中美双边贸易战导致的 “贸易转移”（如美国企业将订单转向 ROW 国家），为平衡国内产业，微调对 ROW 出口关税（如对 ROW 进口美国商品的反向调整），但幅度可控；中国对 ROW 出口关税保持平稳，继续巩固与 ROW 国家的多元贸易合作，对冲中美贸易战影响。</td>
+											</tr>
+											<tr>
+												<td>10</td>
+												<td>Apr 05</td>
+												<td>若 4 月初中美贸易战有 “隔空喊话”（如官员表态、政策草案流出），但未实质落地，对 ROW 出口关税以稳定为主。</td>
+												<td>中美对 ROW 出口关税延续平稳。美国受政策制定流程（草案到实施有周期）限制，难立即调整对 ROW 出口关税；中国坚守多边贸易原则，对 ROW 出口关税稳定，保障 ROW 出口贸易（如 “一带一路” 沿线国家贸易）的可预测性，降低中美贸易战的负面外溢。</td>
+											</tr>
+											<tr>
+												<td>11</td>
+												<td>Apr 09</td>
+												<td>中旬前后，若中美贸易战在双边关税上无新动作，对 ROW 出口关税可能因 “贸易再平衡” 有细微调整，但不显著。</td>
+												<td>美国对 ROW 出口关税可能因国内经济数据（如就业、通胀），对部分 ROW 出口商品（如农产品）微调关税，试图稳定国内市场；中国对 ROW 出口关税稳定。此时中美贸易战对 ROW 出口关税的影响仍属局部、试探性，未引发系统性波动，ROW 出口企业（如东南亚纺织业、南美食品加工）可灵活应对小幅度关税变化。</td>
+											</tr>
+											<tr>
+												<td>12</td>
+												<td>Apr 10</td>
+												<td>延续前一日政策惯性，若贸易战无突发冲击，对 ROW 出口关税维持既有格局。</td>
+												<td>中美对 ROW 出口关税保持平稳。美国政策调整需时间传导，难在单日出现对 ROW 出口关税的剧烈变动；中国继续以稳定外贸、拓展 ROW 市场为导向，对 ROW 出口关税稳定，让中美贸易战的 “风暴” 尽量不波及 ROW 出口贸易，保障全球贸易网络的韧性。</td>
+											</tr>
+											<tr>
+												<td>13</td>
+												<td>Apr 11</td>
+												<td>若中美贸易战有 “幕后谈判” 传闻（无公开实锤），双方在台面下的博弈，暂不会体现在对 ROW 出口关税的公开调整上。</td>
+												<td>中美对 ROW 出口关税持续平稳。美国为谈判保留 “政策牌”，暂不扰动对 ROW 出口关税；中国同样以稳定 ROW 贸易为前提，不对 ROW 出口关税轻举妄动，ROW 出口贸易（如中亚能源合作、欧洲科技服务贸易）在平静中延续，企业无需担忧因中美贸易战产生关税突变风险。</td>
+											</tr>
+											<tr>
+												<td>14</td>
+												<td>Apr 12</td>
+												<td>4 月中旬末，若贸易战谈判无实质进展，双方可能维持对 ROW 出口关税稳定，避免激化多元矛盾。</td>
+												<td>中美对 ROW 出口关税依旧平稳。美国受国内政治分歧（支持与反对贸易战的势力博弈）影响，难推出对 ROW 出口关税的大规模调整；中国秉持开放、稳定外贸原则，对 ROW 出口关税稳定，保障与 ROW 国家的贸易互信，削弱中美贸易战对全球贸易秩序的冲击。</td>
+											</tr>
+											<tr>
+												<td>15</td>
+												<td>May 03</td>
+												<td>5 月进入年中政策规划期，若中美贸易战在双边僵持日久，可能尝试通过对 ROW 出口关税的 “隐性调整”（如贸易补贴、配额）影响对方，但明面上关税数字难有剧烈变动。</td>
+												<td>美国对 ROW 出口关税或因国内产业（如新能源）扶持，微调对 ROW 出口的关联技术、产品关税，但幅度小且隐蔽；中国对 ROW 出口关税保持平稳，继续深化与 ROW 国家的自贸协定合作，对冲中美贸易战的负面效应，ROW 出口贸易（如拉美矿产出口、亚洲家电输出）在稳定关税环境下，可规划长期业务布局。</td>
+											</tr>
+											<tr>
+												<td>16</td>
+												<td>May 14</td>
+												<td>中旬阶段，若中美贸易战有新的 “舆论战”（如媒体报道关税政策走向），但未实际落地，对 ROW 出口关税以稳定为主。</td>
+												<td>中美对 ROW 出口关税延续平稳。美国政策从制定到实施有滞后，对 ROW 出口关税暂无公开调整；中国坚守多边贸易体系，对 ROW 出口关税稳定，保障 ROW 出口贸易的可持续性，让中美贸易战的影响圈定在双边范畴，不肆意破坏全球贸易的 “稳定锚点”（ROW 出口关税）。</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</section>
+							
+							<!-- 新增：中美两国互相贸易出口关税变化分析表 -->
+							<section id="mutual-tariff-analysis">
+								<header class="main">
+									<h1>中美两国互相贸易出口关税变化分析</h1>
+								</header>
+								<h2>对应时间点事件整理表</h2>
+								<div class="table-wrapper">
+									<table class="alt">
+										<thead>
+											<tr>
+												<th>序号</th>
+												<th>时间</th>
+												<th>背景与逻辑</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>1</td>
+												<td>Jan 01</td>
+												<td>2025 年 1 月特朗普上任后，中美贸易战迅速升温，此阶段前期已开始有贸易政策调整的筹备与铺垫，后续关税加征动作逐步展开，1 月处于贸易战紧张氛围开启的初期阶段，为后续一系列关税举措埋下伏笔。</td>
+											</tr>
+											<tr>
+												<td>2</td>
+												<td>Jan 02</td>
+												<td>无明确单一针对性关税变动事件公开，延续 1 月贸易战升温初期的态势，双方在政策制定、博弈策略上处于进一步酝酿阶段，为后续 2 月及以后的关税交锋做准备，贸易关系持续紧张。</td>
+											</tr>
+											<tr>
+												<td>3</td>
+												<td>Feb 04</td>
+												<td>美国以芬太尼问题为由对中国商品加征 10% 关税，中国快速做出反制，经国务院批准，后续（2 月 10 日执行）对原产于美国的部分进口产品加征关税，如对煤炭、液化天然气加征 15% 关税，对原油、农业机械等加征 10% 关税，明确此次加征关税不予减免，贸易战对抗性举措正式落地。</td>
+											</tr>
+											<tr>
+												<td>4</td>
+												<td>Feb 07</td>
+												<td>处于 2 月中美首轮关税交锋（美国 2 月 1 日加征、中国 2 月 10 日反制 ）的中间过渡阶段，双方在已宣布的关税政策走向下，市场、产业开始逐步消化首轮关税冲击，贸易战影响开始在经贸领域显现，如相关进出口企业开始调整订单、供应链布局等。</td>
+											</tr>
+											<tr>
+												<td>5</td>
+												<td>Feb 10</td>
+												<td>中国按计划对原产于美国的部分进口商品加征 10 - 15% 关税，落实反制措施，涉及煤炭、液化天然气（15% ），原油、农业机械等（10% ），这是对美国 2 月 1 日加征关税的直接回应，贸易战首轮实质性对抗落地，对中美相关产业贸易往来产生直接冲击。</td>
+											</tr>
+											<tr>
+												<td>6</td>
+												<td>Mar 04</td>
+												<td>美国宣布从 3 月 4 日起，对从中国出口美国的商品再次普征 10% 关税，累计加征关税达 20% 。以储能电池为例，当时税率已高达 30.9%（基础 3.4% + 301 7.5% + 1 次普征 10% + 2 次普征 10% ），此为特朗普任期内规模较大的关税行动，进一步升级贸易战，中方后续也有相应反制举措筹备。</td>
+											</tr>
+											<tr>
+												<td>7</td>
+												<td>Mar 10</td>
+												<td>中国对原产于美国的鸡肉、小麦、玉米、棉花等 29 种商品加征 15% 关税，对高粱、大豆、猪肉等 711 种商品加征 10% 关税，作为对美国 3 月 4 日加征关税的反制，精准打击美国农业等产业，贸易战对抗在农产品等领域进一步蔓延，影响中美双边农贸往来及相关产业链。</td>
+											</tr>
+											<tr>
+												<td>8</td>
+												<td>Mar 12</td>
+												<td>处于 3 月中美关税二次交锋（美国 3 月 4 日加征、中国 3 月 10 日反制 ）后的消化期，贸易战升级带来的影响在市场、产业端持续发酵，如中美农贸企业面临订单减少、成本上升，相关商品在对方市场竞争力下降，企业开始更多寻求贸易替代方案、拓展其他市场等。</td>
+											</tr>
+											<tr>
+												<td>9</td>
+												<td>Apr 03</td>
+												<td>接近美国后续 4 月关税大幅加征（4 月 2 日、4 月 9 日等 ）的前奏阶段，美方已释放将进一步升级关税的信号，市场预期贸易战会持续激化，中美相关进出口企业提前调整业务，如加速出货、转移订单、寻求关税豁免等，贸易战紧张氛围持续攀升。</td>
+											</tr>
+											<tr>
+												<td>10</td>
+												<td>Apr 05</td>
+												<td>美国 4 月关税大调整（4 月 2 日宣布后续加征计划 ）后的初期，贸易战进入更激烈阶段的筹备期，中方也在酝酿更强力反制措施，市场、产业对高关税冲击的担忧加剧，如锂电等产业开始评估产能转移、内销转型等长期策略，以应对贸易战持续影响。</td>
+											</tr>
+											<tr>
+												<td>11</td>
+												<td>Apr 09</td>
+												<td>美国当天有多项关税动作，先是宣布对中国输美商品加征关税税率从之前的情况（如 34% 等 ）提升，还涉及对全球部分经济体加征关税；中国同步强硬反制，对原产于美国的所有进口商品加征关税大幅提升（如从 34% 提升至 84% ），并就美国进一步加征关税向世贸组织追加提起诉讼，贸易战烈度达到新高度，对中美双边贸易几乎全面冲击。</td>
+											</tr>
+											<tr>
+												<td>12</td>
+												<td>Apr 10</td>
+												<td>中国按反制节奏，对原产于美国的所有进口商品加征关税（如从 34% 提升至 84% ）生效，全面回应美国 4 月 9 日的关税升级，中美互相出口关税均处于高位，贸易战进入 “全面对抗” 的僵持阶段，大量双边贸易受阻，企业面临严峻生存压力，供应链加速重构。</td>
+											</tr>
+											<tr>
+												<td>13</td>
+												<td>Apr 11</td>
+												<td>处于 4 月激烈关税对抗后的初期，贸易战的冲击在各行业持续显现，如中国对美出口企业订单锐减、美国对中出口商品在中国市场遇冷，双方围绕关税的舆论博弈也在继续，中方强调反制的合理性、合法性，驳斥美方贸易霸凌，为后续可能的谈判或进一步对抗做舆论准备。</td>
+											</tr>
+											<tr>
+												<td>14</td>
+												<td>Apr 12</td>
+												<td>贸易战持续僵持，高关税下中美双边贸易规模大幅萎缩，企业在供应链调整（如中国锂电等产业向东南亚转移产能 ）、市场拓展（开发非美 / 非中市场 ）等方面的动作加速，同时，双方仍无明显缓和迹象，贸易战对全球经贸秩序的负面影响持续扩大。</td>
+											</tr>
+											<tr>
+												<td>15</td>
+												<td>May 03</td>
+												<td>美国取消对中国小额包裹免税政策正式生效，所有价值不超过 800 美元的小额包裹都要被征收关税，这是贸易战在非大宗贸易领域的延伸，进一步挤压中美民间贸易、跨境电商等渠道，增加中小企业和消费者的贸易成本，中方此前已表达反对，后续也在评估综合应对策略。</td>
+											</tr>
+											<tr>
+												<td>16</td>
+												<td>May 14</td>
+												<td>中美双方落实日内瓦经贸会谈共识，同步调整关税税率。中国对原产于美国的进口商品加征关税调整，如将部分加征税率由 34% 调整为 10%，90 天内暂停实施 24% 的加征关税；美国也相应调整对华加征关税，撤销部分高关税（如共计 91% 的关税 ），修改 34% 对等关税措施（24% 暂停加征 90 天 ），贸易战进入阶段性缓和期，为后续磋商创造条件，但核心分歧仍待解决。</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<hr class="major" />
+								<ul class="pagination">
+														<li><a href="3D_6.html" class="button" >Prev</a></li>
+														<li><span>&hellip;</span></li>
+														<li><a href="3D_3.html" class="page">3</a></li>
+														<li><a href="3D_4.html" class="page">4</a></li>
+														<li><a href="3D_5.html" class="page">5</a></li>
+														<li><a href="3D_6.html" class="page active">6</a></li>
+														<li><a href="3D_7.html" class="page">7</a></li>
+														<li><a href="3D_8.html" class="page">8</a></li>
+														<li><a href="3D_8.html" class="button">Next</a></li>
+													</ul>
+									<style>
+										.pagination {
+    									text-align: center;
+    									padding: 0;
+    									list-style: none;
+  										}
+  										.pagination li {
+   										display: inline-block;
+    									margin: 0 2px;
+  										}
+									</style>
+							</section>
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+<div id="sidebar">
+    <div class="inner">
+
+        <!-- Search -->
+        <section id="search" class="alt">
+            <form method="post" action="#">
+                <input type="text" name="query" id="query" placeholder="搜索时间节点或关税数据" />
+            </form>
+        </section>
+
+        <!-- Menu - 整合主内容区标题结构 -->
+        <nav id="menu">
+            <header class="major">
+                <h2>内容导航</h2>
+            </header>
+            <ul>
+                <!-- 首页与核心功能 -->
+                <li><a href="#mainpage">首页</a></li>
+                <li><a href="#chart-generation">图表生成功能</a></li>
+                    <ul>
+                        <li><a href="#function1">功能介绍</a></li>
+                        <li><a href="#design1">核心设计</a></li>
+                        <li><a href="#code1">核心代码解释</a></li>
+                    </ul>
+                <li><a href="#interaction-design">交互设计说明</a></li>
+                    <ul>
+                        <li><a href="#function2">交互功能介绍</a></li>
+                        <li><a href="#design2">核心设计与UI说明</a></li>
+                    </ul>
+                
+                <!-- 数据分析表格 -->
+                <li>
+                    <a href="#data">数据分析</a></li>
+                    <ul>
+                        <li><a href="#row-tariff-analysis">中美对他国关税分析</a></li>
+                        <li><a href="#mutual-tariff-analysis">中美互征关税分析</a></li>
+                    </ul>
+                </li>
+                
+                
+            </ul>
+        </nav>
+
+        
+
+        <!-- Footer -->
+        <footer id="footer">
+            <p class="copyright">&copy; 关税数据可视化系统. </p>
+        </footer>
+
+    </div>
+</div>
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

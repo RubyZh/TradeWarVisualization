@@ -1,0 +1,290 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Important Event Timeline and Daily News Sentiment Analysis</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo">China-US <strong>Trade war</strong></a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>Important Event Timeline and Daily News Sentiment Analysis</h1>
+									</header>
+
+									<!-- Content -->
+									 <header class="major">
+										<h2 id="content">Introduction</h2>
+									</header>
+										<p>This feature module utilizes a large language model interface to generate the 10 most representative key news events within the time range and news topic specified by the user via the slider, and visualizes them in a timeline format.</p>
+										<p>Each time point corresponds to a verified summary of an important event. Users can click on any time point to expand a detailed panel displaying the event title, number of news articles, and dominant sentiment type for that day, aiding users in understanding the day's public opinion trends and emotional shifts. This achieves an efficient transition from the overall picture to key details, enabling users to quickly locate the most critical news information when faced with a large volume of news text.</p>
+									
+										<hr class="major" />
+									<header class="major">
+									<h2 id="content">Effect Demonstration</h2>
+									</header>
+									<span class="image object">
+  										<video width="100%" controls poster="images/2_pic_1.jpg" autoplay muted loop playsinline>
+    										<source src="videos/2_time.mp4" type="video/mp4">
+   											 <!-- 备用提示 -->
+    										您的浏览器不支持视频播放
+  										</video>
+									</span>
+									
+									<hr class="major" />
+									<header class="major">
+									<h2 id="content">Core Design</h2>
+									</header>
+									<!-- Break -->
+<div class="row">
+    <div class="col-6 col-12-small">
+        <h3><code>OnTimeLineButtonClicked</code> Method</h3>
+        <p>When the user clicks the timeline trigger button, the method dynamically constructs a prompt based on the current slider-selected time range and theme, calls the large model service <strong>DeepSeek</strong> to generate event summaries, and automatically displays the timeline.</p>
+    </div>
+    <div class="col-6 col-12-small">
+        <h3><code>ExtractContent & EscapeJson</code> Methods</h3>
+        <p>Used to process the JSON text returned by the large model, extract content, parse the format, and save it to the project's <code>StreamingAssets/deepseek_events.json</code> for subsequent calls.</p>
+    </div>
+    <div class="col-6 col-12-small">
+        <h3><code>TimelineEvent</code> Class</h3>
+        <p>Defines the structure of each timeline event, including <strong>date</strong> and <strong>summary</strong>.</p>
+    </div>
+    <div class="col-6 col-12-small">
+        <h3><code>TimelineEventItem & TimelinePopupCanvas</code> Classes</h3>
+        <p>When a user clicks on an event button, a detailed panel is generated, displaying the event summary, the total number of news items for that day, and the main sentiment icon.</p>
+    </div>
+</div>
+
+
+									<hr class="major" />
+									<header class="major">
+									<h2 id="content">UI Notes</h2>
+									</header>
+									<div class="row gtr-200">
+										<div class="col-6 col-12-medium">
+											
+													<dl>
+														<h4>Timeline Button</h4>
+														<dd>
+															<p>When a user clicks on it, it triggers the generation of the timeline, and a loadingLabel animation is displayed during the request processing time.</p>
+														</dd>
+														<h4>Event Node</h4>
+														<dd>
+															<p>Each event generates a timeline node button, which, when clicked, pops up the corresponding news summary and statistics panel.</p>
+														</dd>
+													</dl>
+										</div>
+										<div class="col-6 col-12-medium">
+											<span class="image fit"><img src="images/2_pic_3.jpg" alt="" /></span>
+										</div>
+											<div class="col-6 col-12-medium">
+												<span class="image fit"><img src="images/2_pic_1.jpg" alt="" /></span>
+											</div>
+											<div class="col-6 col-12-medium">
+												<br><br>
+													<dl>
+														<h4>TimelinePopupCanvas</h4>
+														<dd>
+															<p>Contains summary text, the number of news items for the day, and the dominant sentiment icon, with support for closing via click.</p>
+														</dd>
+														<h4>News Topic Settings </h4>
+														<dd>
+															<p>The current news topic being studied can be preset in the Inspector via the newsTopic variable.</p>
+														</dd>
+													</dl>
+										</div>
+										
+									</div>
+									<hr class="major" />
+									<header class="major">
+									<h2 id="content">Case Study</h2>
+									</header>
+									<h3 id="content">Different News Attitudes Under Different Themes</h3>
+									<p>Using the timeline of important events and the daily news sentiment analysis function, we set the event range from January 1, 2025, to May 27, 2025, and identified four representative events and the daily news situation.</p>
+									
+									<div class="row">
+														<div class="col-6 col-12-small">
+
+															<ul>
+																<li><h4>Angry (Resources)</h4> February 4, 2025: China announced a 15% tariff on coal and LNG from the US, and a 10% tariff on crude oil and agricultural machinery.</li>
+																<li><h4>Neutral (Technology)</h4> March 25, 2025: The US added several Chinese companies, including Inspur, to its export control blacklist.</li>
+																<li><h4>Angry (Agriculture)</h4> March 4, 2025: China imposed a 15% additional tariff on US agricultural products (such as chicken, wheat, corn, and cotton) and a 10% tariff on soybeans, pork, and other products.</li>
+																<li><h4>Neutral (Diplomacy)</h4> April 4, 2025: China formally submitted a request to the World Trade Organization for dispute consultations regarding the US's new round of tariffs.</li>
+															</ul>
+
+															<p>In summary, the emotional orientation of the media varies depending on the nature of specific events in the “US-China trade war.” Policy adjustments directly impact people's livelihoods and industries, leading to strong emotional reactions; legal or institutional operations, however, tend to be interpreted more rationally.</p>
+
+														</div>
+														<div class="col-6 col-12-small">
+															<h4>We can observe :</h4>
+															<div class="box">
+																<p>
+    “Anger” dominates public sentiment regarding tariffs on resources and agriculture, indicating that when China implements “countermeasures” with obvious economic implications, the public and media immediately exhibit strong feelings of anger. This not only reflects the policy's significant impact but also highlights the heightened sensitivity of related industries, such as energy and agriculture, to bilateral tensions.</p>
+															</div>
+															<div class="box">
+																<p>“Neutral” sentiment is concentrated in the technology and official negotiations sectors. Technology export controls, exemplified by restrictions on Inspur, primarily involve technology and national security, leading to more objective and calm public feedback, with analytical positions outweighing emotional outbursts. Additionally, submitting a consultation request to the WTO is an internal institutional action, resulting in relatively neutral emotional expressions, highlighting the public's acceptance of legal procedures and institutional frameworks.</p>
+															</div>
+														</div>
+									</div>
+									
+									
+			
+
+									<hr class="major" />
+
+													<ul class="pagination">
+														<li><a href="3D_2.html" class="button" >Prev</a></li>
+														<li><a href="3D_1.html" class="page">1</a></li>
+														<li><a href="3D_2.html" class="page">2</a></li>
+														<li><a href="3D_3.html" class="page active">3</a></li>
+														<li><span>&hellip;</span></li>
+														<li><a href="3D_6.html" class="page">6</a></li>
+														<li><a href="3D_7.html" class="page">7</a></li>
+														<li><a href="3D_8.html" class="page">8</a></li>
+														<li><a href="3D_4.html" class="button">Next</a></li>
+													</ul>
+									<style>
+										.pagination {
+    									text-align: center;
+    									padding: 0;
+    									list-style: none;
+  										}
+  										.pagination li {
+   										display: inline-block;
+    									margin: 0 2px;
+  										}
+									</style>
+
+								</section>
+
+						</div>
+					</div>
+
+			<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="DataPreprocess.html">Data preprocess</a></li>
+										<li><a href="Timeline.html">Timeline</a></li>
+										<li>
+											<span class="opener">Media Report</span>
+											<ul>
+												<li><a href="Topics.html">Topics</a></li>
+												<li><a href="Emotions.html">Emotions</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">3D Visualization</span>
+											<ul>
+												<li><a href="3D_0.html">Overview</a></li>
+												<li><a href="3D_1.html">Data Import and Time Filtering</a></li>
+												<li><a href="3D_2.html">Topic Heat Map</a></li>
+												<li><a href="3D_3.html">Important Event Timeline and Daily News Sentiment Analysis</a></li>
+												<li><a href="3D_4.html">National News Basic Information Analysis Panel</a></li>
+												<li><a href="3D_5.html">National News Sentiment Dynamics Analysis</a></li>
+												<li><a href="3D_6.html">News Summary Dynamic Carousel and Assisted Reading</a></li>
+												<li><a href="3D_7.html">Tax</a></li>
+												<li><a href="3D_8.html">VR Hardware Exploration Section</a></li>
+											</ul>
+										</li>
+										<li><a href="#">Summary</a></li>
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Ante interdum</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
+										<li class="icon solid fa-phone">(000) 000-0000</li>
+										<li class="icon solid fa-home">1234 Somewhere Road #8254<br />
+										Nashville, TN 00000-0000</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

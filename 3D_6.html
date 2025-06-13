@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>新闻摘要动态轮播与辅助阅读</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="#" class="logo"><strong>新闻摘要动态轮播与辅助阅读</strong></a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+                                        <section id="m">
+										<h1>新闻摘要动态轮播与辅助阅读</h1>
+                                        <h2>News Summary Dynamic Carousel and Assisted Reading</h2>
+									</header>
+
+									<!-- 中文内容 -->
+                                    <section id="f">
+									<h2>功能介绍</h2>
+                                    <h3>Function Introduction</h3>
+									<p>该功能模块是以情绪柱状图为基础的交互升级，当用户点击某个情绪标签时，系统将根据当前选定的情绪类型自动筛选并展示与该情绪相关的新闻摘要。这些新闻摘要会以动态轮播的方式呈现，用户可自定义轮播时间，可点击摘要面板查看新闻详情，详情页会高亮显示新闻中的关键词，辅助用户快速阅读。在查看详情后，用户可以通过点击详情页右上角的按钮退出阅读，返回新闻摘要的轮播模式。</p>
+									<p>This feature module is an interactive upgrade based on an emotion bar chart. When a user clicks on an emotion tag, the system automatically filters and displays news summaries related to the selected emotion type. These news summaries are presented in a dynamic carousel format. Users can customize the carousel playback time, click on the summary panel to view news details, and the details page will highlight keywords in the news to assist users in quick reading. After viewing the details, users can exit the reading mode by clicking the button in the top-right corner of the details page and return to the news summary carousel mode.</p>
+									<section id="e">
+									<h3>效果展示</h3>
+                                    <h3>Effect Demonstration</h3>
+									<div class="video-container">
+										<video width="100%" controls autoplay muted loop playsinline>
+											<source src="videos/5_summary.mp4" type="video/mp4">
+											您的浏览器不支持视频播放
+										</video>
+									</div>
+									<section id="d">
+									<h3>核心设计</h3>
+                                    <h3>Core Design</h3>
+									<h4>新闻摘要轮播逻辑</h4>
+                                    
+									<p>StartLoop(List<NewsDataLoader.NewsEntry> entries)方法启动新闻摘要轮播，筛选与点击情绪标签匹配的新闻条目，随机选择新闻进行展示，并根据轴线方向在左右两个锚点 (anchorLeft, anchorRight) 之间轮流显示。每条新闻显示的摘要包括标题（情绪映射颜色）、新闻来源、发布时间和简要内容。</p>
+									<h4>News Summary Carousel Logic</h4>
+                                    <p>The StartLoop(List<NewsDataLoader.NewsEntry> entries) method initiates the news summary carousel, filters news entries matching the clicked emotion tag, randomly selects news for display, and alternates between the left and right anchor points (anchorLeft, anchorRight) based on the axis direction. Each news summary includes the title (emotion-mapped color), news source, publication time, and brief content.</p>
+									
+									<h4>关键词高亮与新闻内容阅读</h4>
+									<p>HighlightKeywords(string content, NewsDataLoader.NewsEntry entry) 方法通过查找新闻条目中的关键词，并将它们替换为高亮样式（黄色背景），帮助用户快速抓取新闻中的重要信息。</p>
+									<h4>Keyword Highlighting and News Content Reading</h4>
+									<p>The HighlightKeywords(string content, NewsDataLoader.NewsEntry entry) method searches for keywords in news entries and replaces them with a highlighted style (yellow background) to help users quickly grasp important information in the news.</p>
+									<section id="u">
+									<h3>UI说明</h3>
+									<ul>
+										<li><strong>右手柄 A 键触发摘要轮播</strong>：当用户指向某一情绪柱状图的情绪标签并按下 A 键，即可触发该情绪类别下的新闻摘要轮播面板，左右交替生成并在视野内缓慢滚动展示。</li>
+										<li><strong>点击摘要面板详情按钮</strong>：在摘要面板中点击“详情”按钮后，将弹出详细新闻面板，展示完整新闻内容，关键词以高亮方式标记以辅助用户阅读。</li>
+										<li><strong>关闭详细新闻面板返回摘要轮播</strong>：用户点击详细面板右上角的关闭按钮后，将退出阅读模式并返回原有的摘要动态轮播流程，支持继续浏览更多新闻摘要。</li>
+										<li><strong>右手柄 B 键关闭摘要面板</strong>：用户可通过右手柄 B 键手动关闭当前所有摘要面板并终止新闻摘要轮播过程，实现快速清理界面。</li>
+									</ul>
+                                    <h3>UI Notes</h3>
+									<ul>
+										<li><strong>Right Joystick A Button Triggers Summary Carousel</strong>: When the user hovers over an emotion label on an emotion bar chart and presses the A button, it triggers the news summary carousel panel for that emotion category, which alternates left and right and slowly scrolls within the field of view.</li>
+										<li><strong>Click the “Details” button on the summary panel</strong>: Clicking the “Details” button on the summary panel opens the detailed news panel, displaying the full news content with keywords highlighted to assist reading.</li>
+										<li><strong>Close the detailed news panel to return to the summary carousel</strong>: Clicking the close button in the top-right corner of the detailed panel exits reading mode and returns to the original summary carousel process, allowing users to continue browsing more news summaries.</li>
+										<li><strong>Right controller B button to close the summary panel</strong>: Users can manually close all current summary panels and terminate the news summary carousel process using the right controller B button, enabling quick interface cleanup.</li>
+									</ul>
+									<section id="c">
+									<h3>控件</h3>
+									<div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>控件名称</th>
+													<th>中文说明</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>summaryPanel (prefab)</td>
+													<td>新闻摘要面板预制体，展示新闻标题（含情绪颜色）、发布时间、来源与摘要内容，并附带“详情”按钮</td>
+												</tr>
+												<tr>
+													<td>NewsContent (prefab)</td>
+													<td>新闻详细内容面板预制体，显示完整正文并支持关键词高亮辅助阅读</td>
+												</tr>
+												<tr>
+													<td>anchorLeft / anchorRight</td>
+													<td>摘要面板左右锚点位置，用于轮流生成面板以增强空间阅读体验</td>
+												</tr>
+												<tr>
+													<td>各类标签组件</td>
+													<td>显示文本内容，包括 TitleText、SourceText、SummaryText 等</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<h3>Control</h3>
+									<div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>Control Name</th>
+													<th>Description</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>summaryPanel (prefab)</td>
+													<td>News summary panel prefab, displays the news title (with emotion-based color), publication time, source, and summary content, along with a "Details" button.</td>
+												</tr>
+												<tr>
+													<td>NewsContent (prefab)</td>
+													<td>Full news content panel prefab, shows the complete text and supports keyword highlighting for assisted reading.</td>
+												</tr>
+												<tr>
+													<td>anchorLeft / anchorRight</td>
+													<td>Anchor points for summary panels on the left and right, used to alternately spawn panels and enhance spatial reading experience.</td>
+												</tr>
+												<tr>
+													<td>Text label components</td>
+													<td>Display various text contents, including TitleText, SourceText, SummaryText, etc.</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+									<hr class="major" />
+								
+									<ul class="pagination">
+														<li><a href="3D_5.html" class="button" >Prev</a></li>
+														<li><span>&hellip;</span></li>
+														<li><a href="3D_3.html" class="page">3</a></li>
+														<li><a href="3D_4.html" class="page">4</a></li>
+														<li><a href="3D_5.html" class="page">5</a></li>
+														<li><a href="3D_6.html" class="page active">6</a></li>
+														<li><a href="3D_7.html" class="page">7</a></li>
+														<li><a href="3D_8.html" class="page">8</a></li>
+														<li><a href="3D_7.html" class="button">Next</a></li>
+													</ul>
+									<style>
+										.pagination {
+    									text-align: center;
+    									padding: 0;
+    									list-style: none;
+  										}
+  										.pagination li {
+   										display: inline-block;
+    									margin: 0 2px;
+  										}
+									</style>
+									
+									
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="搜索功能模块或控件" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>导航菜单</h2>
+									</header>
+									<ul>
+										<li><a href="#m">首页</a></li>
+										<li><span class="opener"><a href="#f">功能介绍</a></span></li>
+										
+											<ul>
+												<li><span><a href="#e">效果展示</a></span></li>
+												<li><span><a href="#d">核心设计</a></span></li>
+												<li><span><a href="#u">UI交互说明</a></span></li>
+											</ul>
+										
+										<li>
+											<a href="#c">控件列表</a>
+										</li>
+									</ul>
+								</nav>
+
+							
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; 新闻摘要动态轮播系统. </p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
