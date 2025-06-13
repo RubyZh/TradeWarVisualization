@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+        <section id="m">
+		<title>国家新闻情感动态分析</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="#" class="logo"><strong>国家新闻情感动态分析</strong></a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>国家新闻情感动态分析</h1>
+                                        <h2 id="english-content">National News Sentiment Dynamics Analysis</h2>
+									</header>
+
+									<!-- 中文内容 -->
+									<h2 id="chinese-content">功能介绍</h2>
+                                    <h3>Function Introduction</h3>
+									<p>该功能模块允许用户通过右手柄射线选择任意国家，按下 B 键触发对该国家在当前时间段内新闻情感的动态可视化分析。</p>
+									<p>系统将筛选出该国该时段全部新闻条目，并为每条新闻生成两个情绪小球（对应 Top1 和 Top2 情绪标签），自动进入柱状图的七种情绪类别（喜悦、愤怒、悲伤、恐惧、惊讶、厌恶、中性）中进行堆叠。小球模拟真实物理弹跳并自动吸附至柱体内，从而形成具有动画过渡的三维情感分布直方图。</p>
+									<p>情绪柱状图支持同时生成多个国家的实例，用户可自由拖拽、旋转和空间对比分析，帮助识别多国新闻舆情倾向的异同。</p>
+									<p>This feature module allows users to select any country using the right-hand controller ray and press the B button to trigger a dynamic visualization analysis of the sentiment of news related to that country during the current time period.</p>
+									<p>The system will filter all news articles for that country during the selected time period and generate two emotion spheres for each article (corresponding to the Top 1 and Top 2 emotion tags), automatically stacking them into one of the seven emotion categories (joy, anger, sadness, fear, surprise, disgust, neutral) in the bar chart. The spheres simulate real physical bouncing and automatically adhere to the columns, forming a three-dimensional emotional distribution histogram with animated transitions.</p>
+									<p>The emotion bar chart supports the simultaneous generation of multiple country instances, allowing users to freely drag, rotate, and compare them spatially to help identify similarities and differences in news sentiment trends across multiple countries.</p>
+									
+                                    <section id="effect">
+									<h3>效果展示</h3>
+                                    <h4>Effect demonstration</h4>
+									<div class="video-container">
+										<video width="100%" controls autoplay muted loop playsinline>
+											<source src="videos/4_emotion.mp4" type="video/mp4">
+											您的浏览器不支持视频播放
+										</video>
+									</div>
+									
+                                    <section id="design">
+									<h3>核心设计</h3>
+                                    <h4>Core Design</h4>
+									<h4>情绪图生成触发逻辑</h4>
+									<p>通过检测右手柄的 secondaryButton（B 键），结合当前射线命中的国家索引 countryHighlightedIndex 与起止时间 startTime-endTime，实例化情绪柱状图预制体（emotionHistogramPrefab）。</p>
+									<h4>Emotion chart generation trigger logic</h4>
+									<p>By detecting the secondaryButton (B key) on the right controller, combined with the current ray-hit country index (countryHighlightedIndex) and start/end time (startTime-endTime), the emotion histogram prefab (emotionHistogramPrefab) is instantiated.</p>
+									
+									<h4>小球生成与动态吸附机制</h4>
+									<p>调用 SpawnEmotionBalls() 协程，遍历所有筛选出的新闻条目，为每条新闻分别生成一个 Top1 和一个 Top2 情绪球，并调用 SpawnBall() 设定其位置、缩放、刚体属性、弹跳材质及柱体吸附行为。吸附过程模拟上浮-悬停-自由下落三个阶段，最终嵌入到对应情绪的 StackBase 上，实现物理化堆叠。</p>
+									
+									<h4>Ball Generation and Dynamic Adhesion Mechanism</h4>
+									<p>Call the SpawnEmotionBalls() coroutine to iterate through all filtered news entries, generate one Top1 and one Top2 emotion ball for each news item, and call SpawnBall() to set their position, scaling, rigidbody properties, bounce material, and column adhesion behavior. The adhesion process simulates three stages: floating, hovering, and free fall, ultimately embedding into the corresponding emotion's StackBase to achieve physical stacking.</p>
+									
+                                    <section id="ui">
+									<h3>UI说明</h3>
+									<ul>
+                                    <section 
+									<ul>
+										<li><strong>右手柄国家交互触发</strong>：当射线高亮国家时按下 B 键，即可触发情绪柱状图的创建。视觉反馈包括情绪小球的动态创建与分类。</li>
+										<li><strong>左右手柄拖拽摆放</strong>：支持用户将分析面板摆放在任意空间区域，方便多面板视图对比分析。</li>
+										<li><strong>左手柄射线 + X 键交互</strong>：支持用户关闭任何一个情绪柱状图。用户射线指向面板任意区域，按下 X 键可销毁当前面板并在列表中移除记录。</li>
+									</ul>
+									<h3>UI Notes</h3>
+									<ul>
+										<li><strong>Right Joystick Country Interaction Trigger</strong>: Press the B button when the ray highlights a country to trigger the creation of the emotion histogram. Visual feedback includes the dynamic creation and classification of emotion balls.</li>
+										<li><strong>Left and Right Joystick Drag and Drop Placement</strong>: Users can place the analysis panel in any spatial area for convenient comparison and analysis of multiple panels.</li>
+										<li><strong>Left-hand controller ray + X key interaction</strong>: Users can close any emotion column chart. When the ray points to any area of the panel, pressing the X key destroys the current panel and removes the record from the list.</li>
+									</ul>
+                                    
+                                    <section id="control">
+									<h3>控件</h3>
+									<div class="table-wrapper">
+										<table class="alt">
+											<thead>
+												<tr>
+													<th>控件名称</th>
+													<th>中文说明</th>
+													<th>英文说明</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>emotionHistogramPrefab</td>
+													<td>情绪柱状图预制体，包含七种情绪类别对应的 StackBase 节点，每个节点作为情绪小球吸附的目标点。</td>
+													<td>Emotion histogram prefab, includes seven emotion categories with corresponding StackBase nodes as target anchors for emotion balls.</td>
+												</tr>
+												<tr>
+													<td>countLabels</td>
+													<td>每个情绪柱体顶部的计数标签，显示对应情绪类别的累计新闻条目数量。</td>
+													<td>Count labels displayed on top of each emotion bar, showing the cumulative number of news articles per emotion category.</td>
+												</tr>
+												<tr>
+													<td>情绪小球预制体（如 joyPrefab、angerPrefab 等）</td>
+													<td>分别对应七种情绪（喜悦、愤怒、悲伤、恐惧、惊讶、厌恶、中性）的小球。</td>
+													<td>Represent the seven emotion types (Joy, Anger, Sadness, Fear, Surprise, Disgust, Neutral), each with a dedicated prefab.</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									
+									
+									
+                                    <section id="emotion">
+									<h3>当事国的情绪分类对比</h3>
+									<p>通过国家新闻情感动态分析功能，指定2025年4月7日至2025年4月12日的关键时间段，我们发现：中国与美国的相关新闻情绪分布前三名为：中立、害怕、生气，但美国新闻报道总量远高于中国，堆积的小球数量明显更多。</p>
+									<p>基于数量成倍的差异，我们猜测，在美国媒体生态下，新闻传播链条更长（多级转载、区域频道复发），使得同一情绪内容出现多次（在数据预处理过程中发现有相同内容多次转载问题）；而相比之下，中国媒体报道更多集中在政策公告和官方表态，重复率较低，因此新闻情绪球数量更少。此外，这也与新闻数据集的爬取息息相关，由于爬取网站的受限，我们爬取的新闻网站并不全面，导致呈现出数量上的偏颇。</p>
+									<ul>
+										<li><em>4月7日</em>：特朗普拒绝暂停关税，威胁进一步加征，并引发全球股市暴跌。</li>
+										<li><em>4月9日</em>：中国正式向世贸组织提交新一轮关税争端磋商请求，并开始对美商品追加反制关税，引发国际关注。</li>
+										<li><em>4月8–10日</em>：美国初始征收“Liberation Day”关税（10%基线，34%—125%递增），中国随后宣布对美34%—84%关税反击。</li>
+									</ul>
+
+                                    <h3>Emotional Classification Comparison of the Involved Countries</h3>
+									<p>Using the national news sentiment analysis function, we designated the key time period from April 7, 2025, to April 12, 2025, and found that the top three sentiment categories for news related to China and the United States were: neutral, afraid, and angry. However, the total volume of news reports in the United States was far higher than that in China, with a significantly larger number of accumulated small balls.</p>
+									<p>Given the significant disparity in volume, we speculate that within the U.S. media ecosystem, the news dissemination chain is longer (involving multi-level reposting and regional channel rebroadcasting), leading to the same emotional content appearing multiple times (during data preprocessing, we identified issues of identical content being reposted multiple times); in contrast, Chinese media coverage is more focused on policy announcements and official statements, resulting in lower repetition rates and consequently fewer news sentiment spheres. Additionally, this is closely related to the crawling of the news dataset. Due to restrictions on the websites we crawled, the news websites we crawled were not comprehensive, leading to a skewed representation in terms of quantity.</p>
+									<ul>
+										<li><em>April 7</em>: Trump refused to suspend tariffs, threatened further increases, and triggered a global stock market plunge.</li>
+										<li><em>April 9</em>: China formally submitted a request for new round of tariff dispute consultations to the World Trade Organization and began imposing additional retaliatory tariffs on US goods, drawing international attention.</li>
+										<li><em>April 8–10</em>: The US initially imposed “Liberation Day” tariffs (10% baseline, increasing to 34%–125%), and China subsequently announced retaliatory tariffs of 34%–84% on US goods.</li>
+									</ul>
+
+									<hr class="major" />
+
+													<ul class="pagination">
+														<li><a href="3D_4.html" class="button" >Prev</a></li>
+														<li><span>&hellip;</span></li>
+														<li><a href="3D_3.html" class="page">3</a></li>
+														<li><a href="3D_4.html" class="page">4</a></li>
+														<li><a href="3D_5.html" class="page active">5</a></li>
+														<li><a href="3D_6.html" class="page">6</a></li>
+														<li><a href="3D_7.html" class="page">7</a></li>
+														<li><a href="3D_8.html" class="page">8</a></li>
+														<li><a href="3D_6.html" class="button">Next</a></li>
+													</ul>
+									<style>
+										.pagination {
+    									text-align: center;
+    									padding: 0;
+    									list-style: none;
+  										}
+  										.pagination li {
+   										display: inline-block;
+    									margin: 0 2px;
+  										}
+									</style>
+									
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="搜索时间节点或情绪类型" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>导航菜单</h2>
+									</header>
+									<ul>
+										<li><a href="#m">首页</a></li>
+										<li><a href="#chinese-content">功能介绍</a></li>
+										<li>
+											<span class="opener">功能模块</span>
+											<ul>
+												<li><a href="#effect">效果展示</a></li>
+												<li><a href="#design">核心设计</a></li>
+
+												<li><a href="#ui">UI交互</a></li>
+                                                <li><a href="#control">控件</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">数据分析</span>
+											<ul>
+												<li><a href="#emotion">当事国情绪分析</a></li>
+											</ul>
+										</li>
+									</ul>
+								</nav>
+
+							
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; 国家新闻情感动态分析系统</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
