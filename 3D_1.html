@@ -1,0 +1,243 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Data Import and Time Filtering</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo">China-US <strong>Trade war</strong></a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>Data Import and Time Filtering</h1>
+									</header>
+
+									<!-- Content -->
+									 <header class="major">
+										<h2 id="content">Introduction</h2>
+									</header>
+										<p>This feature is designed to help users import news data through simple operations and filter and display data based on time ranges.<br>
+										The data import process requires users to standardize news data into a specified format. For example, CSV files must be converted to JSON.<br>
+										Sample scripts can be found at:</p>
+										<p><a href="https://github.com/RubyZh/TradeWarVisualization/tree/main/preprocessing/unity_changeCSVtoJSON.py">https://github.com/RubyZh/TradeWarVisualization/tree/main/preprocessing/unity_changeCSVtoJSON.py</a></p>		
+										<p>Users can simply drag a JSON file into the demo panel and run the project. The system will automatically filter out invalid data and display the total number of news items.</p>
+										<p>The time filtering section uses two sliders to control the start and end times. Users can directly select the desired date range in the UI, and the system will automatically filter and display the news data within that time period, providing immediate feedback.</p>
+
+									<hr class="major" />
+									<header class="major">
+									<h2 id="content">Effect Demonstration</h2>
+									</header>
+									<span class="image object">
+  										<video width="100%" controls poster="images/0_environment.jpg" autoplay muted loop playsinline>
+    										<source src="videos/0_environment.mp4" type="video/mp4">
+   											 <!-- 备用提示 -->
+    										您的浏览器不支持视频播放
+  										</video>
+									</span>
+									
+									<hr class="major" />
+									<header class="major">
+									<h2 id="content">Core Design</h2>
+									</header>
+									<!-- Break -->
+									 	<div class="row">
+											<div class="col-4 col-12-medium">
+												<h3><code>NewsEntry</code> class</h3>
+												<p>Used to represent the structure of each news item, including basic information such as title, author, publication time, content, sentiment analysis, and several keywords (Key1, Key2, ...). These attributes serve as the basis for retrieval and classification during the analysis process.</p>
+											</div>
+											<div class="col-4 col-12-medium">
+												<h3><code>NewsEntryList</code> class</h3>
+												<p>Used to store multiple news entries (NewsEntry), it serves as a container for all news records and supports loading and parsing all entry data from a JSON file. This feature aims to help users import news data through simple operations and filter and display data based on time ranges.</p>
+											</div>
+											<div class="col-4 col-12-medium">
+												<h3><code>NewsDataLoader</code> class</h3>
+												<p>Responsible for loading, filtering, and storing data. It reads JSON-formatted news data via the LoadJSON method and parses it into a data collection of type NewsEntryList.</p>
+											</div>
+										</div>
+
+									<hr class="major" />
+									<header class="major">
+									<h2 id="content">UI Notes</h2>
+									</header>
+									<div class="row gtr-200">
+										<div class="col-6 col-12-medium">
+											
+													<dl>
+														<h4>Time Filter Sliders</h4>
+														<dd>
+															<p><code>startDateSlider</code> and <code>endDateSlider</code> are used to select the time range for news data, supporting precise filtering by day. The minimum and maximum values of the sliders are dynamically generated based on the valid date set <code>availableDates</code>.</p>
+														</dd>
+														<h4>Filter Status Display</h4>
+														<dd>
+															<p><code>filterStatusText</code> is used to display the number of filtered news items in real time, helping users understand the results of the data filtering.</p>
+														</dd>
+														<h4>News Loading and Status</h4>
+														<dd>
+															<p><code>statusText</code> displays the current loading status information, such as “Loading,” “Loading Complete,” or “Data Missing” prompts.</p>
+														</dd>
+													</dl>
+										</div>
+										<div class="col-6 col-12-medium">
+											<span class="image fit"><img src="images/0_pic_0.png" alt="" /></span>
+											<span class="image fit"><img src="images/0_pic_1.jpg" alt="" /></span>
+										</div>
+									</div>
+
+									<hr class="major" />
+
+													<ul class="pagination">
+														<li><span class="button disabled">Prev</span></li>
+														<li><a href="3D_1.html" class="page active">1</a></li>
+														<li><a href="3D_2.html" class="page">2</a></li>
+														<li><a href="3D_3.html" class="page">3</a></li>
+														<li><span>&hellip;</span></li>
+														<li><a href="3D_6.html" class="page">6</a></li>
+														<li><a href="3D_7.html" class="page">7</a></li>
+														<li><a href="3D_8.html" class="page">8</a></li>
+														<li><a href="3D_2.html" class="button">Next</a></li>
+													</ul>
+									<style>
+										.pagination {
+    									text-align: center;
+    									padding: 0;
+    									list-style: none;
+  										}
+  										.pagination li {
+   										display: inline-block;
+    									margin: 0 2px;
+  										}
+									</style>
+
+								</section>
+
+						</div>
+					</div>
+
+			<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="DataPreprocess.html">Data preprocess</a></li>
+										<li><a href="Timeline.html">Timeline</a></li>
+										<li>
+											<span class="opener">Media Report</span>
+											<ul>
+												<li><a href="Topics.html">Topics</a></li>
+												<li><a href="Emotions.html">Emotions</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">3D Visualization</span>
+											<ul>
+												<li><a href="3D_0.html">Overview</a></li>
+												<li><a href="3D_1.html">Data Import and Time Filtering</a></li>
+												<li><a href="3D_2.html">Topic Heat Map</a></li>
+												<li><a href="3D_3.html">Important Event Timeline and Daily News Sentiment Analysis</a></li>
+												<li><a href="3D_4.html">National News Basic Information Analysis Panel</a></li>
+												<li><a href="3D_5.html">National News Sentiment Dynamics Analysis</a></li>
+												<li><a href="3D_6.html">News Summary Dynamic Carousel and Assisted Reading</a></li>
+												<li><a href="3D_7.html">Tax</a></li>
+												<li><a href="3D_8.html">VR Hardware Exploration Section</a></li>
+											</ul>
+										</li>
+										<li><a href="#">Summary</a></li>
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Ante interdum</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
+										<li class="icon solid fa-phone">(000) 000-0000</li>
+										<li class="icon solid fa-home">1234 Somewhere Road #8254<br />
+										Nashville, TN 00000-0000</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

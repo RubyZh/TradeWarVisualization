@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<!--Vega-Lite Libraries-->
+	<script src="https://cdn.jsdelivr.net/npm/vega@6.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@6.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.29.0"></script>
+	<script src='https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js'></script>
+	<script src="https://cdn.jsdelivr.net/npm/echarts-wordcloud@2.0.0/dist/echarts-wordcloud.min.js"></script>
+	<link rel="stylesheet" href="assets/css/slider.css" />
+
+	<head>
+		<title>Topics</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/wordcloud.css">
+		
+		<!-- 数据文件（必须提前引入） -->
+		<script src="assets/js/top150_keywords.js"></script>
+		<script src="assets/js/top100_keywords_cn.js"></script>
+		<script src="assets/js/top100_keywords_us.js"></script>
+		<script src="assets/js/top100_keywords_in.js"></script>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo">China-US <strong>Trade war</strong></a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>Topics</h1>
+									</header>
+
+									<hr class="major" />
+									<h2>What is the opinion of the media?</h2>
+									<p>In the previous section, we have analyzed the pattern of the number of news reports over time and its relationship with key events in the US-China trade war. However, do these news reports also show some kind of distribution pattern in the geospatial dimension? To further explore this question, we analyze the source countries of the news reports.</p>
+									<p>First of all, we identify the countries where these news items were originally released by extracting and resolving the domain name information in the URL links of each piece of news. For the specific processing procedures, please refer to the data preprocessing section. Based on this, we constructed the statistics of the number of news aggregated by country, and mapped the color depth to the map according to the number of reports of each country, obtaining the following spatial distribution map:</p>
+									<div style="display: flex; gap: 25px; align-items: flex-start; justify-content: center; padding-bottom: 60px;">
+										<div id="topic-chart0" style="width: 100%; max-width: 1000px; height: 100%; max-height: 500px; margin: auto;"></div>
+									</div>
+									
+									<p>It can be clearly observed from the map that China and the United States, as the core participants in the trade war, have both ranked among the top in terms of the number of news reports, demonstrating the high attention of the media and the public of both countries to the impact on their own economic interests. In addition, the number of reports on countries that are geographically adjacent to China and the United States or have close economic and trade ties is also relatively large. For example, we have collected a total of 724 reports from Canada and 392 reports from India. This phenomenon reflects the sensitivity and high attention of neighboring countries to regional economic stability and changes in the international trade pattern.</p>
+									<p>It is worth noting that, apart from Russia, other countries with larger land areas also generally have a relatively high volume of reports. For instance, the number of reports from Australia and Brazil is significantly higher than that from some countries that are geographically close but have a smaller land area. On the one hand, this may indicate that major countries have stronger media output capabilities and public opinion influence in the global information dissemination network. On the other hand, it may also be related to their larger volume of foreign trade and economic cooperation and stronger policy sensitivity.</p>
+									<p>Of course, this spatial distribution is also limited by the sources of our data collection. The news we collect are all sourced from English websites and do not cover traditional print media in the local language or non-English online news. Therefore, for countries where English is not the native language, the number of reports may be somewhat underestimated. In addition, factors such as the popularity of the Internet, the degree of press freedom in a country, the size of the media, and the willingness of international attention may all affect the spatial distribution of the quantity of news.</p>
+									<p>To sum up, the China-US trade war has drawn widespread attention worldwide, especially among the directly interested countries and those with larger economies, where the media's response has been more active.</p>
+									
+
+									<hr class="major" />
+									<h2>What is the theme of these news reports?</h2>
+									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit.</p>
+									
+									<!-- Outer container wrapping both sidebar and main area -->
+									<div id="layout">
+									<!-- Main container -->
+									<div id="cloud_container">
+										<h2 id="title">News Keywords</h2>
+										<div id="wordcloudCanvas"></div>
+										<div id="tooltip"></div>
+									</div>
+									<!-- Sidebar -->
+									<div id="sidebar2">
+										<h3>Select Dataset</h3>
+										<button data-source="top150" data-title="Global News Keywords">Global News</button>
+										<button data-source="top100_cn" data-title="China News Keywords">China News</button>
+										<button data-source="top100_us" data-title="US News Keywords">US News</button>
+										<button data-source="top100_in" data-title="India News Keywords">India News</button>
+										<hr style="margin: 10px 0;">
+										<button id="downloadBtn" style="background: #28a745;">Export as PNG</button>
+									</div>
+
+									</div>
+
+									<hr class="major" />
+									<h2>Chinese News Word Cloud</h2>
+									<p>
+										In the Chinese news word cloud, words such as "trade," "tariffs," and "trade war" stand out, indicating a strong focus on trade frictions between China and the United States and specific U.S. tariff measures. These are the core topics in the reports. Additionally, high-frequency words like "China," "United States," "Trump," and "Donald Trump" show that Chinese media emphasize the roles and actions of both countries and the U.S. president at the time. Words like "foreign ministry" and "response" suggest that Chinese reports highlight official government responses, including opposition and countermeasures. Other terms such as "economy" and "billion" reflect attention on the economic impact and losses from the trade war.
+									</p>
+
+									<h2>U.S. News Word Cloud</h2>
+									<p>
+										In the U.S. news word cloud, words such as "United States," "tariffs," and "trade" are prominent, showing that American media largely report from the perspective of U.S. interests and trade policy, focusing on tariffs imposed on China and their domestic economic impact. Terms like "imports," "exports," and "America" highlight concerns about trade imbalances and Chinese exports. Mentions of "Canada," "Mexico," and "European Union" suggest coverage of how the trade war affects U.S. allies and the global trade system. Words like "Congress" and "White House" reveal discussions on domestic political reactions and decisions related to the trade war.
+									</p>
+									
+									<h2>Indian News Word Cloud</h2>
+									<p>
+										The Indian news word cloud highlights terms like "China," "United States," "India," and "Trump," indicating that Indian media focus on both major powers in the trade war and its implications for India's position and interests. Words such as "trade," "tariffs," and "economic" show attention to the trade and economic consequences for India. The presence of terms like "Asia" and "world" reflects awareness of regional and global effects and India’s potential role and opportunities.
+									</p>
+									
+									<h2>Global News Word Cloud</h2>
+									<p>
+										The global news word cloud features key terms like "China," "United States," "Trump," "tariffs," and "trade," highlighting the focus on the core participants and issues in the U.S.-China trade war, particularly the tariffs imposed by the Trump administration. Words such as "global," "world," "economy," and "markets" indicate the worldwide concern about economic growth, market stability, and the impact on international trade. Mentions of "Canada," "Mexico," and "European Union" show that global media also report on the reactions and positions of various countries and international organizations.
+									</p>
+									<h2>Summary</h2>
+									<p>
+										Across all four word clouds, "China," "United States," "trade," and "tariffs" are consistently highlighted, confirming that the core focus of media reports is the trade conflict between the two countries. Additionally, the presence of words like "world," "global," and "economy" in all datasets indicates a shared understanding among international media of the trade war's broad and global impact. Nevertheless, differences in emphasis exist: Chinese media stress official responses and government positions; U.S. media focus on national interests and policies; Indian media emphasize India’s role and interests; and global media take a more multilateral view, covering the trade war’s impact on global trade relations and international reactions.
+									</p>
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="DataPreprocess.html">Data preprocess</a></li>
+										<li><a href="Timeline.html">Timeline</a></li>
+										<li>
+											<span class="opener">Media Report</span>
+											<ul>
+												<li><a href="Topics.html">Topics</a></li>
+												<li><a href="Emotions.html">Emotions</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">3-D Visualization</span>
+											<ul>
+												<li><a href="#">Lorem Dolor</a></li>
+												<li><a href="#">Ipsum Adipiscing</a></li>
+												<li><a href="#">Tempus Magna</a></li>
+												<li><a href="#">Feugiat Veroeros</a></li>
+											</ul>
+										</li>
+										<li><a href="#">Summary</a></li>
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Ante interdum</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
+											<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>Sed varius enim lorem ullamcorper dolore aliquam aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">information@untitled.tld</a></li>
+										<li class="icon solid fa-phone">(000) 000-0000</li>
+										<li class="icon solid fa-home">1234 Somewhere Road #8254<br />
+										Nashville, TN 00000-0000</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script src="assets/js/topics.js"></script>
+			<!-- <script src="assets/js/relations.js"></script> -->
+			<script src="assets/js/wordcloud2.js"></script>
+
+	</body>
+</html>
