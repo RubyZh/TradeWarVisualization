@@ -32,7 +32,7 @@ Chart1.setOption({
     max: 7,
     calculable: true,
     inRange: {
-      color: ['#1586ff', '#e4b9f0', '#f71e17'] // 蓝 → 黄 → 红
+      color: ['#1586ff', '#e4b9f0', '#f71e17']
     }
   },
   tooltip: {

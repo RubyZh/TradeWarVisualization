@@ -71,7 +71,7 @@ btn.addEventListener('click', () => {
 });
 });
 
-// 下载按钮（导出为 PNG）
+// 下载按钮
 document.getElementById("downloadBtn").addEventListener("click", () => {
 const url = chart.getDataURL({
 	pixelRatio: 2,

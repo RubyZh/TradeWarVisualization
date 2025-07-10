@@ -769,32 +769,6 @@ const tariffData = {
   }
 };
 
-// const tariffSeries = [
-//   { name: "China → US", data: tariffData.china_to_us },
-//   { name: "China → ROW", data: tariffData.china_to_row },
-//   { name: "US → China", data: tariffData.us_to_china },
-//   { name: "US → ROW", data: tariffData.us_to_row }
-// ].map(item => ({
-//   name: item.name,
-//   type: 'line',
-//   smooth: true,
-//   yAxisIndex: 1,
-//   showSymbol: true,
-//   symbolSize: 6,
-//   data: item.data
-// }));
-
-// const emotionSeries = [
-//   { name: "fear", data: emotionData.fear },
-// ].map(item => ({
-//   name: item.name,
-//   type: 'line',
-//   smooth: true,
-//   yAxisIndex: 1,
-//   showSymbol: true,
-//   symbolSize: 6,
-//   data: item.data
-// }));
 
 function attachEventsToTariffData(tariffArray, eventsMap) {
   return tariffArray.map(([date, value]) => ({
@@ -810,62 +784,6 @@ const processedTariffData = {
   us_to_row: attachEventsToTariffData(tariffData.us_to_row, tariffData.events)
 };
 
-// var option = {
-//   tooltip: {
-//     trigger: 'axis',
-//     axisPointer: {
-//       type: 'cross'
-//     }
-//   },
-//   legend: {
-//     top: 'top'
-//   },
-//   xAxis: {
-//     type: 'time',
-//     name: 'Date',
-//     min: '2025-01-01',
-//     max: '2025-05-14',
-//     splitNumber: 13, // 控制大致分成多少段（约等于每周）
-//     axisLabel: {
-//       formatter: function (value) {
-//         var date = new Date(value);
-//         return echarts.format.formatTime('MM-dd', date);  // e.g., 01-08
-//       }
-//     }
-//   },
-//   yAxis: {
-//     name: 'Number of News Articles'
-//   },
-//   grid: {
-//     top: '8%',
-//     bottom: '40%'  // 留出空间给底部饼图
-//   },
-//   series: [
-//     ...seriesData,
-//     {
-//       type: 'pie',
-//       id: 'pie',
-//       radius: '30%',
-//       center: ['50%', '85%'],  // 显示在底部
-//       emphasis: { focus: 'self' },
-//       label: {
-//         formatter: '{b}: {@[' + 1 + ']} ({d}%)'
-//       },
-//       encode: {
-//         itemName: 'emotion',
-//         value: 1,
-//         tooltip: 1
-//       },
-//       data: emotions.map((emotion, idx) => ({
-//         name: emotion,
-//         value: datasetSource[idx + 1][1] // 初始显示第一天数据
-//       }))
-//     }
-//   ]
-// };
-
-
-// const timeData = ["2025-01-01","2025-01-20","2025-02-04","2025-02-07","2025-02-10","2025-03-04","2025-03-10","2025-03-12","2025-04-03","2025-04-05","2025-04-09","2025-04-10","2025-04-11","2025-04-12","2025-05-03","2025-05-14"];
 
 var option = {
   title: {
@@ -1094,41 +1012,6 @@ var option = {
 };
 
 Chart10.setOption(option);
-
-// 联动更新饼图
-// Chart10.on('updateAxisPointer', function (event) {
-//   const xAxisInfo = event.axesInfo[0];
-//   if (xAxisInfo) {
-//     const currentDate = new Date(xAxisInfo.value);
-//     let nearestIndex = 0;
-//     let minDiff = Infinity;
-
-//     dates.forEach((dateStr, idx) => {
-//       const diff = Math.abs(new Date(dateStr) - currentDate);
-//       if (diff < minDiff) {
-//         minDiff = diff;
-//         nearestIndex = idx;
-//       }
-//     });
-
-//     Chart10.setOption({
-//       series: {
-//         id: 'pie',
-//         label: {
-//           formatter: '{b}: {@[' + (nearestIndex + 1) + ']} ({d}%)'
-//         },
-//         encode: {
-//           value: nearestIndex + 1,
-//           tooltip: nearestIndex + 1
-//         },
-//         data: emotions.map((emotion, i) => ({
-//           name: emotion,
-//           value: datasetSource[i + 1][nearestIndex + 1]
-//         }))
-//       }
-//     });
-//   }
-// });
 
 Chart10.on('updateAxisPointer', function (event) {
   const xAxisInfo = event.axesInfo[0];
