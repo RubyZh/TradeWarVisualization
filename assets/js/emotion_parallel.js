@@ -35,6 +35,12 @@ Chart1.setOption({
       color: ['#1586ff', '#e4b9f0', '#f71e17']
     }
   },
+  toolbox: {
+    feature: {
+      restore: {},
+      saveAsImage: {}
+    }
+  },
   tooltip: {
     formatter: function (params) {
       const values = params.data;
@@ -57,7 +63,7 @@ Chart1.setOption({
     left: '15%',
     right: '5%',
     bottom: '5%',
-    top: '5%',
+    top: '10%',
   },
   series: {
     type: 'parallel',
