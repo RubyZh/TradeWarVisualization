@@ -3,6 +3,26 @@ Data Visualization Analysis of Trade War in 2025
 
 Html template from https://html5up.net/ Author : aj@lkn.io
 
+## Guide
+
+1. Download the project.
+
+**NOTE**: The videos may not be displayed properly if you download in zip format. Just use:
+
+注意ZIP格式下载的项目可能出现视频无法正常显示的情况
+
+```
+git clone https://github.com/RubyZh/TradeWarVisualization.git
+```
+
+2. Open the project in vscode.
+
+3. Install an extension called "Live Server".
+
+4. Open the index.html file with Live Server. Just right-click the index.html and select "Open with Live Server".
+
+5. Enjoy.
+
 ## Highlights:
 
 - Comprehensive Timeline Reconstruction
