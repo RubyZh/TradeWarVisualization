@@ -17,9 +17,13 @@ git clone https://github.com/RubyZh/TradeWarVisualization.git
 
 2. Open the project in vscode.
 
-3. Install an extension called "Live Server".
+3. Install an extension called **"Live Server"**.
+
+![img](https://github.com/RubyZh/TradeWarVisualization/blob/main/displayim%26vi/guide3.png)
 
 4. Open the index.html file with Live Server. Just right-click the index.html and select "Open with Live Server".
+
+![img](https://github.com/RubyZh/TradeWarVisualization/blob/main/displayim%26vi/guide4.png)
 
 5. Enjoy.
 
@@ -45,3 +49,6 @@ git clone https://github.com/RubyZh/TradeWarVisualization.git
 
 ## Contributers:
 
+<!-- <a href="https://github.com/eryajf/learn-github/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=eryajf/learn-github" />
+</a> -->
