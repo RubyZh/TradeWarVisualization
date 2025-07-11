@@ -61,7 +61,7 @@
 								<!-- 效果展示视频 -->
 								<h3>动态效果演示</h3>
 								<div class="video-container">
-									<video width="100%" controls autoplay muted loop playsinline>
+									<video width="90%" controls autoplay muted loop playsinline>
 										<source src="videos/6_tax.mp4" type="video/mp4">
 										您的浏览器不支持视频播放
 									</video>
@@ -622,6 +622,25 @@ private void InitializeController()
 									<h1>中美两国对其他国家出口贸易关税变化分析</h1>
 								</header>
 								<h2>对应时间点事件整理表</h2>
+
+  <style>
+    /* 表格容器：控制整体宽度和溢出 */
+    #mutual-tariff-analysis .table-wrapper {
+      max-width: 100%; /* 最大宽度不超过父容器 */
+      overflow-x: auto; /* 内容过宽时允许横向滚动（适配小屏幕） */
+      padding: 0 10px; /* 左右留空隙，避免贴边 */
+    }
+    /* 表格本身：设置宽度和列宽分配 */
+    #mutual-tariff-analysis table.alt {
+      width: 100%; /* 表格宽度占满容器 */
+      min-width: 600px; /* 最小宽度（避免内容挤在一起） */
+    }
+    /* 调整列宽比例（按内容分配宽度） */
+    #mutual-tariff-analysis table.alt th:nth-child(1) { width: 8%; } /* 序号列 */
+    #mutual-tariff-analysis table.alt th:nth-child(2) { width: 12%; } /* 时间列 */
+    #mutual-tariff-analysis table.alt th:nth-child(3) { width: 80%; } /* 背景与逻辑列（内容多，占比大） */
+  </style>
+
 								<div class="table-wrapper">
 									<table class="alt">
 										<thead>
@@ -740,6 +759,26 @@ private void InitializeController()
 									<h1>中美两国互相贸易出口关税变化分析</h1>
 								</header>
 								<h2>对应时间点事件整理表</h2>
+
+								<!-- 在这里添加表格样式 -->
+  <style>
+    /* 表格容器：控制整体宽度和溢出 */
+    #mutual-tariff-analysis .table-wrapper {
+      max-width: 100%; /* 最大宽度不超过父容器 */
+      overflow-x: auto; /* 内容过宽时允许横向滚动（适配小屏幕） */
+      padding: 0 10px; /* 左右留空隙，避免贴边 */
+    }
+    /* 表格本身：设置宽度和列宽分配 */
+    #mutual-tariff-analysis table.alt {
+      width: 100%; /* 表格宽度占满容器 */
+      min-width: 600px; /* 最小宽度（避免内容挤在一起） */
+    }
+    /* 调整列宽比例（按内容分配宽度） */
+    #mutual-tariff-analysis table.alt th:nth-child(1) { width: 8%; } /* 序号列 */
+    #mutual-tariff-analysis table.alt th:nth-child(2) { width: 12%; } /* 时间列 */
+    #mutual-tariff-analysis table.alt th:nth-child(3) { width: 80%; } /* 背景与逻辑列（内容多，占比大） */
+  </style>
+
 								<div class="table-wrapper">
 									<table class="alt">
 										<thead>
